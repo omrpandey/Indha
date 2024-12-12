@@ -1,0 +1,31 @@
+.slide {
+    height: 80vh;
+    width: 100vw;
+  }
+  
+  .swiper {
+    height: 60%;
+    width: 100%;
+    position: relative; /* Ensure position is explicitly set if required */
+  }
+  
+  .slide .cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    border-radius: 20px;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100% !important;
+    height: 60% !important; /* This should work if the parent container is properly sized */
+    object-fit: cover;
+  }

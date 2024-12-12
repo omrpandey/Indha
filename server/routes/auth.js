@@ -19,7 +19,7 @@ router.post('/signup', async (req, res) => {
             password: hashedPassword,
         });
 
-        await newUser.save(); //save the documnets
+        await newUser.save(); //save the documents
         res.status(201).json({ message: 'User signed up successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error signing up user' });
