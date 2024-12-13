@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+.blog{
+    height: 100%;
+    width: 100%;
+}
+.blog .blog-top{
+    height: 100%;
+    width: 100%;
+}
+.blog .blog-top img{
+    width: 100%;
+    border-radius: 20px;    
+    height: 100%;
+}
+.blog .blog-flex {
+    margin: 20px 0px;
+    display: flex;
+}
+.blog .blog-flex  .flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    padding-left: 10px;
+    gap:15px;       
+width: 418px;
+margin-bottom: 30px;
+}
+.blog .blog-flex  .flex  img {
+    border-radius: 20px;
+width: 100%;}
+.blog .blog-flex  .flex h6{
+font-family: cursive;
+color: rgba(0, 0, 0, 0.776);
+font-size: 15px;
+padding-left: 10px;
+}
+.blog .blog-flex  .flex p{
+  color: rgba(0, 0, 0, 0.615);
+  font-family: cursive;
+  font-size: 12px;
+  padding-left: 10px;
+  letter-spacing: 1px;
+}
+
+.blog .blog-flex  .flex .btn{
+    background-color: rgba(255, 68, 0, 0.927);
+    color: white;
+    padding-left: 10px; 
+    font-family: cursive;
+    height: 50px;
+    border-radius: 10px;
+    width: 150px;
+    border: none;
+    font-family: cursive;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.blog .blog-flex  .flex .btn:hover{
+background-color: red;}
+/* Customize Swiper scrollbar */
+.swiper-scrollbar {
+    background: #e0e0e0; /* Background for the scrollbar track */
+    height: 8px; /* Thickness of the scrollbar */
+    border-radius: 4px;
+    width:100px;
+  }
+  
+  .swiper-scrollbar-drag {
+    background: orangered; /* Color of the draggable scrollbar */
+    border-radius: 4px;
+  }
+  
+
+  
+
+  
+  

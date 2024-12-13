@@ -4,6 +4,9 @@ import './Modal.css'; // Separate CSS for modal
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Header = () => {
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
@@ -15,6 +18,16 @@ export const Header = () => {
 
   const toggleLoginModal = () => {
     setIsLoginModalOpen(!isLoginModalOpen);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    toast.success("Successfully logged in!");
+    setIsLoginModalOpen(false);
+  };
+
+  const handleLogout = () => {
+    toast.info("Logged out successfully!");
   };
 
   return (
@@ -92,8 +105,8 @@ export const Header = () => {
       {isLoginModalOpen && (
         <div className="modal-wrapper">
           <div className="modal">
-            <h2>Login</h2>
-            <form>
+            <h2><span className="or">Welcome</span> Back Get Loggin</h2>
+            <form onSubmit={handleLogin}>
               <div className="input-group">
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username" placeholder="Enter your username" />
@@ -104,11 +117,14 @@ export const Header = () => {
               </div>
               <button type="submit" className="login-button">Get Login</button>
             </form>
-            <button className="close-modal" onClick={toggleLoginModal}>Close</button>
+            <button className="close-modal" onClick={toggleLoginModal}><FontAwesomeIcon icon={faXmark} style={{ color: "red", fontSize: "24px" }} /></button>
           </div>
           <div className="modal-overlay" onClick={toggleLoginModal}></div>
         </div>
       )}
+
+      {/* Toast Notifications */}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </>
   );
 };

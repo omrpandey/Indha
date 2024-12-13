@@ -9,7 +9,7 @@ transition: all linear 0.2s;
 .footer{
     background-color: #b80000;
     height: 70vh;
- width: 100vw;
+ width: 100%;
  display: flex;
 
 }
@@ -97,16 +97,17 @@ height: 40px;
 border-radius: 10px;
 outline: none;
 border: 2px solid rgba(255, 255, 255, 0.534);
-color: red;
+font-family: cursive;
+/* color: red; */
 }
 .footer .footer-right .footer-sigin .row .email{
     width: 710px;
 }
 .footer .footer-right .footer-sigin .row input::placeholder{
-color: rgba(0, 0, 0, 0.3);
-letter-spacing: 1px;
-color:rgba(0, 0, 0, 0.74);
-color: rgba(255, 0, 0, 0.677);
+color:rgba(0, 0, 0, 0.453);
+/* color: rgba(255, 0, 0, 0.677); */
+font-weight: 600;
+font-family: cursive;
 }
 .footer .footer-right .footer-sigin .btn{
     background-color: rgb(79, 124, 12);
