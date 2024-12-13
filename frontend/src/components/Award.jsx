@@ -11,7 +11,7 @@ export const Award=()=>{
                 </div>
                 <div className="award-bottom">
                 <div className="award-image">
-                        <img src="./assets/w1.webp" alt="" />
+                        <img src="./assets/award1.webp" alt="" />
                     </div>  
                     <div className="award-image">
                         <img src="./assets/aw2.webp" alt="" />
