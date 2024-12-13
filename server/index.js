@@ -24,6 +24,8 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/products', productRoutes);
 
 
+
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://ompandeyit69:ecCcVXpCZNwADj5m@cluster0.bhvni.mongodb.net/", {
    useNewUrlParser: true, //useUnifiedTopology: true 
