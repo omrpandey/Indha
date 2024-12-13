@@ -9,22 +9,22 @@ router.post('/signup', async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
-        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user
         const newUser = new User({
             username,
             email,
             password: hashedPassword,
         });
 
-        await newUser.save(); //save the documents
+        await newUser.save();
         res.status(201).json({ message: 'User signed up successfully' });
     } catch (error) {
-        res.status(500).json({ error: 'Error signing up user' });
+        console.error('Signup Error:', error); // Log the error
+        res.status(500).json({ error: 'Error signing up user', details: error.message });
     }
 });
+
 
 // Route for user login
 router.post('/login', async (req, res) => {
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
 
         res.status(200).json({ message: 'Login successful' });
     } catch (error) {
-        res.status(500).json({ error: 'Error logging in user' });
+        res.status(500).json({ error: 'Error logging in user', details: error.message });
     }
 });
 
