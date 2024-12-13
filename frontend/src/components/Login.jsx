@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './Header.css';
-import './Modal.css'; // Separate CSS for modal
+import './Modal.css';
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faShoppingCart, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
@@ -92,6 +92,11 @@ export const Header = () => {
       {isLoginModalOpen && (
         <div className="modal-wrapper">
           <div className="modal">
+            <button className="close-modal" 
+            onClick={toggleLoginModal}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
             <h2>Login</h2>
             <form>
               <div className="input-group">
@@ -104,7 +109,6 @@ export const Header = () => {
               </div>
               <button type="submit" className="login-button">Get Login</button>
             </form>
-            <button className="close-modal" onClick={toggleLoginModal}>Close</button>
           </div>
           <div className="modal-overlay" onClick={toggleLoginModal}></div>
         </div>
