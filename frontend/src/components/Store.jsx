@@ -1,32 +1,25 @@
 import React from 'react';
+import './store.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-// Import required Swiper modules
-import { Autoplay, Pagination } from 'swiper/modules';
-import './Store.css';
 
 export const Store = () => {
   return (
     <>
-      <br />
-      <div className="popular_product">
-        <h2 className="newin-title">What We Have in Store For You</h2>
-        <img src="./assets/ss.jpg" alt="" className='img'/>
-        <br />
-        <div className="swiper1">
+      <div className="store">
+        <div className="store-top">
+          <h3>What We Have In Store For You</h3>
+          <img src="./assets/ss.webp" alt="Store Banner" />
+        </div>
+        <div className="store-bottom">
           <Swiper
-            spaceBetween={10} // Sets 20px gap between slides
-            slidesPerView={4} // Displays 5 slides at a time
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            pagination={false} // Disable pagination
-            modules={[Autoplay, Pagination]}
-            className="mySwiper1"
+            // modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={20}
+                slidesPerView={4}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
           >
+            
             <SwiperSlide>
               <div className="card">
                 <img
@@ -34,7 +27,7 @@ export const Store = () => {
                   alt="Product 1"
                   className="card-image"
                 />
-                <h7 className="card-title">Apparel</h7>
+                <h3>Apparel</h3>
               </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -151,7 +144,6 @@ export const Store = () => {
               </div>
             </SwiperSlide>
 
-            {/* Additional SwiperSlides can be added here */}
           </Swiper>
         </div>
       </div>

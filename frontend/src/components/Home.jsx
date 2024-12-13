@@ -1,11 +1,12 @@
 import React from 'react';
-import {Add} from './Add'
-import {Arrival} from './Arrival'
-// import {Award} from './Award'
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {Store} from './Store'
+import {Add1} from './Add1'
+import {Add2} from './Add2'
+import {Arrival} from './Arrival'
 import {Artist} from './Artist'
+import {Award} from './Award'
+import {Customer} from './Customer'
 // Import Swiper styles
 import './Home.css';
 import 'swiper/css';
@@ -17,11 +18,11 @@ import { Pagination } from 'swiper/modules';
 export const Home = () => {
     return (
         <>
-            <div className="slide">
+            <div className="home-slide">
                 <Swiper
                     pagination={{ clickable: true }}
                     modules={[Pagination]}
-                    className="mySwiper"
+                    className="home-mySwiper"
                 >
                     <SwiperSlide>
                         <img src="./assets/indha3.jpg" alt="Slide 1" className="slide-image" />
@@ -37,11 +38,13 @@ export const Home = () => {
                     </SwiperSlide>
                 </Swiper>
             </div>
-            <Store /> 
-            <Add />
-            <Arrival />
-        <Artist />
-        {/* <Award />  */}
+          <Store />
+          <Add1 />
+          <Arrival />
+          <Artist />
+          <Award />
+          <Customer />
+          <Add2 />
         </>
     );
 };

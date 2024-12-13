@@ -1,31 +1,39 @@
-.slide {
-    height: 80vh;
-    width: 100vw;
-  }
-  
-  .swiper {
-    height: 60%;
-    width: 100%;
-    position: relative; /* Ensure position is explicitly set if required */
-  }
-  
-  .slide .cont {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    border-radius: 20px;
-  }
-  
-  .swiper-slide img {
-    display: block;
-    width: 100% !important;
-    height: 60% !important; /* This should work if the parent container is properly sized */
-    object-fit: cover;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+transition: all linear 0.2s;
+}
+.artist{
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+}
+.artist .artist-top{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px;
+}
+.artist .artist-top h3{
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: rgb(60, 149, 149);
+  letter-spacing: 2px;
+}
+.artist .artist-bottom {
+height: 50vh;
+width: 100%;
+}
+.artist .artist-bottom img{
+  padding-left: 20px;
+  height: 100%;
+  width: 82%;
+}
+/* Customize navigation arrows */

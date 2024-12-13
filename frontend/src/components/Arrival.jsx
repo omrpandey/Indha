@@ -1,162 +1,185 @@
 import React from 'react';
+import './arrival.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-// Import required Swiper modules
-import { Autoplay, Pagination } from 'swiper/modules';
-import './Arrival.css';
+import 'swiper/css/scrollbar';
 
 export const Arrival = () => {
   return (
     <>
-      <br />
-      <div className="popular_product">
-        <h2 className="newin-title">New Arrival</h2>
-        <img src="./assets/ss.webp" alt="" className="img" />
-        <br />
-        <div className="swiper1">
+      <div className="arrival">
+        <div className="arrival-top">
+          <h3>New Arrival</h3>
+          <img src="./assets/ss.webp" alt="Store Banner" />
+        </div>
+        <div className="arrival-bottom">
           <Swiper
-            spaceBetween={10} // Sets 20px gap between slides
-            slidesPerView={4} // Displays 4 slides at a time
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            pagination={false} // Disable pagination
-            modules={[Autoplay, Pagination]}
-            className="mySwiper1"
+            spaceBetween={20}
+            slidesPerView={4}
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
           >
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s1.jpg"
-                  alt="Apparel"
-                  className="card-image"
-                />
-                <h3 className="card-title">Apparel</h3>
-                <p className="card-price">$25.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw1.jpg"
+                    alt="Product 1"
+                    className="card-image"
+                  />
+                  <h3>Indha Hand Block</h3>
+                  <p>$ 290/-</p>
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className="card">
+                <div className="face">
+                  <img
+                    src="./assets/nw2.png"
+                    alt="Product 2"
+                    className="card-image"
+                  />
+                  <h3>Indha Hand Painteted</h3>
+                  <p>$ 320/-</p>
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className="card">
+                <div className="face">
+                  <img
+                    src="./assets/nw3.png"
+                    alt="Product 3"
+                    className="card-image"
+                  />
+                  <h3>Indha Hand Painteted</h3>
+                  <p>$ 400/-</p>
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className="card">
+                <div className="face">
+                  <img
+                    src="./assets/nw4.png"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha Hand Painteted</h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s2.jpg"
-                  alt="Black Printed Cotton"
-                  className="card-image"
-                />
-                <h3 className="card-title">Black Printed Cotton</h3>
-                <p className="card-price">$30.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw5.png"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha Hand Painteted</h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s3.jpg"
-                  alt="Candles"
-                  className="card-image"
-                />
-                <h3 className="card-title">Candles</h3>
-                <p className="card-price">$15.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw6.png"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha Unique Embroid</h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s4.jpg"
-                  alt="Dairy and Note Books"
-                  className="card-image"
-                />
-                <h3 className="card-title">Dairy and Note Books</h3>
-                <p className="card-price">$12.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw7.jpg"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha Unique Handprint</h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s5.jpg"
-                  alt="File Folder & Document"
-                  className="card-image"
-                />
-                <h3 className="card-title">File Folder & Document</h3>
-                <p className="card-price">$18.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw8.png"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha 20X20 Pillow </h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s8.jpg"
-                  alt="Handmade Toys"
-                  className="card-image"
-                />
-                <h3 className="card-title">Handmade Toys</h3>
-                <p className="card-price">$22.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw9.png"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha printed Books</h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s9.jpg"
-                  alt="Home Decor"
-                  className="card-image"
-                />
-                <h3 className="card-title">Home Decor</h3>
-                <p className="card-price">$40.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw10.png"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha Hand Painteted</h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s10.jpg"
-                  alt="Home Furnishing"
-                  className="card-image"
-                />
-                <h3 className="card-title">Home Furnishing</h3>
-                <p className="card-price">$35.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw11.png"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha Handcraft</h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="card">
-                <img
-                  src="./assets/s11.jpg"
-                  alt="Jholas"
-                  className="card-image"
-                />
-                <h3 className="card-title">Jholas</h3>
-                <p className="card-price">$28.00</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <img
-                  src="./assets/s12.jpg"
-                  alt="Office Supplies"
-                  className="card-image"
-                />
-                <h3 className="card-title">Office Supplies</h3>
-                <p className="card-price">$20.00</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <img
-                  src="./assets/s14.jpg"
-                  alt="Pen Stands"
-                  className="card-image"
-                />
-                <h3 className="card-title">Pen Stands</h3>
-                <p className="card-price">$10.00</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <img
-                  src="./assets/s15.jpg"
-                  alt="Wall Decor"
-                  className="card-image"
-                />
-                <h3 className="card-title">Wall Decor</h3>
-                <p className="card-price">$50.00</p>
+                <div className="face">
+                  <img
+                    src="./assets/nw12.jpg"
+                    alt="Product 4"
+                    className="card-image"
+                  />
+                  <h3>Indha Blue Dupion</h3>
+                  <p>$ 500/-</p>
+                </div>
               </div>
             </SwiperSlide>
           </Swiper>

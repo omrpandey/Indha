@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
+
   return (
-    <> 
-      <div className="header">
-        <div className="logo">
-          <img src="./assets/ndha1.webp" alt="Logo 1" />
-          <img src="./assets/indha2.jpg" alt="Logo 2" />
-        </div>
-        <div className="content">
-          <div className="links">
-            <NavLink to="/" className="nav-link" activeClassName="active" exact>
-              Home
-            </NavLink>
-            <NavLink to="/about" className="nav-link" activeClassName="active">
-              About
-            </NavLink>
-            <div className="dropdown-container">
+    <div className="header">
+      <div className="logo">
+        <img src="./assets/ndha1.webp" alt="Logo 1" />
+        <img src="./assets/indha2.jpg" alt="Logo 2" />
+      </div>
+      <div className="content">
+        <div className="links">
+          <NavLink to="/" className="nav-link" activeClassName="active" exact>
+            Home
+          </NavLink>
+          <NavLink to="/about" className="nav-link" activeClassName="active">
+            About
+          </NavLink>
+          <div className="dropdown-container">
               <NavLink to="/product" className="nav-link" activeClassName="active">
                 Product
               </NavLink>
@@ -32,29 +37,50 @@ export const Header = () => {
                 <NavLink to="/product/item5" className="nav-link" activeClassName="active">Home Furnishing</NavLink>
               </div>
             </div>
-            <NavLink to="/blog" className="nav-link" activeClassName="active">
-              Blog
-            </NavLink>
-            <NavLink to="/join" className="nav-link" activeClassName="active">
-              Join Us
-            </NavLink>
-            <NavLink to="/contact" className="nav-link" activeClassName="active">
-              Contact Us
-            </NavLink>
-            <NavLink to="/sale" className="nav-link" activeClassName="active">
-              Sale
-            </NavLink>
-          </div>
-          <div className="search">
-            <p>All Categories</p>
-            <input type="text" placeholder="Search" />
-          </div>
+
+
+          <NavLink to="/blog" className="nav-link" activeClassName="active">
+            Blog
+          </NavLink>
+          <NavLink to="/join" className="nav-link" activeClassName="active">
+            Join Us
+          </NavLink>
+          <NavLink to="/contact" className="nav-link" activeClassName="active">
+            Contact Us
+          </NavLink>
+          <NavLink to="/sale" className="nav-link" activeClassName="active">
+            Sale
+          </NavLink>
         </div>
-        <div className="right">
-          <FontAwesomeIcon className="icon" icon={faUser} />
-          <FontAwesomeIcon className="icon" icon={faShoppingCart} />
+        <div className="search">
+          <p>{selectedCategory}</p>
+          <ul className="search-dropdown">
+          <li onClick={() => handleCategorySelect('All Categories')}>
+              <NavLink>All Categories</NavLink>
+            </li>
+            <li onClick={() => handleCategorySelect('Electronics')}>
+              <NavLink>Electronics</NavLink>
+            </li>
+            <li onClick={() => handleCategorySelect('Fashion')}>
+              <NavLink>Fashion</NavLink>
+            </li>
+            <li onClick={() => handleCategorySelect('Home & Kitchen')}>
+              <NavLink>Home & Kitchen</NavLink>
+            </li>
+            <li onClick={() => handleCategorySelect('Books')}>
+              <NavLink>Books</NavLink>
+            </li>
+            <li onClick={() => handleCategorySelect('Beauty Products')}>
+              <NavLink>Beauty Products</NavLink>
+            </li>
+          </ul>
+          <input type="text" placeholder="Search" />
         </div>
       </div>
-    </>
+      <div className="right">
+        <FontAwesomeIcon className="icon" icon={faUser} />
+        <FontAwesomeIcon className="icon" icon={faShoppingCart} />
+      </div>
+    </div>
   );
 };
