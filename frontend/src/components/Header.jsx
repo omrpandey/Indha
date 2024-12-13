@@ -22,12 +22,20 @@ export const Header = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    toast.success("Successfully logged in!");
-    setIsLoginModalOpen(false);
-  };
+    
+       const form = e.target;
+       const username = form.querySelector('input[type="text"]').value.trim();
+       const password = form.querySelector('input[type="password"]').value.trim();
 
-  const handleLogout = () => {
-    toast.info("Logged out successfully!");
+   
+       if (!username || !password) {
+         toast.error("All fields are required!");
+         return;
+       }
+   
+       // Simulate a successful sign-up action
+       toast.success("Successfully signed up!");
+       form.reset();
   };
 
   return (

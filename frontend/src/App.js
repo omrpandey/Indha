@@ -4,6 +4,7 @@ import {Footer} from './components/Footer';
 import {Product} from './components/Product';
 import {About} from './components/About';
 import {Blog} from './components/Blog';
+import {Join} from './components/Join';
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import './App.css';
 function App() {
@@ -16,6 +17,7 @@ function App() {
   <Route path='/product' element={<Product/>}></Route>
   <Route path='/about' element={<About/>}></Route>
   <Route path='/blog' element={<Blog/>}></Route>
+  <Route path='/join' element={<Join/>}></Route>
 </Routes>
 <Footer />
 </Router>
