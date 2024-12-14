@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+.left{
+    height: 100vh;
+    width: 20%;
+    background-color:rgba(72, 4, 198, 0.754);
+    background-color: #1e1e2a;
+}
+.left .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left .logo img{
+    height: 70px;
+}

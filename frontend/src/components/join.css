@@ -20,6 +20,7 @@
     align-items: center;
     flex-direction: column;
     margin: 20px 0px;
+    /* background-color: red; */
 }
 .join .bottom h3{
     padding-top: 20px;
@@ -36,5 +37,68 @@
 }
 .join .bottom p{
     width: 30%;
-    border-bottom: 3px solid brown;
+    border-bottom: 2px solid orangered;
+}
+.join .bottom .card{
+    margin: 20px 0px;
+    /* background-color: red; */
+    height: 450px;
+    width: 600px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.608);
+}
+.join .bottom .card span{
+    padding-top: 20px;
+    font-size: 18px;
+    font-weight: 900;
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: cursive;
+    margin-bottom: 20px;
+    color: brown;
+    letter-spacing: 2px;
+    font-size: 17px;
+    text-align: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+justify-content: center;
+}
+
+.join .bottom .flex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.join .bottom .card .boxy{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.join .bottom .card .boxy img{
+padding-left: 30px;
+height: 250px;}
+.join .bottom .card .boxy .tick {
+    padding-left: 10px;
+    display: flex;
+    /* gap: 15px; */
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* padding: 10px; */
+    /* background-color: red; */
+}
+.join .bottom .card .boxy .tick div{
+font-size: 15px;
+color: green;}
+.join .bottom .card .boxy .tick span{
+    display: flex;
+    gap: 5px;
+}
+.join .bottom .card .box{
+    display: flex;
+    flex-direction: row;
 }

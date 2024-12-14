@@ -29,12 +29,12 @@ export const Header = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    
-       const form = e.target;
-       const username = form.querySelector('input[type="text"]').value.trim();
-       const password = form.querySelector('input[type="password"]').value.trim();
-=======
+    const { username, password } = loginData;
+
+    if (!username || !password) {
+      toast.error("All fields are required!");
+      return;
+    }
 
     try {
       const response = await axios.post("http://localhost:2000/api/admin/login", loginData);
@@ -48,18 +48,6 @@ export const Header = () => {
       }
     }
   };
->>>>>>> ceb3cbda737144bfa9a6331f88761fda1db942b1
-
-   
-       if (!username || !password) {
-         toast.error("All fields are required!");
-         return;
-       }
-   
-       // Simulate a successful sign-up action
-       toast.success("Successfully signed up!");
-       form.reset();
-  };
 
   return (
     <>
@@ -70,68 +58,57 @@ export const Header = () => {
         </div>
         <div className="content">
           <div className="links">
-            <NavLink to="/" className="nav-link" activeClassName="active" exact>
+            <NavLink to="/" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")} exact>
               Home
             </NavLink>
-            <NavLink to="/about" className="nav-link" activeClassName="active">
+            <NavLink to="/about" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
               About
             </NavLink>
             <div className="dropdown-container">
-              <NavLink to="/product" className="nav-link" activeClassName="active">
+              <NavLink to="/product" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
                 Product
               </NavLink>
               <div className="dropdown">
-                <NavLink to="/product/item1" className="nav-link" activeClassName="active">
+                <NavLink to="/product/item1" className="nav-link">
                   Christmas Gifts
                 </NavLink>
-                <NavLink to="/product/item2" className="nav-link" activeClassName="active">
+                <NavLink to="/product/item2" className="nav-link">
                   Festival Needs
                 </NavLink>
-                <NavLink to="/product/item3" className="nav-link" activeClassName="active">
+                <NavLink to="/product/item3" className="nav-link">
                   Corporate Gifting
                 </NavLink>
-                <NavLink to="/product/item4" className="nav-link" activeClassName="active">
+                <NavLink to="/product/item4" className="nav-link">
                   Sustainable Products
                 </NavLink>
-                <NavLink to="/product/item5" className="nav-link" activeClassName="active">
+                <NavLink to="/product/item5" className="nav-link">
                   Home Furnishing
                 </NavLink>
               </div>
             </div>
-            <NavLink to="/blog" className="nav-link" activeClassName="active">
+            <NavLink to="/blog" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
               Blog
             </NavLink>
-            <NavLink to="/join" className="nav-link" activeClassName="active">
+            <NavLink to="/join" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
               Join Us
             </NavLink>
-            <NavLink to="/contact" className="nav-link" activeClassName="active">
+            <NavLink to="/contact" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
               Contact Us
             </NavLink>
-            <NavLink to="/sale" className="nav-link" activeClassName="active">
+            <NavLink to="/sale" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
               Sale
             </NavLink>
           </div>
           <div className="search">
             <p>{selectedCategory}</p>
             <ul className="search-dropdown">
-              <li onClick={() => handleCategorySelect("All Categories")}>
-                <NavLink>All Categories</NavLink>
-              </li>
-              <li onClick={() => handleCategorySelect("Electronics")}>
-                <NavLink>Electronics</NavLink>
-              </li>
-              <li onClick={() => handleCategorySelect("Fashion")}>
-                <NavLink>Fashion</NavLink>
-              </li>
-              <li onClick={() => handleCategorySelect("Home & Kitchen")}>
-                <NavLink>Home & Kitchen</NavLink>
-              </li>
-              <li onClick={() => handleCategorySelect("Books")}>
-                <NavLink>Books</NavLink>
-              </li>
-              <li onClick={() => handleCategorySelect("Beauty Products")}>
-                <NavLink>Beauty Products</NavLink>
-              </li>
+              {["All Categories", "Electronics", "Fashion", "Home & Kitchen", "Books", "Beauty Products"].map(
+                (category) => (
+                  <li key={category} onClick={() => handleCategorySelect(category)}>
+                    <NavLink to="#">{category}</NavLink>
+                  </li>
+                )
+              )}
             </ul>
             <input type="text" placeholder="Search" />
           </div>
@@ -147,7 +124,7 @@ export const Header = () => {
         <div className="modal-wrapper">
           <div className="modal">
             <h2>
-              <span className="or">Welcome</span> Back Get Loggin
+              <span className="or">Welcome</span> Back Get Logging
             </h2>
             <form onSubmit={handleLogin}>
               <div className="input-group">
