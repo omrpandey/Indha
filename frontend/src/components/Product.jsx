@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios"; // Import Axios
 
-export const Product= () => {
+export const Product = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -34,16 +35,23 @@ export const Product= () => {
     setFormData((prev) => ({ ...prev, tags: [...prev.tags, ""] }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const submissionData = {
-      ...formData,
-      images: formData.images.map((file) => file.name), // Map file objects to names for now
-    };
-    console.log("Submitted Data:", submissionData);
+    try {
+      const submissionData = {
+        ...formData,
+        images: formData.images.map((file) => file.name), // Convert images to their names
+      };
 
-    alert("Product submitted successfully!");
+      const response = await axios.post("http://localhost:2000/api/products/product", submissionData);
+      console.log("Response:", response.data);
+
+      alert("Product submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting product:", error.response?.data || error.message);
+      alert("Failed to submit product.");
+    }
   };
 
   return (
@@ -164,5 +172,3 @@ export const Product= () => {
     </div>
   );
 };
-
-
