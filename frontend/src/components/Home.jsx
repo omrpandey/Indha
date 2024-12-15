@@ -25,10 +25,10 @@ export const Home = () => {
                     className="home-mySwiper"
                 >
                     <SwiperSlide>
-                        <img src="./assets/indha3.jpg" alt="Slide 1" className="slide-image" />
+                        <img src="./assets/indh4.jpg" alt="Slide 1" className="slide-image" />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img src="./assets/indh4.jpg" alt="Slide 2" className="slide-image" />
+                        <img src="./assets/indha3.jpg" alt="Slide 2" className="slide-image" />
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src="./assets/indha5.jpg" alt="Slide 4" className="slide-image" />

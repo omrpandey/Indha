@@ -98,15 +98,16 @@ border-radius: 10px;
 outline: none;
 border: 2px solid rgba(255, 255, 255, 0.534);
 font-family: cursive;
+/* color: black; */
 /* color: red; */
 }
 .footer .footer-right .footer-sigin .row .email{
     width: 710px;
 }
 .footer .footer-right .footer-sigin .row input::placeholder{
-color:rgba(0, 0, 0, 0.453);
+color:rgba(0, 0, 0, 0.587);
 /* color: rgba(255, 0, 0, 0.677); */
-font-weight: 600;
+font-weight: 300;
 font-family: cursive;
 }
 .footer .footer-right .footer-sigin .btn{
