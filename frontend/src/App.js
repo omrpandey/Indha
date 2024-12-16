@@ -1,7 +1,7 @@
 import {Header} from './components/Header';
 import {Home} from './components/Home';
 import {Footer} from './components/Footer';
-import {Product} from './components/Product';
+import {Product} from './components/Productinsert';
 import {About} from './components/About';
 import {Blog} from './components/Blog';
 import {Join} from './components/Join';
@@ -10,6 +10,9 @@ import {Main} from './Admin/Main'
 import {Productpage} from './components/Productpage';
 import {Productui} from './components/Productui';
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import {Productinsert} from './components/Productinsert';
+
+
 import './App.css';
 function App() {
   return (
@@ -26,6 +29,7 @@ function App() {
   <Route path='/main' element={<Main/>}></Route>
   <Route path='/productpage' element={<Product/>}></Route>
   <Route path='/productui' element={<Productui/>}></Route>
+  <Route path='/Productinsert' element={<Productinsert/>}></Route>
 </Routes>
 <Footer />
 </Router>

@@ -17,12 +17,15 @@ const PORT = process.env.PORT || 2000;
 app.use(cors());
 app.use(express.json());
 
+
+
 // API Routes
 app.use('/api/products', productRoutes); // Product API
 app.use('/api/cart', cartRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api', authRoutes);
 app.use('/api', adminAuthRoutes);
+app.use('/uploads', express.static('uploads'));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://ompandeyit69:ecCcVXpCZNwADj5m@cluster0.bhvni.mongodb.net/", {
