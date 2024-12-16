@@ -1,7 +1,7 @@
 import {Header} from './components/Header';
 import {Home} from './components/Home';
 import {Footer} from './components/Footer';
-import {Product} from './components/Productinsert';
+// import {Product} from './components/Productinsert';
 import {About} from './components/About';
 import {Blog} from './components/Blog';
 import {Join} from './components/Join';
@@ -27,13 +27,14 @@ function App() {
   <Route path='/join' element={<Join/>}></Route>
   <Route path='/contact' element={<Contact/>}></Route>
   <Route path='/main' element={<Main/>}></Route>
-  <Route path='/productpage' element={<Product/>}></Route>
+  {/* <Route path='/productpage' element={<Product/>}></Route> */}
   <Route path='/productui' element={<Productui/>}></Route>
+  <Route path='/productpage' element={<Productpage/>}></Route>
   <Route path='/Productinsert' element={<Productinsert/>}></Route>
 </Routes>
 <Footer />
 </Router>
-   </>
+   </> 
   );
 }
 
