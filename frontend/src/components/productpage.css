@@ -241,10 +241,10 @@ flex-direction: column;
 box-shadow: 10px 25px 30px silver;
 }
 .allproduct .wrap .card img{
-    height: 80%;
+    height: 78%;
     width: 90%;
     margin: auto;
-box-shadow: 10px 25px 30px silver;
+box-shadow: 10px 15px 20px silver;
 border-radius: 10px;
 }
 .allproduct .wrap .card .cart{
@@ -269,6 +269,7 @@ border-radius: 10px;
     font-size: 17px;
 }
 .allproduct .wrap .card .detail{
+
     display: flex;
     justify-content: center;
     align-items: center;
