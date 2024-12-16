@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYoutube, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import './footer.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 export const Footer = () => {
-  const handleSignUp = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     // Example validation checks
@@ -21,9 +24,24 @@ export const Footer = () => {
       return;
     }
 
-    // Simulate a successful sign-up action
-    toast.success("Successfully signed up!");
-    form.reset();
+    setIsLoading(true);  // Start loading
+
+    try {
+      // Send a POST request to the backend API
+      const response = await axios.post('http://localhost:2000/api/auth/signup', {
+        username,
+        email,
+        password
+      });
+
+      toast.success(response.data.message);  // Display success message
+      form.reset();  // Reset the form
+    } catch (error) {
+      console.error('Error signing up:', error);
+      toast.error("Error signing up user");
+    } finally {
+      setIsLoading(false);  // Stop loading
+    }
   };
 
   return (
@@ -75,7 +93,7 @@ export const Footer = () => {
                 <input type="email" className="email" placeholder="Email" />
               </span>
               <span className="input">
-                <input type="submit" value="SIGN UP" className="btn" />
+                <input type="submit" value={isLoading ? "Signing Up..." : "SIGN UP"} className="btn" disabled={isLoading} />
               </span>
             </form>
           </div>

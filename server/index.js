@@ -2,11 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors'); // Import cors
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/authRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cart'); 
-const adminRoutes = require('./routes/adminRoutes');
+const adminAuthRoutes = require('./routes/adminAuthRoutes'); //
 
 
 // Load environment variables
@@ -20,11 +20,13 @@ app.use(cors()); // Apply CORS globally
 app.use(express.json()); // Middleware for parsing JSON
 
 // API Routes
-app.use('/api/auth', authRoutes);
+
 app.use('/api/contact', contactRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/admin', adminRoutes);
+
+app.use('/api', authRoutes); 
+app.use('/api', adminAuthRoutes);  
 
 
 
