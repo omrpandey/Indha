@@ -16,6 +16,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+router.get('/', async (req, res) => {
+    try {
+        const products = await Product.find();
+        console.log("Fetched products:", products); // Log fetched products
+        res.json(products); // Send products to frontend
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).json({ error: 'Error fetching products' });
+    }
+});
+
+
 // Add a new product (with images)
 router.post('/', upload.array('images'), async (req, res) => { // 'images' is the field name from the form
   console.log(req.body);  // Product details

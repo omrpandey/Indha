@@ -5,7 +5,7 @@ import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export const Productpage = () => {
     const [rangeValue, setRangeValue] = useState(5000); // Default slider value
-    const [products, setProducts] = useState([]); 
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedColor, setSelectedColor] = useState("Black");
 
