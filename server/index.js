@@ -1,34 +1,41 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
-const authRoutes = require('./routes/auth');
+const cors = require('cors'); 
+const productRoutes = require('./routes/productRoutes'); // Product routes
+const authRoutes = require('./routes/authRoutes'); 
 const contactRoutes = require('./routes/contactRoutes');
-const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cart'); 
+const adminAuthRoutes = require('./routes/adminAuthRoutes');
 
-const cartRoutes = require('./routes/cart');  // Ensure the path is correct
-
-
-// Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 2000;
 
-// Middleware for parsing JSON
+// Middleware
+app.use(cors());
 app.use(express.json());
-app.use('/api', authRoutes);  // Mount the authRoutes under /api
-app.use('/api', contactRoutes);
-app.use('/api', cartRoutes); 
-app.use('/api', productRoutes); 
-   // Mount the contactRoutes under /api
+
+
+
+// API Routes
+app.use('/api/products', productRoutes); // Product API
+app.use('/api/cart', cartRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api', authRoutes);
+app.use('/api', adminAuthRoutes);
+app.use('/uploads', express.static('uploads'));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI || "mongodb+srv://ompandeyit69:ecCcVXpCZNwADj5m@cluster0.bhvni.mongodb.net/inda")
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.error('Error connecting to MongoDB:', error));
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://ompandeyit69:ecCcVXpCZNwADj5m@cluster0.bhvni.mongodb.net/", {
+   useNewUrlParser: true,
+   useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch((error) => console.error('Error connecting to MongoDB:', error));
 
-// Start the server
+// Start Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

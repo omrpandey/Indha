@@ -1,0 +1,121 @@
+.modal-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 25px red;
+  /* border-radius: 10px; */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  border-radius: 20px;
+}
+.modal-wrapper {
+    position: fixed;
+    top: 250px;
+    left:900px;
+    width: 38%;
+    height: 60%;
+    z-index: 100;
+    border-radius: 20px;
+
+  }
+  
+  .modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:rgba(255, 255, 255, 0.783);
+
+  }
+  .modal h2{
+    padding-top: 30px;
+    font-size: 18px;
+    font-family: cursive;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    border-bottom: 1px solid orangered;
+    padding-bottom: 20px;
+    width: 100%;
+    font-weight: 100;
+
+  }
+  .modal h2 .or{
+    color: orangered;
+    font-weight: 900;
+    font-size: 26px;
+  }
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+  
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+  }
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: cursive;
+    color: rgba(0, 0, 0, 0.777);
+  }
+  
+  .input-group input {
+    width: 100%;
+    outline: none;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: cursive;
+  }
+  
+  .login-button {
+    width: 100%;
+    /* padding: 10px; */
+    background: orangered;
+    color: white;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: cursive;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .login-button:hover {
+    background: rgb(225, 102, 8);
+  }

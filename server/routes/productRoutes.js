@@ -1,91 +1,57 @@
 const express = require('express');
-const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 const Product = require('../models/product');
+const router = express.Router();
 
-// Route to add a new product
-router.post('/product', async (req, res) => {
-    const { name, description, price, discountedPrice, discountPercentage, images, tags, rating, category } = req.body;
+// Set up multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Specify the directory to store uploaded files
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Set file name to prevent overwriting
+  }
+});
 
+const upload = multer({ storage: storage });
+
+router.get('/', async (req, res) => {
     try {
-        const product = new Product({
-            name,
-            description,
-            price,
-            discountedPrice,
-            discountPercentage,
-            images,
-            tags,
-            rating,
-            category,
-        });
-
-        await product.save();
-        res.status(201).json({ message: 'Product added successfully', product });
+        const products = await Product.find();
+        console.log("Fetched products:", products); // Log fetched products
+        res.json(products); // Send products to frontend
     } catch (error) {
-        res.status(500).json({ error: 'Error adding product', details: error.message });
+        console.error("Error fetching products:", error);
+        res.status(500).json({ error: 'Error fetching products' });
     }
 });
 
-// Route to fetch all products
-router.get('/products', async (req, res) => {
-    try {
-        const products = await Product.find(); // Fetch all products
-        res.status(200).json(products);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching products', details: error.message });
-    }
-});
 
-// Route to fetch a single product by ID
-router.get('/product/:id', async (req, res) => {
-    const { id } = req.params;
+// Add a new product (with images)
+router.post('/', upload.array('images'), async (req, res) => { // 'images' is the field name from the form
+  console.log(req.body);  // Product details
+  console.log(req.files); // Uploaded files
 
-    try {
-        const product = await Product.findById(id);
+  const { name, description, price, discountedPrice, category } = req.body;
+  const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : []; // Save image paths
 
-        if (!product) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
+  try {
+    const product = new Product({
+      name,
+      description,
+      price,
+      discountedPrice,
+      images,
+      category,
+    });
 
-        res.status(200).json(product);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching product', details: error.message });
-    }
-});
-
-// Route to update a product by ID
-router.put('/product/:id', async (req, res) => {
-    const { id } = req.params;
-    const updatedData = req.body;
-
-    try {
-        const product = await Product.findByIdAndUpdate(id, updatedData, { new: true });
-
-        if (!product) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
-
-        res.status(200).json({ message: 'Product updated successfully', product });
-    } catch (error) {
-        res.status(500).json({ error: 'Error updating product', details: error.message });
-    }
-});
-
-// Route to delete a product by ID
-router.delete('/product/:id', async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const product = await Product.findByIdAndDelete(id);
-
-        if (!product) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
-
-        res.status(200).json({ message: 'Product deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ error: 'Error deleting product', details: error.message });
-    }
+    await product.save();
+    res.status(201).json({ message: 'Product added successfully', product });
+  } catch (error) {
+    console.error("Error in POST /api/products:", error.message);
+    res.status(500).json({ error: 'Error adding product', details: error.message });
+  }
 });
 
 module.exports = router;

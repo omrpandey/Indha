@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+.ui{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* gap: 20px; */
+  
+}
+.ui .ui-left{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+}
+
+.ui .ui-left img{
+    height: 70%;
+    width: 80%;
+    border-radius: 10px;
+    /* border-left: 2px solid orangered;
+    border-bottom: 2px solid orangered;
+    box-shadow: 5px 5px 5px orangered; */
+}
+.ui .ui-right{
+    width: 50%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* background-color: yellow; */
+}
+.ui .ui-right .ui-title h3{
+    padding-top: 20px;
+    font-size: 24px;
+    font-weight: 900;
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: cursive;
+    color: orangered;
+    letter-spacing: 2px;
+    font-size: 27px;
+    text-align: center;
+    font-weight: 500;
+}
+.ui .ui-right .ui-title{
+    width: 70%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.37);
+    padding-bottom: 20px;
+}
+.ui .ui-right .ui-desc .diff{
+    font-family: cursive;
+/* padding-left: 140px; */
+color: rgba(0, 0, 0, 0.614);
+}   
+.ui .ui-right .ui-desc .diff .val{
+    color: orangered;
+}
+.ui .ui-right .ui-desc{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.ui .ui-right .ui-desc p{
+    font-family: cursive;
+    letter-spacing: 1px;
+    color: rgba(0, 0, 0, 0.762);
+    font-weight: 300;
+}
+.ui .ui-size ul{
+    display: flex;
+    gap: 10px;
+}
+.ui .ui-size ul li {
+    border-radius: 5px;
+border: 1px solid black;
+height: 40px;
+width: 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-family: cursive;
+}
+.ui .add-cart{
+    display: flex;
+  gap: 20px;
+}
+.ui .add-cart .ui-btn{
+    background-color: black;
+    color: white;
+    border: none;
+    height: 40px;
+    width: 150px;
+    border-radius: 10px;
+    font-family: cursive;
+    font-size: 15px;
+}
+.ui .add-cart .ui-save{
+    background-color: rgba(213, 255, 255, 0.798);
+    color: black;
+    border: none;
+    height: 40px;
+    width: 150px;
+    border-radius: 10px;
+    font-family: cursive;
+    font-size: 15px;
+}

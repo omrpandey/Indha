@@ -11,7 +11,7 @@
 .header {
     background-color: #b80000;
     height: 20vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 0 50px;
@@ -294,3 +294,5 @@
 .dropdown {
     z-index: 998; /* Ensure it sits below the search dropdown */
 }
+
+  

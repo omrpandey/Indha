@@ -35,6 +35,6 @@ transition: all linear 0.2s;
 .customer .customer-bottom img{
     /* padding-left: 40px; */
     height: auto;
-    width: 70%;
+    width: 100%;
 }
 /* Customize navigation arrows */
