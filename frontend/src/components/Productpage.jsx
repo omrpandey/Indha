@@ -5,7 +5,7 @@ import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export const Productpage = () => {
     const [rangeValue, setRangeValue] = useState(5000); // Default slider value
-    const [products, setProducts] = useState([]); 
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedColor, setSelectedColor] = useState("Black");
 
@@ -26,7 +26,7 @@ export const Productpage = () => {
     }, []);
 
     const handleFilter = () => {
-        alert(`Filtered Value: ₹${rangeValue}, Selected Color: ${selectedColor}`);
+        alert(Filtered Value: ₹${rangeValue}, Selected Color: ${selectedColor});
     };
 
     return (
@@ -107,7 +107,7 @@ export const Productpage = () => {
                                     <div className="card" key={product._id}>
                                         <img 
                                           src={product.images && product.images.length > 0 
-                                               ? `http://localhost:2000/${product.images[0]}` 
+                                               ? http://localhost:2000/${product.images[0]} 
                                                : './assets/nw2.png'} 
                                           alt={product.name} 
                                         />
