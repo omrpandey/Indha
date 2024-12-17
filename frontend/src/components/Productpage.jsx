@@ -146,13 +146,16 @@ export const Productpage = () => {
                 products.map((product) => (
                   <div className="card" key={product._id}>
                     <img
-                      src={
-                        product.images && product.images.length > 0
-                          ? `http://localhost:2000/${product.images[0]}`
-                          : "./assets/nw2.png"
-                      }
-                      alt={product.name}
-                    />
+  src={
+    product.images && product.images.length > 0
+      ? product.images[0].startsWith("/")
+        ? `http://localhost:2000${product.images[0]}`
+        : `http://localhost:2000/${product.images[0]}`
+      : "./assets/nw2.png"
+  }
+  alt={product.name}
+/>
+
                     <div className="add-section">
                       <button className="cart">
                         <FontAwesomeIcon icon={faHeart} className="like" />
