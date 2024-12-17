@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Header.css";
 import "./Modal.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faShoppingCart, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faShoppingCart,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
+import { useCategory } from "./CategoryContext"; // Import the category context
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
 export const Header = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All Categories");
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [loginData, setLoginData] = useState({ username: "", password: "" });
+  const { selectedCategory, setSelectedCategory } = useCategory(); // Use global category state
+  const [isLoginModalOpen, setIsLoginModalOpen] = React.useState(false);
+  const [loginData, setLoginData] = React.useState({ username: "", password: "" });
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategory(category); // Update global category state
   };
 
   const toggleLoginModal = () => {
@@ -29,35 +34,23 @@ export const Header = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.log("Login Data:", loginData);
-
     try {
       const isAdminLogin = loginData.username === "admin"; // Admin login condition
-      let loginUrl = isAdminLogin ? "http://localhost:2000/api/admin/login" : "http://localhost:2000/api/user/login";
+      let loginUrl = isAdminLogin
+        ? "http://localhost:2000/api/admin/login"
+        : "http://localhost:2000/api/user/login";
 
       const response = await axios.post(loginUrl, loginData);
 
       if (response.data.token) {
-        // Handle successful login
-        if (isAdminLogin) {
-          toast.success("Admin login successful!");
-        } else {
-          toast.success("User login successful!");
-        }
-
-        // Store token in localStorage
+        toast.success(isAdminLogin ? "Admin login successful!" : "User login successful!");
         localStorage.setItem("token", response.data.token);
-
         setIsLoginModalOpen(false); // Close modal after successful login
       }
     } catch (error) {
-      if (error.response) {
-        // Display error message from backend
-        toast.error(error.response.data.error || "Login failed!");
-      } else {
-        // Handle any other errors
-        toast.error("An error occurred. Please try again.");
-      }
+      toast.error(
+        error.response?.data?.error || "An error occurred. Please try again."
+      );
     }
   };
 
@@ -70,14 +63,30 @@ export const Header = () => {
         </div>
         <div className="content">
           <div className="links">
-            <NavLink to="/" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")} exact>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "active nav-link" : "nav-link"
+              }
+              exact
+            >
               Home
             </NavLink>
-            <NavLink to="/about" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive ? "active nav-link" : "nav-link"
+              }
+            >
               About
             </NavLink>
             <div className="dropdown-container">
-              <NavLink to="/product" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
+              <NavLink
+                to="/product"
+                className={({ isActive }) =>
+                  isActive ? "active nav-link" : "nav-link"
+                }
+              >
                 Product
               </NavLink>
               <div className="dropdown">
@@ -98,35 +107,68 @@ export const Header = () => {
                 </NavLink>
               </div>
             </div>
-            <NavLink to="/blog" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
+            <NavLink
+              to="/blog"
+              className={({ isActive }) =>
+                isActive ? "active nav-link" : "nav-link"
+              }
+            >
               Blog
             </NavLink>
-            <NavLink to="/join" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
+            <NavLink
+              to="/join"
+              className={({ isActive }) =>
+                isActive ? "active nav-link" : "nav-link"
+              }
+            >
               Join Us
             </NavLink>
-            <NavLink to="/contact" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive ? "active nav-link" : "nav-link"
+              }
+            >
               Contact Us
             </NavLink>
-            <NavLink to="/sale" className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")}>
+            <NavLink
+              to="/sale"
+              className={({ isActive }) =>
+                isActive ? "active nav-link" : "nav-link"
+              }
+            >
               Sale
             </NavLink>
           </div>
           <div className="search">
-            <p>{selectedCategory}</p>
+            <p>{selectedCategory}</p> {/* Use global state for category */}
             <ul className="search-dropdown">
-              {["All Categories", "Electronics", "Fashion", "Home & Kitchen", "Books", "Beauty Products"].map(
-                (category) => (
-                  <li key={category} onClick={() => handleCategorySelect(category)}>
-                    <NavLink to="#">{category}</NavLink>
-                  </li>
-                )
-              )}
+              {[
+                "All Categories",
+                "Children", // Added "Children" category
+                "Electronics",
+                "Fashion",
+                "Home & Kitchen",
+                "Books",
+                "Beauty Products",
+              ].map((category) => (
+                <li
+                  key={category}
+                  onClick={() => handleCategorySelect(category)} // Update global state
+                >
+                  <NavLink to="#">{category}</NavLink>
+                </li>
+              ))}
             </ul>
             <input type="text" placeholder="Search" />
           </div>
         </div>
         <div className="right">
-          <FontAwesomeIcon className="icon" icon={faUser} onClick={toggleLoginModal} />
+          <FontAwesomeIcon
+            className="icon"
+            icon={faUser}
+            onClick={toggleLoginModal}
+          />
           <FontAwesomeIcon className="icon" icon={faShoppingCart} />
         </div>
       </div>
@@ -168,7 +210,10 @@ export const Header = () => {
               </button>
             </form>
             <button className="close-modal" onClick={toggleLoginModal}>
-              <FontAwesomeIcon icon={faXmark} style={{ color: "red", fontSize: "24px" }} />
+              <FontAwesomeIcon
+                icon={faXmark}
+                style={{ color: "red", fontSize: "24px" }}
+              />
             </button>
           </div>
           <div className="modal-overlay" onClick={toggleLoginModal}></div>

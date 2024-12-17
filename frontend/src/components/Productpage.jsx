@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./productpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useCategory } from "./CategoryContext"; // Import useCategory to get the selected category
 
 export const Productpage = () => {
+  const { selectedCategory } = useCategory(); // Get selected category from the context
   const [rangeValue, setRangeValue] = useState(5000); // Default slider value
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,8 @@ export const Productpage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:2000/api/products");
+        // Fetch products based on the selected category
+        const response = await fetch(`http://localhost:2000/api/products?category=${selectedCategory}`);
         const data = await response.json();
         setProducts(data);
         setLoading(false);
@@ -22,12 +25,20 @@ export const Productpage = () => {
       }
     };
 
-    fetchProducts();
-  }, []);
+    // Trigger product fetching when the category changes
+    if (selectedCategory) {
+      fetchProducts();
+    }
+  }, [selectedCategory]); // Dependency on selectedCategory to refetch when it changes
 
   const handleFilter = () => {
     alert(`Filtered Value: ₹${rangeValue}, Selected Color: ${selectedColor}`);
   };
+
+  // Filter products to match selected category
+  const filteredProducts = products.filter(product =>
+    selectedCategory === "All Categories" || product.category === selectedCategory
+  );
 
   return (
     <>
@@ -127,7 +138,7 @@ export const Productpage = () => {
             </div>
           </div>
           <div className="current">
-            <h4>Current Category</h4>
+            <h4>Current Category: {selectedCategory}</h4> {/* Display the selected category */}
             <div className="sort">
               <h5>Sort By</h5>
               <select>
@@ -140,22 +151,21 @@ export const Productpage = () => {
             <div className="wrap">
               {loading ? (
                 <p>Loading products...</p>
-              ) : products.length < 1 ? (
-                <p>No products available</p>
+              ) : filteredProducts.length < 1 ? (
+                <p>No products available in the selected category.</p>
               ) : (
-                products.map((product) => (
+                filteredProducts.map((product) => (
                   <div className="card" key={product._id}>
                     <img
-  src={
-    product.images && product.images.length > 0
-      ? product.images[0].startsWith("/")
-        ? `http://localhost:2000${product.images[0]}`
-        : `http://localhost:2000/${product.images[0]}`
-      : "./assets/nw2.png"
-  }
-  alt={product.name}
-/>
-
+                      src={
+                        product.images && product.images.length > 0
+                          ? product.images[0].startsWith("/")
+                            ? `http://localhost:2000${product.images[0]}`
+                            : `http://localhost:2000/${product.images[0]}`
+                          : "./assets/nw2.png"
+                      }
+                      alt={product.name}
+                    />
                     <div className="add-section">
                       <button className="cart">
                         <FontAwesomeIcon icon={faHeart} className="like" />

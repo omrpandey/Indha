@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { CategoryProvider } from './components/CategoryContext'; // Import the CategoryProvider
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/* Wrap the entire App with the CategoryProvider */}
+    <CategoryProvider>
+      <App />
+    </CategoryProvider>
   </React.StrictMode>
 );
 
