@@ -30,7 +30,7 @@ function App() {
   {/* <Route path='/productpage' element={<Product/>}></Route> */}
   <Route path='/productui' element={<Productui/>}></Route>
   <Route path='/productpage' element={<Productpage/>}></Route>
-  <Route path='/Productinsert' element={<Productinsert/>}></Route>
+  <Route path='/productinsert' element={<Productinsert/>}></Route>
 </Routes>
 <Footer />
 </Router>
