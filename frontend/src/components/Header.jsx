@@ -17,6 +17,23 @@ export const Header = () => {
   const { selectedCategory, setSelectedCategory } = useCategory(); // Use global category state
   const [isLoginModalOpen, setIsLoginModalOpen] = React.useState(false);
   const [loginData, setLoginData] = React.useState({ username: "", password: "" });
+  const [cartCount, setCartCount] = React.useState(0); // State for cart count
+
+  // Fetch cart count on component mount
+  React.useEffect(() => {
+    const fetchCartCount = async () => {
+      try {
+        const response = await axios.get("http://localhost:2000/api/cart"); // Adjust the URL as needed
+        if (response.data.cartCount !== undefined) {
+          setCartCount(response.data.cartCount);
+        }
+      } catch (error) {
+        console.error("Error fetching cart count:", error.message);
+      }
+    };
+
+    fetchCartCount();
+  }, []);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category); // Update global category state
@@ -169,7 +186,12 @@ export const Header = () => {
             icon={faUser}
             onClick={toggleLoginModal}
           />
-          <FontAwesomeIcon className="icon" icon={faShoppingCart} />
+          <div className="cart-icon">
+            <NavLink to="/cart">
+              <FontAwesomeIcon className="icon" icon={faShoppingCart} />
+              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+            </NavLink>
+          </div>
         </div>
       </div>
 

@@ -72,6 +72,31 @@ export const Productpage = () => {
     );
   };
 
+  // Handle adding a product to the cart
+ const handleAddToCart = async (productId) => {
+  try {
+    const response = await fetch("http://localhost:2000/api/cart/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ productId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add product to cart");
+    }
+
+    const data = await response.json();
+    alert(data.message || "Product added to cart!");
+    console.log("Cart Details:", data.cart); // Optional: For debugging
+  } catch (error) {
+    console.error("Error adding product to cart:", error.message);
+    alert("Error adding product to cart. Please try again.");
+  }
+};
+
+
   return (
     <>
       <div className="category">
@@ -158,7 +183,10 @@ export const Productpage = () => {
                       <button className="cart">
                         <FontAwesomeIcon icon={faHeart} className="like" />
                       </button>
-                      <button className="cart">
+                      <button
+                        className="cart"
+                        onClick={() => handleAddToCart(product._id)}
+                      >
                         <FontAwesomeIcon icon={faShoppingCart} />
                       </button>
                     </div>
