@@ -27,6 +27,7 @@ app.use('/api', authRoutes);
 app.use('/api', adminAuthRoutes);
 app.use('/uploads', express.static('uploads'));
 
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://ompandeyit69:ecCcVXpCZNwADj5m@cluster0.bhvni.mongodb.net/", {
    useNewUrlParser: true,
