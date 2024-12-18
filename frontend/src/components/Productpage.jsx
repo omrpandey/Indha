@@ -2,43 +2,75 @@ import React, { useState, useEffect } from "react";
 import "./productpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { useCategory } from "./CategoryContext"; // Import useCategory to get the selected category
 
 export const Productpage = () => {
-  const { selectedCategory } = useCategory(); // Get selected category from the context
-  const [rangeValue, setRangeValue] = useState(5000); // Default slider value
-  const [products, setProducts] = useState([]);
+  const [rangeValue, setRangeValue] = useState(5000); // Default price range
+  const [products, setProducts] = useState([]); // All products
+  const [displayedProducts, setDisplayedProducts] = useState([]); // Products shown on the right side
   const [loading, setLoading] = useState(true);
-  const [selectedColor, setSelectedColor] = useState("Black");
+  const [error, setError] = useState(""); // Error state
+  const [dropdownVisibility, setDropdownVisibility] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null); // Selected product state
 
   useEffect(() => {
+    // Fetch all products from the API
     const fetchProducts = async () => {
       try {
-        // Fetch products based on the selected category
-        const response = await fetch(`http://localhost:2000/api/products?category=${selectedCategory}`);
+        const response = await fetch("http://localhost:2000/api/products");
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
         const data = await response.json();
         setProducts(data);
+        setDisplayedProducts(data); // Initially show all products
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        setError("Error fetching products");
         setLoading(false);
       }
     };
 
-    // Trigger product fetching when the category changes
-    if (selectedCategory) {
-      fetchProducts();
-    }
-  }, [selectedCategory]); // Dependency on selectedCategory to refetch when it changes
+    fetchProducts();
+  }, []);
 
-  const handleFilter = () => {
-    alert(`Filtered Value: ₹${rangeValue}, Selected Color: ${selectedColor}`);
+  // Group products dynamically by category
+  const groupedProducts = products.reduce((acc, product) => {
+    const category = product.category || "Uncategorized";
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(product);
+    return acc;
+  }, {});
+
+  // Handle category click to filter products
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setDropdownVisibility((prevState) => ({
+      ...prevState,
+      [category]: !prevState[category],
+    }));
+    setDisplayedProducts(groupedProducts[category] || []);
   };
 
-  // Filter products to match selected category
-  const filteredProducts = products.filter(product =>
-    selectedCategory === "All Categories" || product.category === selectedCategory
-  );
+  // Handle individual product click to show only that product
+  const handleProductClick = (product) => {
+    setSelectedProduct(product); // Set the selected product
+    setDisplayedProducts([product]); // Show only the selected product
+  };
+
+  // Handle range change to filter products by price
+  const handleRangeChange = (e) => {
+    const value = e.target.value;
+    setRangeValue(value);
+    setDisplayedProducts(
+      products.filter(
+        (product) =>
+          (product.discountedPrice || product.price) <= value
+      )
+    );
+  };
 
   return (
     <>
@@ -50,111 +82,67 @@ export const Productpage = () => {
           </h3>
           <div className="lists">
             <ul>
-              <li>
-                <span className="text">All Category</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Apparel(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Cuttons(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Decorations(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Candles(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Notebooks(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Documents(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Toys(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Home Decor(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Office(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">Painted(49)</span>
-                <span className="plus">+</span>
-              </li>
-              <li>
-                <span className="text">HandCrafts(49)</span>
-                <span className="plus">+</span>
-              </li>
+              {Object.keys(groupedProducts).map((category) => (
+                <li key={category}>
+                  <div
+                    className="category-header"
+                    onClick={() => handleCategoryClick(category)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <span className="text">
+                      {category} ({groupedProducts[category].length})
+                    </span>
+                    <span className="plus">
+                      {dropdownVisibility[category] ? "-" : "+"}
+                    </span>
+                  </div>
+
+                  {/* Dropdown with individual products */}
+                  {dropdownVisibility[category] && (
+                    <ul className="dropdown">
+                      {groupedProducts[category].map((product) => (
+                        <li
+                          key={product._id}
+                          className="dropdown-item"
+                          onClick={() => handleProductClick(product)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {product.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
+        {/* Product Display on the Right Side */}
         <div className="product-side">
-          <div className="filter-container">
-            <h2 className="filter-title">
-              Filter Item<span className="ccc">S</span>
-            </h2>
-            <div className="slider-section">
-              <label htmlFor="slider" className="slider-label">
-                <span className="ccc">P</span>rice Range:
-              </label>
-              <input
-                type="range"
-                id="slider"
-                min="0"
-                max="11000"
-                step="100"
-                value={rangeValue}
-                onChange={(e) => setRangeValue(e.target.value)}
-                className="slider"
-              />
-              <div className="range-value">₹{rangeValue}</div>
-            </div>
-            <div className="select">
-              <span>Choose Colour</span>
-              <select
-                value={selectedColor}
-                onChange={(e) => setSelectedColor(e.target.value)}
-              >
-                <option value="Black">Black</option>
-                <option value="Red">Red</option>
-              </select>
-              <button className="btn" onClick={handleFilter}>
-                Filter
-              </button>
-            </div>
+          <h2 className="filter-title">Filter Item<span className="ccc">S</span></h2>
+          
+          {/* Price Range Filter */}
+          <div className="price-filter">
+            <input
+              type="range"
+              min="0"
+              max="10000"
+              value={rangeValue}
+              onChange={handleRangeChange}
+              className="price-range"
+            />
+            <span>₹{rangeValue}</span>
           </div>
-          <div className="current">
-            <h4>Current Category: {selectedCategory}</h4> {/* Display the selected category */}
-            <div className="sort">
-              <h5>Sort By</h5>
-              <select>
-                <option value="1">High to Low Price</option>
-                <option value="2">Low to High Price</option>
-              </select>
-            </div>
-          </div>
+
           <div className="allproduct">
             <div className="wrap">
               {loading ? (
                 <p>Loading products...</p>
-              ) : filteredProducts.length < 1 ? (
-                <p>No products available in the selected category.</p>
-              ) : (
-                filteredProducts.map((product) => (
+              ) : error ? (
+                <p>{error}</p>
+              ) : displayedProducts.length > 0 ? (
+                displayedProducts.map((product) => (
                   <div className="card" key={product._id}>
                     <img
                       src={
@@ -171,7 +159,7 @@ export const Productpage = () => {
                         <FontAwesomeIcon icon={faHeart} className="like" />
                       </button>
                       <button className="cart">
-                        <FontAwesomeIcon className="icon" icon={faShoppingCart} />
+                        <FontAwesomeIcon icon={faShoppingCart} />
                       </button>
                     </div>
                     <div className="detail">
@@ -180,6 +168,8 @@ export const Productpage = () => {
                     </div>
                   </div>
                 ))
+              ) : (
+                <p>No products found.</p>
               )}
             </div>
           </div>

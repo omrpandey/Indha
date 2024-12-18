@@ -53,5 +53,26 @@ router.post('/', upload.array('images'), async (req, res) => { // 'images' is th
     res.status(500).json({ error: 'Error adding product', details: error.message });
   }
 });
+// Fetch products grouped by categories
+router.get('/categories', async (req, res) => {
+  try {
+    const products = await Product.find();
+
+    // Group products by category
+    const categories = products.reduce((acc, product) => {
+      if (!acc[product.category]) {
+        acc[product.category] = [];
+      }
+      acc[product.category].push(product);
+      return acc;
+    }, {});
+
+    res.json(categories);
+  } catch (error) {
+    console.error("Error fetching categories:", error.message);
+    res.status(500).json({ error: 'Error fetching categories' });
+  }
+});
+
 
 module.exports = router;
