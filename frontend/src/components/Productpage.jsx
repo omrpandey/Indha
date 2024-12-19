@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./productpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useCategory } from "./CategoryContext";
+import CryptoJS from "crypto-js";
+
+// Function to hash product ID
+const hashProductId = (id) => CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(id));
 
 export const Productpage = () => {
   const { selectedCategory, searchQuery } = useCategory();
@@ -151,16 +156,22 @@ export const Productpage = () => {
             ) : displayedProducts.length > 0 ? (
               displayedProducts.map((product) => (
                 <div className="card" key={product._id}>
-                  <img
-                    src={
-                      product.images && product.images.length > 0
-                        ? product.images[0].startsWith("/")
-                          ? `http://localhost:2000${product.images[0]}`
-                          : `http://localhost:2000/${product.images[0]}`
-                        : "./assets/nw2.png"
-                    }
-                    alt={product.name}
-                  />
+                  <Link to={`/productui/${hashProductId(product._id)}`}>
+                    <img
+                      src={
+                        product.images && product.images.length > 0
+                          ? product.images[0].startsWith("/")
+                            ? `http://localhost:2000${product.images[0]}`
+                            : `http://localhost:2000/${product.images[0]}`
+                          : "./assets/nw2.png"
+                      }
+                      alt={product.name}
+                    />
+                    <div className="detail">
+                      <h5>{product.name}</h5>
+                      <p>₹{product.discountedPrice || product.price} /-</p>
+                    </div>
+                  </Link>
                   <div className="add-section">
                     <button className="cart">
                       <FontAwesomeIcon icon={faHeart} className="like" />
@@ -171,10 +182,6 @@ export const Productpage = () => {
                     >
                       <FontAwesomeIcon icon={faShoppingCart} />
                     </button>
-                  </div>
-                  <div className="detail">
-                    <h5>{product.name}</h5>
-                    <p>₹{product.discountedPrice || product.price} /-</p>
                   </div>
                 </div>
               ))
