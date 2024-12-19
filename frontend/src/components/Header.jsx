@@ -1,28 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import "./Modal.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faShoppingCart,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faShoppingCart, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import { useCategory } from "./CategoryContext"; // Import the category context
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
 export const Header = () => {
-  const { selectedCategory, setSelectedCategory } = useCategory(); // Use global category state
-  const [isLoginModalOpen, setIsLoginModalOpen] = React.useState(false);
-  const [loginData, setLoginData] = React.useState({ username: "", password: "" });
-  const [cartCount, setCartCount] = React.useState(0); // State for cart count
-  const [cartDetails, setCartDetails] = React.useState([]); // State for cart details
-  const [isCartHovered, setIsCartHovered] = React.useState(false); // State for hover status
+  const { selectedCategory, setSelectedCategory, setSearchQuery } = useCategory(); // Use global state
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
+  const [cartCount, setCartCount] = useState(0); // State for cart count
+  const [cartDetails, setCartDetails] = useState([]); // State for cart details
+  const [isCartHovered, setIsCartHovered] = useState(false); // State for hover status
 
   // Fetch cart count and details on component mount
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchCartDetails = async () => {
       try {
         const response = await axios.get("http://localhost:2000/api/cart"); // Adjust the URL as needed
@@ -42,6 +38,10 @@ export const Header = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category); // Update global category state
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value); // Update global search query
   };
 
   const toggleLoginModal = () => {
@@ -186,7 +186,11 @@ export const Header = () => {
                 </li>
               ))}
             </ul>
-            <input type="text" placeholder="Search" />
+            <input
+              type="text"
+              placeholder="Search products..."
+              onChange={handleSearchChange} // Update search query dynamically
+            />
           </div>
         </div>
         <div className="right">
