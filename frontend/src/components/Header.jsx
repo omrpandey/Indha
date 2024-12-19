@@ -18,21 +18,26 @@ export const Header = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = React.useState(false);
   const [loginData, setLoginData] = React.useState({ username: "", password: "" });
   const [cartCount, setCartCount] = React.useState(0); // State for cart count
+  const [cartDetails, setCartDetails] = React.useState([]); // State for cart details
+  const [isCartHovered, setIsCartHovered] = React.useState(false); // State for hover status
 
-  // Fetch cart count on component mount
+  // Fetch cart count and details on component mount
   React.useEffect(() => {
-    const fetchCartCount = async () => {
+    const fetchCartDetails = async () => {
       try {
         const response = await axios.get("http://localhost:2000/api/cart"); // Adjust the URL as needed
+        if (response.data.cart) {
+          setCartDetails(response.data.cart.products || []);
+        }
         if (response.data.cartCount !== undefined) {
           setCartCount(response.data.cartCount);
         }
       } catch (error) {
-        console.error("Error fetching cart count:", error.message);
+        console.error("Error fetching cart details:", error.message);
       }
     };
 
-    fetchCartCount();
+    fetchCartDetails();
   }, []);
 
   const handleCategorySelect = (category) => {
@@ -69,6 +74,10 @@ export const Header = () => {
         error.response?.data?.error || "An error occurred. Please try again."
       );
     }
+  };
+
+  const handleCartHover = (status) => {
+    setIsCartHovered(status);
   };
 
   return (
@@ -186,11 +195,28 @@ export const Header = () => {
             icon={faUser}
             onClick={toggleLoginModal}
           />
-          <div className="cart-icon">
+          <div
+            className="cart-icon"
+            onMouseEnter={() => handleCartHover(true)}
+            onMouseLeave={() => handleCartHover(false)}
+          >
             <NavLink to="/cart">
               <FontAwesomeIcon className="icon" icon={faShoppingCart} />
               {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </NavLink>
+            {isCartHovered && cartDetails.length > 0 && (
+              <div className="cart-hover-details">
+                <ul>
+                  {cartDetails.map((item, index) => (
+                    <li key={index}>
+                      <p>{item.name}</p>
+                      <p>Quantity: {item.quantity}</p>
+                      <p>Price: ₹{item.price}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
