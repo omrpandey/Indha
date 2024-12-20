@@ -133,14 +133,17 @@ export const Cart = () => {
                   }}
                 >
                   <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "5px",
-                    }}
-                  />
+  src={product && product.imageUrl && product.imageUrl.startsWith("/") 
+    ? `http://localhost:2000${product.imageUrl}` 
+    : product.imageUrl || "/default-image.jpg"} 
+  alt={product ? product.name : "Default Product"} 
+  style={{
+    width: "50px",
+    height: "50px",
+    borderRadius: "5px",
+  }}
+/>
+
                 </td>
                 <td
                   style={{

@@ -214,7 +214,12 @@ export const Header = () => {
     <ul>
       {cartDetails.map((item, index) => (
         <li key={index}>
-          <img src={item.imageUrl || "./assets/a1.jpg"} alt={item.name} /> {/* Image URL */}
+          <img
+            src={item.imageUrl && item.imageUrl.startsWith("/") 
+              ? `http://localhost:2000${item.imageUrl}`  // Check if URL is relative
+              : item.imageUrl }  // Default if no image URL
+            alt={item.name}  // Using the product name for alt text
+          />
           <p>{item.name}</p>
           <p>Quantity: {item.quantity}</p>
           <p>Price: ₹{item.price}</p>
@@ -227,6 +232,7 @@ export const Header = () => {
     </ul>
   </div>
 )}
+
 
           </div>
         <NavLink to ='/wishlist'>
