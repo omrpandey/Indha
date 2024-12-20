@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const cartRoutes = require('./routes/cart'); 
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
+const wishlistRoutes=require('./routes/wishlist');
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use('/api/', cartRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api', authRoutes);
 app.use('/api', adminAuthRoutes);
+app.use('/api',wishlistRoutes);
 app.use('/uploads', express.static('uploads'));
 
 

@@ -9,6 +9,7 @@ import { useCategory } from "./CategoryContext"; // Import the category context
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
+
 export const Header = () => {
   const { selectedCategory, setSelectedCategory, setSearchQuery } = useCategory(); // Use global state
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -209,23 +210,24 @@ export const Header = () => {
               {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </NavLink>
             {isCartHovered && cartDetails.length > 0 && (
-              <div className="cart-hover-details">
-                <ul>
-                  {cartDetails.map((item, index) => (
-                    <li key={index}>
-                      <img src="./assets/a1.jpg" alt="imagge" />
-                      <p>{item.name}</p>
-                      <p>Quantity: {item.quantity}</p>
-                      <p>Price: ₹{item.price}</p>
-                      <div className="bt">
-                        <button>View Cart</button>
-                        <button>CheckOut</button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+  <div className="cart-hover-details">
+    <ul>
+      {cartDetails.map((item, index) => (
+        <li key={index}>
+          <img src={item.imageUrl || "./assets/a1.jpg"} alt={item.name} /> {/* Image URL */}
+          <p>{item.name}</p>
+          <p>Quantity: {item.quantity}</p>
+          <p>Price: ₹{item.price}</p>
+          <div className="bt">
+            <button>View Cart</button>
+            <button>CheckOut</button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
           </div>
         <NavLink to ='/wishlist'>
         <FontAwesomeIcon

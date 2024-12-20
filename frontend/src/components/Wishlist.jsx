@@ -1,43 +1,86 @@
-import React from 'react';
-import './wish.css';
+import React, { useState, useEffect } from "react";
+import "./wish.css";
 
 export const Wishlist = () => {
-  const product = {
-    image: './assets/indha2.jpg', // Path to the product image
-    name: 'Sample Product',
-    price: 999, // Price in INR
-    quantity: 1
+  const [wishlist, setWishlist] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const response = await fetch("http://localhost:2000/api/wishlist");
+        if (!response.ok) {
+          throw new Error("Failed to fetch wishlist");
+        }
+        const data = await response.json();
+        setWishlist(data.wishlist || []);
+        setLoading(false);
+      } catch (error) {
+        setError("Error fetching wishlist");
+        setLoading(false);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
+
+  const handleAddToCart = async (productId) => {
+    try {
+      const response = await fetch("http://localhost:2000/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add product to cart");
+      }
+
+      const data = await response.json();
+      alert(data.message || "Product added to cart!");
+    } catch (error) {
+      console.error("Error adding product to cart:", error.message);
+      alert("Error adding product to cart. Please try again.");
+    }
   };
 
   return (
     <div className="wishlist-card">
-      <div className="card">
-        <img src={product.image} alt={product.name} className="product-image" />
-        <h3>{product.name}</h3>
-        <p>Price: ₹{product.price}</p>
-        <p>Quantity: {product.quantity}</p>
-        <div className="product-actions">
-          <button className="add-to-cart-button">Add to Cart</button>
-        </div>
-      </div>
-      <div className="card">
-        <img src={product.image} alt={product.name} className="product-image" />
-        <h3>{product.name}</h3>
-        <p>Price: ₹{product.price}</p>
-        <p>Quantity: {product.quantity}</p>
-        <div className="product-actions">
-          <button className="add-to-cart-button">Add to Cart</button>
-        </div>
-      </div>
-      <div className="card">
-        <img src={product.image} alt={product.name} className="product-image" />
-        <h3>{product.name}</h3>
-        <p>Price: ₹{product.price}</p>
-        <p>Quantity: {product.quantity}</p>
-        <div className="product-actions">
-          <button className="add-to-cart-button">Add to Cart</button>
-        </div>
-      </div>
+      {loading ? (
+        <p>Loading wishlist...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : wishlist.length > 0 ? (
+        wishlist.map((product) => (
+          <div className="card" key={product.productId}>
+            <img
+              src={
+                product.imageUrl?.startsWith("/")
+                  ? `http://localhost:2000${product.imageUrl}`
+                  : product.imageUrl || "./assets/nw2.png"
+              }
+              alt={product.name}
+              className="product-image"
+            />
+            <h3>{product.name}</h3>
+            <p>Price: ₹{product.price}</p>
+            <p>Quantity: 1</p>
+            <div className="product-actions">
+              <button
+                className="add-to-cart-button"
+                onClick={() => handleAddToCart(product.productId)}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p>No items in wishlist.</p>
+      )}
     </div>
   );
 };

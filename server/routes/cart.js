@@ -36,6 +36,7 @@ router.post('/cart/add', async (req, res) => {
                 discount: product.discountedPrice,
                 description: product.description,
                 quantity: 1,
+                imageUrl: product.images[0] // Add this line to include the first image
             };
             cart.products.push(productDetails);
         }

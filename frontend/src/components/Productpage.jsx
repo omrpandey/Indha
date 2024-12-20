@@ -78,6 +78,29 @@ export const Productpage = () => {
   const handleRangeChange = (e) => {
     setRangeValue(e.target.value);
   };
+  const handleAddToWishlist = async (productId) => {
+  try {
+    const response = await fetch("http://localhost:2000/api/wishlist/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ productId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add product to wishlist");
+    }
+
+    const data = await response.json();
+    alert(data.message || "Product added to wishlist!");
+  } catch (error) {
+    console.error("Error adding product to wishlist:", error.message);
+  
+    alert("Error adding product to wishlist. Please try again.");
+  }
+};
+
 
   const handleAddToCart = async (productId) => {
     try {
@@ -173,9 +196,13 @@ export const Productpage = () => {
                     </div>
                   </Link>
                   <div className="add-section">
-                    <button className="cart">
+                  <button
+                   className="cart"
+                     onClick={() => handleAddToWishlist(product._id)}
+                      >
                       <FontAwesomeIcon icon={faHeart} className="like" />
-                    </button>
+                     </button>
+
                     <button
                       className="cart"
                       onClick={() => handleAddToCart(product._id)}
