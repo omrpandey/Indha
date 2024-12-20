@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
-import "./Modal.css";
+import "./Modal.css"; 
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faShoppingCart, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faShoppingCart, faHeart, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import { useCategory } from "./CategoryContext"; // Import the category context
 import axios from "axios";
@@ -217,16 +217,22 @@ export const Header = () => {
                       <p>{item.name}</p>
                       <p>Quantity: {item.quantity}</p>
                       <p>Price: ₹{item.price}</p>
-<div className="bt">
-                      <button>View Cart</button>
-                      <button>CheckOut</button></div>
+                      <div className="bt">
+                        <button>View Cart</button>
+                        <button>CheckOut</button>
+                      </div>
                     </li>
-                    
                   ))}
                 </ul>
               </div>
             )}
           </div>
+        <NavLink to ='/wishlist'>
+        <FontAwesomeIcon
+            className="icon"
+            icon={faHeart} // Add heart icon
+          />
+        </NavLink>
         </div>
       </div>
 
