@@ -115,7 +115,7 @@ export const Header = () => {
               >
                 Product
               </NavLink>
-              <div className="dropdown">
+              {/* <div className="dropdown">
                 <NavLink to="/product/item1" className="nav-link">
                   Christmas Gifts
                 </NavLink>
@@ -131,7 +131,7 @@ export const Header = () => {
                 <NavLink to="/product/item5" className="nav-link">
                   Home Furnishing
                 </NavLink>
-              </div>
+              </div> */}
             </div>
             <NavLink
               to="/blog"
@@ -213,10 +213,15 @@ export const Header = () => {
                 <ul>
                   {cartDetails.map((item, index) => (
                     <li key={index}>
+                      <img src="./assets/a1.jpg" alt="imagge" />
                       <p>{item.name}</p>
                       <p>Quantity: {item.quantity}</p>
                       <p>Price: ₹{item.price}</p>
+<div className="bt">
+                      <button>View Cart</button>
+                      <button>CheckOut</button></div>
                     </li>
+                    
                   ))}
                 </ul>
               </div>
