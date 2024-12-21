@@ -12,6 +12,7 @@ import { Cart } from './components/Cart';
 import { Productui } from './components/Productui';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Productinsert } from './components/Productinsert';
+import {Sales} from './components/Sales'
 
 import './App.css';
 import { Wishlist } from './components/Wishlist';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/productinsert" element={<Productinsert />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/sale" element={<Sales />} />
         </Routes>
         <Footer />
       </Router>

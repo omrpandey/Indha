@@ -3,10 +3,13 @@ import "./contact.css";
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
+    option1: "",
+    option2: "",
+    telephone: "",
     subject: "",
-    message: "",
+    comments: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -18,10 +21,13 @@ export const Contact = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.fullName.trim()) errors.fullName = "Full Name is required.";
+    if (!formData.name.trim()) errors.name = "Name is required.";
     if (!formData.email.trim()) errors.email = "Email is required.";
+    if (!formData.option1.trim()) errors.option1 = "Option 1 is required.";
+    if (!formData.option2.trim()) errors.option2 = "Option 2 is required.";
+    if (!formData.telephone.trim()) errors.telephone = "Telephone is required.";
     if (!formData.subject.trim()) errors.subject = "Subject is required.";
-    if (!formData.message.trim()) errors.message = "Message is required.";
+    if (!formData.comments.trim()) errors.comments = "Comments are required.";
     return errors;
   };
 
@@ -31,7 +37,15 @@ export const Contact = () => {
     if (Object.keys(validationErrors).length === 0) {
       console.log("Form Submitted:", formData);
       alert("Your message has been sent successfully!");
-      setFormData({ fullName: "", email: "", subject: "", message: "" });
+      setFormData({
+        name: "",
+        email: "",
+        option1: "",
+        option2: "",
+        telephone: "",
+        subject: "",
+        comments: "",
+      });
     } else {
       setErrors(validationErrors);
     }
@@ -40,22 +54,24 @@ export const Contact = () => {
   return (
     <div className="contact-container">
       <div className="form-section">
-        <h2><span className="c">C</span>ontact <span className="und">Us</span></h2>
+        <h2>
+          <span className="c">C</span>ontact <span className="und">Us</span>
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Full Name</label>
+            <label>Name</label>
             <input
               type="text"
-              name="fullName"
-              placeholder="Enter your full name"
-              value={formData.fullName}
+              name="name"
+              placeholder="Enter your name"
+              value={formData.name}
               onChange={handleChange}
             />
-            {errors.fullName && <p className="error">{errors.fullName}</p>}
+            {errors.name && <p className="error">{errors.name}</p>}
           </div>
 
           <div className="form-group">
-            <label>Email Address</label>
+            <label>Email</label>
             <input
               type="email"
               name="email"
@@ -64,6 +80,46 @@ export const Contact = () => {
               onChange={handleChange}
             />
             {errors.email && <p className="error">{errors.email}</p>}
+          </div>
+
+          <div className="form-group">
+            <label>Option 1</label>
+            <select
+              name="option1"
+              value={formData.option1}
+              onChange={handleChange}
+            >
+              <option value="">Select...</option>
+              <option value="Low">Low</option>
+              <option value="High">High</option>
+            </select>
+            {errors.option1 && <p className="error">{errors.option1}</p>}
+          </div>
+
+          <div className="form-group">
+            <label>Option 2</label>
+            <select
+              name="option2"
+              value={formData.option2}
+              onChange={handleChange}
+            >
+              <option value="">Select...</option>
+              <option value="Sales Support">Sales Support</option>
+              <option value="B2B Enquiry">B2B Enquiry</option>
+            </select>
+            {errors.option2 && <p className="error">{errors.option2}</p>}
+          </div>
+
+          <div className="form-group">
+            <label>Telephone</label>
+            <input
+              type="text"
+              name="telephone"
+              placeholder="Enter your telephone"
+              value={formData.telephone}
+              onChange={handleChange}
+            />
+            {errors.telephone && <p className="error">{errors.telephone}</p>}
           </div>
 
           <div className="form-group">
@@ -79,29 +135,29 @@ export const Contact = () => {
           </div>
 
           <div className="form-group">
-            <label>Message</label>
+            <label>Comments</label>
             <textarea
-              name="message"
+              name="comments"
               rows="4"
-              placeholder="Type your message here..."
-              value={formData.message}
+              placeholder="Enter your comments"
+              value={formData.comments}
               onChange={handleChange}
             ></textarea>
-            {errors.message && <p className="error">{errors.message}</p>}
+            {errors.comments && <p className="error">{errors.comments}</p>}
           </div>
 
           <button type="submit" className="btn-submit">
-            Send Message
+            Submit
           </button>
         </form>
       </div>
 
       <div className="map-section">
         <iframe
-          title="location-map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.27991446554!2d-74.25987568709378!3d40.69767006311745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQxJzUxLjgiTiA3NMKwMTUnNTYuOSJX!5e0!3m2!1sen!2sus!4v1627917086827!5m2!1sen!2sus"
+          title="Chembur Location Map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60355.47865589116!2d72.87554958789062!3d19.06469430000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c8cf25c20d63%3A0x58a1ae847520431d!2sChembur%2C%20Mumbai%2C%20Maharashtra%20400071!5e0!3m2!1sen!2sin!4v1700450736733!5m2!1sen!2sin"
           width="100%"
-          height="550px"
+          height="50%"
           style={{ border: 0 }}
           allowFullScreen=""
           loading="lazy"
@@ -110,4 +166,3 @@ export const Contact = () => {
     </div>
   );
 };
-

@@ -1,5 +1,6 @@
 .contact-container {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
@@ -11,6 +12,28 @@
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
+  .contact-container option{
+    width: 700px;
+  }
+  /* contact.css */
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+  width: 100%; /* Ensure all form elements have the same width */
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-group select {
+  appearance: none; /* Remove default browser styling for dropdown */
+  background: white;
+}
+
   .c{
     color: orangered;
     font-family: cursive;
@@ -92,5 +115,10 @@
   }
   .map-section{
     /* margin-top: 100px;   */
-    height: 400px; 
+    height: 100%; 
+width: 100%;
+    margin: auto;
+  }
+  .map-section iframe{
+height: 300px;
   }

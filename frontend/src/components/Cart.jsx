@@ -104,7 +104,8 @@ export const Cart = () => {
                       padding: "12px",
                       fontWeight: "500",
                       fontFamily: "cursive",
-                      backgroundColor: "#f5f5f5",
+                      backgroundColor: "red", // Orange background
+                      color: "#fff", // White text
                     }}
                   >
                     {header}
@@ -121,6 +122,7 @@ export const Cart = () => {
                     border: "1px solid #ddd",
                     padding: "10px",
                     fontFamily: "monospace",
+                    fontWeight: "bold", // Added bold font weight for data
                   }}
                 >
                   {index + 1}
@@ -130,26 +132,31 @@ export const Cart = () => {
                     border: "1px solid #ddd",
                     padding: "10px",
                     fontFamily: "monospace",
+                    fontWeight: "bold", // Added bold font weight for data
                   }}
                 >
                   <img
-  src={product && product.imageUrl && product.imageUrl.startsWith("/") 
-    ? `http://localhost:2000${product.imageUrl}` 
-    : product.imageUrl || "/default-image.jpg"} 
-  alt={product ? product.name : "Default Product"} 
-  style={{
-    width: "50px",
-    height: "50px",
-    borderRadius: "5px",
-  }}
-/>
-
+                    src={
+                      product &&
+                      product.imageUrl &&
+                      product.imageUrl.startsWith("/")
+                        ? `http://localhost:2000${product.imageUrl}`
+                        : product.imageUrl || "/default-image.jpg"
+                    }
+                    alt={product ? product.name : "Default Product"}
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "5px",
+                    }}
+                  />
                 </td>
                 <td
                   style={{
                     border: "1px solid #ddd",
                     padding: "10px",
                     fontFamily: "monospace",
+                    fontWeight: "bold", // Added bold font weight for data
                   }}
                 >
                   {product.name}
@@ -159,6 +166,7 @@ export const Cart = () => {
                     border: "1px solid #ddd",
                     padding: "10px",
                     fontFamily: "monospace",
+                    fontWeight: "bold", // Added bold font weight for data
                   }}
                 >
                   ₹{product.price}
@@ -168,6 +176,7 @@ export const Cart = () => {
                     border: "1px solid #ddd",
                     padding: "10px",
                     fontFamily: "monospace",
+                    fontWeight: "bold", // Added bold font weight for data
                   }}
                 >
                   {product.quantity}
@@ -185,6 +194,10 @@ export const Cart = () => {
                       marginRight: "10px",
                       padding: "5px 10px",
                       cursor: "pointer",
+                      backgroundColor: "#ff4747", // Red background for increment
+                      color: "#fff", // White text
+                      border: "none",
+                      borderRadius: "5px",
                     }}
                   >
                     +
@@ -194,6 +207,10 @@ export const Cart = () => {
                     style={{
                       padding: "5px 10px",
                       cursor: "pointer",
+                      backgroundColor: "#4caf50", // Green background for decrement
+                      color: "#fff", // White text
+                      border: "none",
+                      borderRadius: "5px",
                     }}
                   >
                     -
@@ -223,6 +240,10 @@ export const Cart = () => {
             fontFamily: "cursive",
             fontWeight: "500",
             marginBottom: "20px",
+            backgroundColor: "red", // Orange background for final bill heading
+            color: "#fff", // White text
+            padding: "10px",
+            borderRadius: "5px",
           }}
         >
           Final Bill

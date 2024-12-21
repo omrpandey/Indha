@@ -55,7 +55,7 @@ export const Wishlist = () => {
         <p>{error}</p>
       ) : wishlist.length > 0 ? (
         wishlist.map((product) => (
-          <div className="card" key={product.productId}>
+          <div className="product-card" key={product.productId}>
             <img
               src={
                 product.imageUrl?.startsWith("/")
@@ -63,18 +63,19 @@ export const Wishlist = () => {
                   : product.imageUrl || "./assets/nw2.png"
               }
               alt={product.name}
-              className="product-image"
             />
-            <h3>{product.name}</h3>
-            <p>Price: ₹{product.price}</p>
-            <p>Quantity: 1</p>
-            <div className="product-actions">
-              <button
-                className="add-to-cart-button"
-                onClick={() => handleAddToCart(product.productId)}
-              >
-                Add to Cart
-              </button>
+            <div className="wish-content">
+              <h3>{product.name}</h3>
+              <p>Price: ₹{product.price}</p>
+              <div className="btn-container">
+                <button
+                  className="btn add-to-cart"
+                  onClick={() => handleAddToCart(product.productId)}
+                >
+                  Add to Cart
+                </button>
+                <button className="btn wishlist">Add to Wishlist</button>
+              </div>
             </div>
           </div>
         ))

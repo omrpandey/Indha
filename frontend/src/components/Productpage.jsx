@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useCategory } from "./CategoryContext";
 import CryptoJS from "crypto-js";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Function to hash product ID
 const hashProductId = (id) => CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(id));
@@ -78,29 +80,34 @@ export const Productpage = () => {
   const handleRangeChange = (e) => {
     setRangeValue(e.target.value);
   };
+
   const handleAddToWishlist = async (productId) => {
-  try {
-    const response = await fetch("http://localhost:2000/api/wishlist/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ productId }),
-    });
+    try {
+      const response = await fetch("http://localhost:2000/api/wishlist/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId }),
+      });
 
-    if (!response.ok) {
-      throw new Error("Failed to add product to wishlist");
+      if (!response.ok) {
+        throw new Error("Failed to add product to wishlist");
+      }
+
+      const data = await response.json();
+      toast.success(data.message || "Product added to wishlist!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      console.error("Error adding product to wishlist:", error.message);
+      toast.error("Error adding product to wishlist. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
-
-    const data = await response.json();
-    alert(data.message || "Product added to wishlist!");
-  } catch (error) {
-    console.error("Error adding product to wishlist:", error.message);
-  
-    alert("Error adding product to wishlist. Please try again.");
-  }
-};
-
+  };
 
   const handleAddToCart = async (productId) => {
     try {
@@ -117,15 +124,22 @@ export const Productpage = () => {
       }
 
       const data = await response.json();
-      alert(data.message || "Product added to cart!");
+      toast.success(data.message || "Product added to cart!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } catch (error) {
       console.error("Error adding product to cart:", error.message);
-      alert("Error adding product to cart. Please try again.");
+      toast.error("Error adding product to cart. Please try again.", {
+        position: "top",
+        autoClose: 3000,
+      });
     }
   };
 
   return (
     <div className="category">
+      <ToastContainer /> {/* Add ToastContainer here */}
       <div className="head">
         <h3>
           <span className="cc">C</span>atego
@@ -167,7 +181,7 @@ export const Productpage = () => {
             onChange={handleRangeChange}
             className="price-range"
           />
-          <span className="price-range">₹{rangeValue}</span>
+          <span className="price-range">Current Price :₹{rangeValue}</span>
         </div>
 
         <div className="allproduct">
@@ -196,12 +210,12 @@ export const Productpage = () => {
                     </div>
                   </Link>
                   <div className="add-section">
-                  <button
-                   className="cart"
-                     onClick={() => handleAddToWishlist(product._id)}
-                      >
+                    <button
+                      className="cart"
+                      onClick={() => handleAddToWishlist(product._id)}
+                    >
                       <FontAwesomeIcon icon={faHeart} className="like" />
-                     </button>
+                    </button>
 
                     <button
                       className="cart"

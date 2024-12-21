@@ -10,7 +10,7 @@
   
     /* background-color: yellow; */
     height: auto;
-   width: 90%;
+   width: 95%;
    margin: auto;
    display: flex;
    gap: 20px;
@@ -231,13 +231,7 @@ color: rgba(0, 0, 0, 0.742);
     outline: none;
     transition: all 0.3s ease-in-out;
 }
-img{
-    height: 40px;
-}
-img:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
-}
+
 .allproduct{
     height: auto;
 }
@@ -258,23 +252,25 @@ img:hover {
     height: 400px;
     width: 280px;
     /* align-items: start; */
-    box-shadow: 10px 25px 30px silver;
+    box-shadow: 0px 5px 10px silver;
     transition: transform 0.3s, box-shadow 0.3s ease-in-out;
 }
 .allproduct .wrap .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 10px 30px 40px silver;
+    transform: translateY(-2px);
+    box-shadow: 5px 20px 20px silver;
 }
 .allproduct .wrap .card img{
     height: 270px !important;
-    width: 95%;
+    width: 105% !important;
     margin: auto;
-    box-shadow: 5px 5px 20px silver;
+    /* box-shadow: 5px 5px 20px silver; */
     border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+    /* transition: transform 0.3s ease-in-out; */
+    border-bottom: 1px solid rgba(245, 94, 40, 0.901);
+    /* border-left: 1px solid orangered; */
 }
 .allproduct .wrap .card img:hover {
-    transform: scale(1.02);
+    /* transform: scale(1.02); */
 }
 .allproduct .wrap .card .cart{
     margin-left: 15px;
@@ -298,9 +294,10 @@ img:hover {
 }
 .allproduct .wrap .card .detail{
     display: flex;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     margin-top: 15px;
     padding: 5px 0px;
 }
@@ -308,6 +305,7 @@ img:hover {
     font-family: cursive;
     font-weight: 500;
     font-size: 16px;
+    color: black;
 }
 .allproduct .wrap .card .detail p{
     font-family: cursive;
@@ -317,4 +315,7 @@ img:hover {
 }
 .add-section{
     display: flex;
+margin: 5px 0px;
+    justify-content: center;
 }
+

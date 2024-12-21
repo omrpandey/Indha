@@ -10,7 +10,7 @@ const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const wishlistRoutes=require('./routes/wishlist');
 
 dotenv.config();
-
+ 
 const app = express();
 const PORT = process.env.PORT || 2000;
 
