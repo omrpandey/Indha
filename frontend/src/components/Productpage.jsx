@@ -154,9 +154,9 @@ export const Productpage = () => {
       </div>
 
       <div className="product-side">
-        <h2 className="filter-title">
+        <h6 className="filter-title">
           Filter Item<span className="ccc">S</span>
-        </h2>
+        </h6>
 
         <div className="price-filter">
           <input
@@ -167,7 +167,7 @@ export const Productpage = () => {
             onChange={handleRangeChange}
             className="price-range"
           />
-          <span>₹{rangeValue}</span>
+          <span className="price-range">₹{rangeValue}</span>
         </div>
 
         <div className="allproduct">
