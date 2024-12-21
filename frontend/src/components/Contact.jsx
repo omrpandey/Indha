@@ -31,26 +31,51 @@ export const Contact = () => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Form Submitted:", formData);
-      alert("Your message has been sent successfully!");
-      setFormData({
-        name: "",
-        email: "",
-        option1: "",
-        option2: "",
-        telephone: "",
-        subject: "",
-        comments: "",
-      });
+      try {
+        const response = await fetch('http://localhost:2000/api/contact/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            priority: formData.option1,
+            department: formData.option2,
+            telephone: formData.telephone,
+            subject: formData.subject,
+            comment: formData.comments,
+          }),
+        });
+  
+        if (response.ok) {
+          alert('Your message has been sent successfully!');
+          setFormData({
+            name: "",
+            email: "",
+            option1: "",
+            option2: "",
+            telephone: "",
+            subject: "",
+            comments: "",
+          });
+        } else {
+          const errorData = await response.json();
+          alert(`Error: ${errorData.error}`);
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('An error occurred. Please try again later.');
+      }
     } else {
       setErrors(validationErrors);
     }
   };
-
+  
   return (
     <div className="contact-container">
       <div className="form-section">
