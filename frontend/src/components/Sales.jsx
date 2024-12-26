@@ -4,7 +4,16 @@ import CryptoJS from "crypto-js";
 import "./productui.css";
 
 // Function to decode the hashed product ID
-const decodeProductId = (hash) => CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(hash));
+const decodeProductId = (hash) => {
+  try {
+    const decoded = CryptoJS.enc.Base64.parse(hash).toString(CryptoJS.enc.Utf8);
+    if (!decoded) throw new Error("Invalid Base64 string");
+    return decoded;
+  } catch (error) {
+    console.error("Failed to decode product ID:", error.message);
+    return null; // Return null if decoding fails
+  }
+};
 
 export const Sales = () => {
   const { productId: hashedId } = useParams(); // Get hashed product ID from URL
@@ -15,6 +24,12 @@ export const Sales = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!productId) {
+      setError("Invalid product ID.");
+      setLoading(false);
+      return;
+    }
+
     const fetchProduct = async () => {
       try {
         const response = await fetch(`http://localhost:2000/api/products/${productId}`);
@@ -41,7 +56,7 @@ export const Sales = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ productId: product._id }), // Use the decoded product ID
+        body: JSON.stringify({ productId: product?._id }), // Use the decoded product ID
       });
 
       if (!response.ok) {
@@ -63,7 +78,7 @@ export const Sales = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ productId: product._id }), // Use the decoded product ID
+        body: JSON.stringify({ productId: product?._id }), // Use the decoded product ID
       });
 
       if (!response.ok) {

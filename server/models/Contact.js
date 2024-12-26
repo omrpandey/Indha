@@ -15,12 +15,12 @@ const contactSchema = new mongoose.Schema({
   },
   priority: {
     type: String,
-    enum: ['Low', 'Medium', 'High'],
+    enum: ['Low', 'High'],
     required: true,
   },
   department: {
     type: String,
-    enum: ['Sales Support', 'Technical Support', 'General Inquiry'],
+    enum: ['Sales Support', 'B2B Enquiry'],
     required: true,
   },
   telephone: {

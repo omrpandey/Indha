@@ -108,7 +108,7 @@ export const Contact = () => {
           </div>
 
           <div className="form-group">
-            <label>Option 1</label>
+            <label>Option 1 </label>
             <select
               name="option1"
               value={formData.option1}
