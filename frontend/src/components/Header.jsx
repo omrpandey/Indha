@@ -83,6 +83,7 @@ export const Header = () => {
 
   return (
     <>
+
       <div className="header">
         <div className="logo">
           <img src="./assets/ndha1.webp" alt="Logo 1" />
@@ -109,7 +110,7 @@ export const Header = () => {
             </NavLink>
             <div className="dropdown-container">
               <NavLink
-                to="/product"
+                to="/productpage"
                 className={({ isActive }) =>
                   isActive ? "active nav-link" : "nav-link"
                 }

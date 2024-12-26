@@ -1,0 +1,115 @@
+/* layout.css */
+
+/* Admin container uses Flexbox to align sidebar and content */
+.admin-container {
+  display: flex;
+  height: calc(100vh - 60px); /* Subtract height of header */
+  /* padding-top: 60px; Add padding to make space for header */
+}
+
+.adm-sidebar {
+  height: 65%; /* Ensure sidebar takes full height */
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  box-shadow: 10px 0px 10px silver;
+  color: #333;
+  position: relative; /* Ensure it stays on the left side */
+}
+.adm-sidebar h2{
+  font-size: 22px;
+}
+/* Adjusted list styles for left alignment */
+.adm-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* Remove margin for list items */
+  display: flex;
+  flex-direction: column; /* Stack the list items vertically */
+}
+
+.adm-sidebar ul li {
+  margin: 5px 0;
+  color: rgba(0, 0, 0, 0.737);
+  font-family: cursive;
+}
+
+.adm-sidebar ul li a {
+  color: rgba(0, 0, 0, 0.751);
+  text-decoration: none;
+  display: block; /* Make the entire area clickable */
+  padding: 7px;
+}
+
+/* Active link styling */
+.admin-container .active {
+  background-color: orangered; /* Highlight active link with orange */
+  color: white;
+  border-radius: 4px;
+  padding: 7px;
+}
+
+/* Content area should grow to fill available space and allow scrolling if needed */
+.adm-content {
+  flex-grow: 1;
+  width: calc(100% - 250px); /* Increase width of content by subtracting sidebar width */
+  padding: 20px;
+  overflow-y: auto;
+  /* margin-top: 20px; */
+   /* Add some margin if there's any spacing issue */
+  min-height: 100%; /* Ensure content area takes up remaining space */
+  height: calc(100vh - 60px); /* Ensure content takes up space below the header */
+}
+
+/* Header styles */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  z-index: 100;
+  text-align: center;
+}
+
+footer {
+  padding: 10px;
+  text-align: center;
+  background-color: #333;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10; /* Make sure footer stays above other content */
+}
+
+/* Form container styling */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+
+.form-container input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.form-container button {
+  background-color: orangered;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #e64a19;
+}
