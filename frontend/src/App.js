@@ -1,7 +1,7 @@
 import { Header } from "./components/Header";
 import { Home } from "./components/Home";
 import { Footer } from "./components/Footer";
-import { Dashboard } from "./Admin/Dashboard";
+import { Dashboard } from "./components/Dashboard";
 import { About } from "./components/About";
 import { Blog } from "./components/Blog";
 import { Join } from "./components/Join";
@@ -13,8 +13,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Productinsert } from "./components/Productinsert";
 import { Sales } from "./components/Sales";
 import { Wishlist } from "./components/Wishlist";
-import { Layout } from "./Admin/Layout";
-import { Address } from './Admin/Address'
+import { Layout } from "./components/Layout";
+import { Address } from './components/Address'
 import "./App.css";
 
 export const App = () => {
@@ -36,7 +36,7 @@ export const App = () => {
 
           {/* Admin Routes */}
           <Route path="/admin/*" element={<Layout />}>
-           <Route index element={<Dashboard />} /> {/* Default route */}
+           <Route path="dashboard" element={<Dashboard />} /> {/* Default route */}
           <Route path="address" element={<Address />} />
           <Route path="productinsert" element={<Productinsert />} />
           <Route path="sale" element={<Sales />} />
