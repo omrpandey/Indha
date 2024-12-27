@@ -62,7 +62,8 @@ export const Header = () => {
       if (response.data.token) {
         toast.success(isAdminLogin ? "Admin login successful!" : "User login successful!");
         localStorage.setItem("token", response.data.token);
-        Cookies.set("username", loginData.username); // Save username in cookie
+        Cookies.set("username", loginData.username);
+        Cookies.set("token", response.data.token);  // Save username in cookie
   
         // Close modal
         setIsLoginModalOpen(false);

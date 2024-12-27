@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie"; // Import js-cookie to manage cookies
 import "./layout.css"; // Ensure the CSS file exists
@@ -12,6 +12,9 @@ export const Layout = () => {
   useEffect(() => {
     const token = Cookies.get("token");
     const storedUsername = Cookies.get("username"); // Get username from cookie
+    console.log("Token:", token); // Check if token exists
+    console.log("Username:", storedUsername); // Check if username exists
+
     setIsLoggedIn(!!token); // If token exists, set user as logged in
     setUsername(storedUsername || "User"); // Set username, fallback to "User"
   }, []);
@@ -22,7 +25,7 @@ export const Layout = () => {
     Cookies.remove("username"); // Remove the username cookie
     setIsLoggedIn(false); // Update the login state
     setUsername(""); // Clear the username
-    navigate("/"); // Redirect to the homepage (or login page)
+    navigate("/login"); // Redirect to the login page after logout
   };
 
   return (
