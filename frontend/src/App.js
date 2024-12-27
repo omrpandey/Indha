@@ -36,10 +36,10 @@ export const App = () => {
 
           {/* Admin Routes */}
           <Route path="/admin/*" element={<Layout />}>
+           <Route index element={<Dashboard />} /> {/* Default route */}
           <Route path="address" element={<Address />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="productinsert" element={<Productinsert />} />
-            <Route path="sale" element={<Sales />} />
+          <Route path="productinsert" element={<Productinsert />} />
+          <Route path="sale" element={<Sales />} />
           </Route>
         </Routes>
         <Footer />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "./Header.css";
-import "./Modal.css"; 
+import "./Modal.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShoppingCart, faHeart, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +10,6 @@ import { useCategory } from "./CategoryContext"; // Import the category context
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
-
 export const Header = () => {
   const { selectedCategory, setSelectedCategory, setSearchQuery } = useCategory(); // Use global state
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -17,6 +17,7 @@ export const Header = () => {
   const [cartCount, setCartCount] = useState(0); // State for cart count
   const [cartDetails, setCartDetails] = useState([]); // State for cart details
   const [isCartHovered, setIsCartHovered] = useState(false); // State for hover status
+  const navigate = useNavigate(); // Initialize navigation
 
   // Fetch cart count and details on component mount
   useEffect(() => {
@@ -56,19 +57,22 @@ export const Header = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const isAdminLogin = loginData.username === "admin"; // Admin login condition
-      let loginUrl = isAdminLogin
+      const loginUrl = isAdminLogin
         ? "http://localhost:2000/api/admin/login"
         : "http://localhost:2000/api/user/login";
-
+  
       const response = await axios.post(loginUrl, loginData);
-
+  
       if (response.data.token) {
         toast.success(isAdminLogin ? "Admin login successful!" : "User login successful!");
         localStorage.setItem("token", response.data.token);
         setIsLoginModalOpen(false); // Close modal after successful login
+  
+        // Navigate to admin layout or other pages
+        navigate(isAdminLogin ? "/admin" : "/"); // Redirect to Layout page for admin
       }
     } catch (error) {
       toast.error(
@@ -76,6 +80,7 @@ export const Header = () => {
       );
     }
   };
+  
 
   const handleCartHover = (status) => {
     setIsCartHovered(status);
@@ -83,7 +88,6 @@ export const Header = () => {
 
   return (
     <>
-
       <div className="header">
         <div className="logo">
           <img src="./assets/ndha1.webp" alt="Logo 1" />
@@ -117,23 +121,6 @@ export const Header = () => {
               >
                 Product
               </NavLink>
-              {/* <div className="dropdown">
-                <NavLink to="/product/item1" className="nav-link">
-                  Christmas Gifts
-                </NavLink>
-                <NavLink to="/product/item2" className="nav-link">
-                  Festival Needs
-                </NavLink>
-                <NavLink to="/product/item3" className="nav-link">
-                  Corporate Gifting
-                </NavLink>
-                <NavLink to="/product/item4" className="nav-link">
-                  Sustainable Products
-                </NavLink>
-                <NavLink to="/product/item5" className="nav-link">
-                  Home Furnishing
-                </NavLink>
-              </div> */}
             </div>
             <NavLink
               to="/blog"
@@ -211,37 +198,37 @@ export const Header = () => {
               {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </NavLink>
             {isCartHovered && cartDetails.length > 0 && (
-  <div className="cart-hover-details">
-    <ul>
-      {cartDetails.map((item, index) => (
-        <li key={index}>
-          <img
-            src={item.imageUrl && item.imageUrl.startsWith("/") 
-              ? `http://localhost:2000${item.imageUrl}`  // Check if URL is relative
-              : item.imageUrl }  // Default if no image URL
-            alt={item.name}  // Using the product name for alt text
-          />
-          <p>{item.name}</p>
-          <p>Quantity: {item.quantity}</p>
-          <p>Price: ₹{item.price}</p>
-          <div className="bt">
-            <button>View Cart</button>
-            <button>CheckOut</button>
+              <div className="cart-hover-details">
+                <ul>
+                  {cartDetails.map((item, index) => (
+                    <li key={index}>
+                      <img
+                        src={
+                          item.imageUrl && item.imageUrl.startsWith("/")
+                            ? `http://localhost:2000${item.imageUrl}` // Check if URL is relative
+                            : item.imageUrl // Default if no image URL
+                        }
+                        alt={item.name} // Using the product name for alt text
+                      />
+                      <p>{item.name}</p>
+                      <p>Quantity: {item.quantity}</p>
+                      <p>Price: ₹{item.price}</p>
+                      <div className="bt">
+                        <button>View Cart</button>
+                        <button>CheckOut</button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
-
-
-          </div>
-        <NavLink to ='/wishlist'>
-        <FontAwesomeIcon
-            className="icon"
-            icon={faHeart} // Add heart icon
-          />
-        </NavLink>
+          <NavLink to="/wishlist">
+            <FontAwesomeIcon
+              className="icon"
+              icon={faHeart} // Add heart icon
+            />
+          </NavLink>
         </div>
       </div>
 
@@ -291,9 +278,7 @@ export const Header = () => {
           <div className="modal-overlay" onClick={toggleLoginModal}></div>
         </div>
       )}
-
-      {/* Toast Notifications */}
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+      <ToastContainer position="top-center" autoClose={3000} />
     </>
   );
 };
