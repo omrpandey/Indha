@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useCategory } from "./CategoryContext";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie"; // Import js-cookie
 
 export const Header = () => {
   const { selectedCategory, setSelectedCategory, setSearchQuery } = useCategory();
@@ -49,32 +50,38 @@ export const Header = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const isAdminLogin = loginData.username === "admin";
       const loginUrl = isAdminLogin
         ? "http://localhost:2000/api/admin/login"
         : "http://localhost:2000/api/user/login";
-
+  
       const response = await axios.post(loginUrl, loginData);
-
+  
       if (response.data.token) {
         toast.success(isAdminLogin ? "Admin login successful!" : "User login successful!");
         localStorage.setItem("token", response.data.token);
-
-        // Close modal and navigate
+        Cookies.set("username", loginData.username); // Save username in cookie
+  
+        // Close modal
         setIsLoginModalOpen(false);
-        navigate(isAdminLogin ? "/admin" : "/");
+  
+        // Navigation logic
+        if (isAdminLogin) {
+          //navigate("/adminlayout"); // Navigate to AdminLayout for admins
+        } else {
+          navigate("/admin/dashboard"); // Navigate to Layout for users
+        }
       }
     } catch (error) {
-      toast.error(
-        error.response?.data?.error || "An error occurred. Please try again."
-      );
+      toast.error(error.response?.data?.error || "An error occurred. Please try again.");
     }
   };
-
-  const handleCartHover = (status) => {
-    setIsCartHovered(status);
+  
+  // Define the handleCartHover function
+  const handleCartHover = (isHovered) => {
+    setIsCartHovered(isHovered);
   };
 
   return (
@@ -128,8 +135,8 @@ export const Header = () => {
           <FontAwesomeIcon className="icon" icon={faUser} onClick={toggleLoginModal} />
           <div
             className="cart-icon"
-            onMouseEnter={() => handleCartHover(true)}
-            onMouseLeave={() => handleCartHover(false)}
+            onMouseEnter={() => handleCartHover(true)} // Updated to call handleCartHover
+            onMouseLeave={() => handleCartHover(false)} // Updated to call handleCartHover
           >
             <NavLink to="/cart">
               <FontAwesomeIcon className="icon" icon={faShoppingCart} />
@@ -195,7 +202,6 @@ export const Header = () => {
           <div className="modal-overlay" onClick={toggleLoginModal}></div>
         </div>
       )}
-      {/* <ToastContainer position="top-center" autoClose={3000} /> */}
     </>
   );
 };

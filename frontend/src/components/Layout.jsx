@@ -1,14 +1,35 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"; // Import js-cookie to manage cookies
 import "./layout.css"; // Ensure the CSS file exists
 
 export const Layout = () => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState(""); // State to store the username
+
+  // Check if the user is logged in by verifying the cookie
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const storedUsername = Cookies.get("username"); // Get username from cookie
+    setIsLoggedIn(!!token); // If token exists, set user as logged in
+    setUsername(storedUsername || "User"); // Set username, fallback to "User"
+  }, []);
+
+  // Logout handler
+  const handleLogout = () => {
+    Cookies.remove("token"); // Remove the token cookie
+    Cookies.remove("username"); // Remove the username cookie
+    setIsLoggedIn(false); // Update the login state
+    setUsername(""); // Clear the username
+    navigate("/"); // Redirect to the homepage (or login page)
+  };
+
   return (
     <>
-
       <div className="admin-container">
         <div className="adm-sidebar">
-          <h2>Welcome Pahadi</h2>
+          <h2>Welcome {username}</h2> {/* Dynamic username */}
           <ul>
             <li>
               <NavLink to="/admin/dashboard" className={({ isActive }) => (isActive ? "active" : "")}>
@@ -21,7 +42,7 @@ export const Layout = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/admin/download" className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink to="/productpage" className={({ isActive }) => (isActive ? "active" : "")}>
                 Downloads
               </NavLink>
             </li>
@@ -35,11 +56,13 @@ export const Layout = () => {
                 Account Details
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/admin/logout" className={({ isActive }) => (isActive ? "active" : "")}>
-                Log-Out
-              </NavLink>
-            </li>
+            {isLoggedIn && (
+              <li>
+                <NavLink to="/" onClick={handleLogout} className={({ isActive }) => (isActive ? "active" : "")}>
+                  Log-Out
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
         <div className="adm-content">
