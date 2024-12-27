@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import "./Modal.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShoppingCart, faHeart, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
-import { useCategory } from "./CategoryContext"; // Import the category context
+import { useCategory } from "./CategoryContext";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
 export const Header = () => {
-  const { selectedCategory, setSelectedCategory, setSearchQuery } = useCategory(); // Use global state
+  const { selectedCategory, setSelectedCategory, setSearchQuery } = useCategory();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [loginData, setLoginData] = useState({ username: "", password: "" });
-  const [cartCount, setCartCount] = useState(0); // State for cart count
-  const [cartDetails, setCartDetails] = useState([]); // State for cart details
-  const [isCartHovered, setIsCartHovered] = useState(false); // State for hover status
-  const navigate = useNavigate(); // Initialize navigation
+  const [cartCount, setCartCount] = useState(0);
+  const [cartDetails, setCartDetails] = useState([]);
+  const [isCartHovered, setIsCartHovered] = useState(false);
+  const navigate = useNavigate();
 
-  // Fetch cart count and details on component mount
+  // Fetch cart details on mount
   useEffect(() => {
     const fetchCartDetails = async () => {
       try {
-        const response = await axios.get("http://localhost:2000/api/cart"); // Adjust the URL as needed
+        const response = await axios.get("http://localhost:2000/api/cart");
         if (response.data.cart) {
           setCartDetails(response.data.cart.products || []);
         }
@@ -38,16 +38,8 @@ export const Header = () => {
     fetchCartDetails();
   }, []);
 
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category); // Update global category state
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value); // Update global search query
-  };
-
   const toggleLoginModal = () => {
-    setIsLoginModalOpen(!isLoginModalOpen);
+    setIsLoginModalOpen((prev) => !prev);
   };
 
   const handleInputChange = (e) => {
@@ -57,22 +49,22 @@ export const Header = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const isAdminLogin = loginData.username === "admin"; // Admin login condition
+      const isAdminLogin = loginData.username === "admin";
       const loginUrl = isAdminLogin
         ? "http://localhost:2000/api/admin/login"
         : "http://localhost:2000/api/user/login";
-  
+
       const response = await axios.post(loginUrl, loginData);
-  
+
       if (response.data.token) {
         toast.success(isAdminLogin ? "Admin login successful!" : "User login successful!");
         localStorage.setItem("token", response.data.token);
-        setIsLoginModalOpen(false); // Close modal after successful login
-  
-        // Navigate to admin layout or other pages
-        navigate(isAdminLogin ? "/admin" : "/"); // Redirect to Layout page for admin
+
+        // Close modal and navigate
+        setIsLoginModalOpen(false);
+        navigate(isAdminLogin ? "/admin" : "/");
       }
     } catch (error) {
       toast.error(
@@ -80,7 +72,6 @@ export const Header = () => {
       );
     }
   };
-  
 
   const handleCartHover = (status) => {
     setIsCartHovered(status);
@@ -95,82 +86,33 @@ export const Header = () => {
         </div>
         <div className="content">
           <div className="links">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "active nav-link" : "nav-link"
-              }
-              exact
-            >
+            <NavLink to="/" className="nav-link" exact>
               Home
             </NavLink>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? "active nav-link" : "nav-link"
-              }
-            >
+            <NavLink to="/about" className="nav-link">
               About
             </NavLink>
-            <div className="dropdown-container">
-              <NavLink
-                to="/productpage"
-                className={({ isActive }) =>
-                  isActive ? "active nav-link" : "nav-link"
-                }
-              >
-                Product
-              </NavLink>
-            </div>
-            <NavLink
-              to="/blog"
-              className={({ isActive }) =>
-                isActive ? "active nav-link" : "nav-link"
-              }
-            >
+            <NavLink to="/productpage" className="nav-link">
+              Product
+            </NavLink>
+            <NavLink to="/blog" className="nav-link">
               Blog
             </NavLink>
-            <NavLink
-              to="/join"
-              className={({ isActive }) =>
-                isActive ? "active nav-link" : "nav-link"
-              }
-            >
+            <NavLink to="/join" className="nav-link">
               Join Us
             </NavLink>
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                isActive ? "active nav-link" : "nav-link"
-              }
-            >
+            <NavLink to="/contact" className="nav-link">
               Contact Us
             </NavLink>
-            <NavLink
-              to="/sale"
-              className={({ isActive }) =>
-                isActive ? "active nav-link" : "nav-link"
-              }
-            >
+            <NavLink to="/sale" className="nav-link">
               Sale
             </NavLink>
           </div>
           <div className="search">
-            <p>{selectedCategory}</p> {/* Use global state for category */}
+            <p>{selectedCategory}</p>
             <ul className="search-dropdown">
-              {[
-                "All Categories",
-                "Children", // Added "Children" category
-                "Electronics",
-                "Fashion",
-                "Home & Kitchen",
-                "Books",
-                "Beauty Products",
-              ].map((category) => (
-                <li
-                  key={category}
-                  onClick={() => handleCategorySelect(category)} // Update global state
-                >
+              {["All Categories", "Children", "Electronics", "Fashion", "Home & Kitchen", "Books", "Beauty Products"].map((category) => (
+                <li key={category} onClick={() => setSelectedCategory(category)}>
                   <NavLink to="#">{category}</NavLink>
                 </li>
               ))}
@@ -178,16 +120,12 @@ export const Header = () => {
             <input
               type="text"
               placeholder="Search products..."
-              onChange={handleSearchChange} // Update search query dynamically
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
         </div>
         <div className="right">
-          <FontAwesomeIcon
-            className="icon"
-            icon={faUser}
-            onClick={toggleLoginModal}
-          />
+          <FontAwesomeIcon className="icon" icon={faUser} onClick={toggleLoginModal} />
           <div
             className="cart-icon"
             onMouseEnter={() => handleCartHover(true)}
@@ -203,20 +141,12 @@ export const Header = () => {
                   {cartDetails.map((item, index) => (
                     <li key={index}>
                       <img
-                        src={
-                          item.imageUrl && item.imageUrl.startsWith("/")
-                            ? `http://localhost:2000${item.imageUrl}` // Check if URL is relative
-                            : item.imageUrl // Default if no image URL
-                        }
-                        alt={item.name} // Using the product name for alt text
+                        src={item.imageUrl.startsWith("/") ? `http://localhost:2000${item.imageUrl}` : item.imageUrl}
+                        alt={item.name}
                       />
                       <p>{item.name}</p>
                       <p>Quantity: {item.quantity}</p>
                       <p>Price: ₹{item.price}</p>
-                      <div className="bt">
-                        <button>View Cart</button>
-                        <button>CheckOut</button>
-                      </div>
                     </li>
                   ))}
                 </ul>
@@ -224,21 +154,15 @@ export const Header = () => {
             )}
           </div>
           <NavLink to="/wishlist">
-            <FontAwesomeIcon
-              className="icon"
-              icon={faHeart} // Add heart icon
-            />
+            <FontAwesomeIcon className="icon" icon={faHeart} />
           </NavLink>
         </div>
       </div>
 
-      {/* Login Modal */}
       {isLoginModalOpen && (
         <div className="modal-wrapper">
           <div className="modal">
-            <h2>
-              <span className="or">Welcome</span> Back! Please Login
-            </h2>
+            <h2>Welcome Back! Please Login</h2>
             <form onSubmit={handleLogin}>
               <div className="input-group">
                 <label htmlFor="username">Username</label>
@@ -248,7 +172,6 @@ export const Header = () => {
                   name="username"
                   value={loginData.username}
                   onChange={handleInputChange}
-                  placeholder="Enter your username"
                   required
                 />
               </div>
@@ -260,25 +183,19 @@ export const Header = () => {
                   name="password"
                   value={loginData.password}
                   onChange={handleInputChange}
-                  placeholder="Enter your password"
                   required
                 />
               </div>
-              <button type="submit" className="login-button">
-                Login
-              </button>
+              <button type="submit" className="login-button">Login</button>
             </form>
             <button className="close-modal" onClick={toggleLoginModal}>
-              <FontAwesomeIcon
-                icon={faXmark}
-                style={{ color: "red", fontSize: "24px" }}
-              />
+              <FontAwesomeIcon icon={faXmark} style={{ color: "red", fontSize: "24px" }} />
             </button>
           </div>
           <div className="modal-overlay" onClick={toggleLoginModal}></div>
         </div>
       )}
-      <ToastContainer position="top-center" autoClose={3000} />
+      {/* <ToastContainer position="top-center" autoClose={3000} /> */}
     </>
   );
 };
