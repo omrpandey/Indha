@@ -74,7 +74,7 @@ export const Wishlist = () => {
                 >
                   Add to Cart
                 </button>
-                <button className="btn wishlist">Add to Wishlist</button>
+                <button className="btn wishlist">Remove Wishlist</button>
               </div>
             </div>
           </div>

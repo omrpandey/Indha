@@ -148,7 +148,7 @@ export const Dashboard = () => {
         <div style={styles.userStats}>
           {/* Total Orders */}
           <div style={styles.statsCard}>
-            <h3 style={styles.statsCardTitle}>Total Orders</h3>
+            <h3 style={styles.statsCardTitle}>Cart Count</h3>
             <h4 style={styles.statsCardAmount}>{userStats.totalOrders}</h4>
           </div>
 

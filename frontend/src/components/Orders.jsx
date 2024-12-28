@@ -45,7 +45,8 @@ export const Orders = () => {
       >
         <h3
           style={{
-            fontWeight: "600",
+            fontFamily:"Cursive",
+            fontWeight: "500",
             backgroundColor: "#d32f2f",
             color: "#fff",
             padding: "15px",
