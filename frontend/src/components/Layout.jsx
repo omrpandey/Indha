@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"; // Import js-cookie to manage cookies
-import "./layout.css"; // Ensure the CSS file exists
+import Cookies from "js-cookie";
+import "./layout.css";
 
 export const Layout = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState(""); // State to store the username
+  const [username, setUsername] = useState("");
 
-  // Check if the user is logged in by verifying the cookie
   useEffect(() => {
     const token = Cookies.get("token");
-    const storedUsername = Cookies.get("username"); // Get username from cookie
-    console.log("Token:", token); // Check if token exists
-    console.log("Username:", storedUsername); // Check if username exists
-
-    setIsLoggedIn(!!token); // If token exists, set user as logged in
-    setUsername(storedUsername || "User"); // Set username, fallback to "User"
+    const storedUsername = Cookies.get("username");
+    setIsLoggedIn(!!token);
+    setUsername(storedUsername || "User");
   }, []);
 
-  // Logout handler
   const handleLogout = () => {
-    Cookies.remove("token"); // Remove the token cookie
-    Cookies.remove("username"); // Remove the username cookie
-    setIsLoggedIn(false); // Update the login state
-    setUsername(""); // Clear the username
-    navigate("/login"); // Redirect to the login page after logout
+    Cookies.remove("token");
+    Cookies.remove("username");
+    setIsLoggedIn(false);
+    setUsername("");
+    navigate("/login");
   };
 
   return (
     <>
       <div className="admin-container">
         <div className="adm-sidebar">
-          <h2>Welcome {username}</h2> {/* Dynamic username */}
+          <h2>Welcome <span className="user">{username}</span></h2>
           <ul>
             <li>
               <NavLink to="/admin/dashboard" className={({ isActive }) => (isActive ? "active" : "")}>
@@ -44,18 +39,14 @@ export const Layout = () => {
                 Orders
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/productpage" className={({ isActive }) => (isActive ? "active" : "")}>
-                Downloads
-              </NavLink>
-            </li>
+
             <li>
               <NavLink to="/admin/address" className={({ isActive }) => (isActive ? "active" : "")}>
                 Address
               </NavLink>
             </li>
             <li>
-              <NavLink to="/admin/account" className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink to="/admin/update" className={({ isActive }) => (isActive ? "active" : "")}>
                 Account Details
               </NavLink>
             </li>

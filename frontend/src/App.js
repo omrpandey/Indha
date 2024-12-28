@@ -16,6 +16,10 @@ import { Wishlist } from "./components/Wishlist";
 import { Layout } from "./components/Layout";
 import { AdminLayout } from "./components/AdminLayout";
 import { Address } from './components/Address';
+import { Try } from './components/Try';
+import { Checkout } from './components/Checkout';
+import { Orders } from './components/Orders';
+import { Update } from './components/Update';
 import "./App.css";
 
 export const App = () => {
@@ -33,7 +37,8 @@ export const App = () => {
         <Route path="/productui/:productId" element={<Productui />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
-
+        <Route path="/try" element={<Try />} />
+        <Route path="/checkout" element={<Checkout />} />
         
         {/* <Route path="/layout/*" element={<Layout />} /> */}
 
@@ -43,6 +48,8 @@ export const App = () => {
           <Route path="address" element={<Address />} />
           <Route path="productinsert" element={<Productinsert />} />
           <Route path="sale" element={<Sales />} />
+          <Route path="order" element={<Orders />} />
+          <Route path="update" element={<Update />} />
         </Route>
       </Routes>
       <Footer />

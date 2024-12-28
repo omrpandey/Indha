@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Install axios for API calls
+import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link from React Router
 
 export const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -11,15 +12,13 @@ export const Cart = () => {
         const response = await axios.get("http://localhost:2000/api/cart");
         const cartData = response.data.cart.products;
 
-        // Initialize products with quantity management
         const updatedProducts = cartData.map((product) => ({
           ...product,
-          quantity: product.quantity || 1, // Ensure default quantity is 1
+          quantity: product.quantity || 1,
         }));
 
         setProducts(updatedProducts);
 
-        // Calculate initial total amount
         const total = updatedProducts.reduce(
           (acc, product) => acc + product.price * product.quantity,
           0
@@ -33,7 +32,6 @@ export const Cart = () => {
     fetchCartData();
   }, []);
 
-  // Increment quantity handler
   const incrementQuantity = (index) => {
     setProducts((prevProducts) =>
       prevProducts.map((product, i) =>
@@ -44,7 +42,6 @@ export const Cart = () => {
     );
   };
 
-  // Decrement quantity handler
   const decrementQuantity = (index) => {
     setProducts((prevProducts) =>
       prevProducts.map((product, i) =>
@@ -55,7 +52,6 @@ export const Cart = () => {
     );
   };
 
-  // Recalculate total amount whenever products update
   useEffect(() => {
     const total = products.reduce(
       (acc, product) => acc + product.price * product.quantity,
@@ -74,7 +70,6 @@ export const Cart = () => {
         padding: "20px",
       }}
     >
-      {/* Table Section */}
       <div
         style={{
           width: "100%",
@@ -104,8 +99,8 @@ export const Cart = () => {
                       padding: "12px",
                       fontWeight: "500",
                       fontFamily: "cursive",
-                      backgroundColor: "red", // Orange background
-                      color: "#fff", // White text
+                      backgroundColor: "red",
+                      color: "#fff",
                     }}
                   >
                     {header}
@@ -117,24 +112,10 @@ export const Cart = () => {
           <tbody>
             {products.map((product, index) => (
               <tr key={product.productId}>
-                <td
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    fontFamily: "monospace",
-                    fontWeight: "bold", // Added bold font weight for data
-                  }}
-                >
+                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
                   {index + 1}
                 </td>
-                <td
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    fontFamily: "monospace",
-                    fontWeight: "bold", // Added bold font weight for data
-                  }}
-                >
+                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
                   <img
                     src={
                       product &&
@@ -143,7 +124,7 @@ export const Cart = () => {
                         ? `http://localhost:2000${product.imageUrl}`
                         : product.imageUrl || "/default-image.jpg"
                     }
-                    alt={product ? product.name : "Default Product"}
+                    alt={product.name}
                     style={{
                       width: "120px",
                       height: "120px",
@@ -151,51 +132,24 @@ export const Cart = () => {
                     }}
                   />
                 </td>
-                <td
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    fontFamily: "monospace",
-                    fontWeight: "bold", // Added bold font weight for data
-                  }}
-                >
+                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
                   {product.name}
                 </td>
-                <td
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    fontFamily: "monospace",
-                    fontWeight: "bold", // Added bold font weight for data
-                  }}
-                >
+                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
                   ₹{product.price}
                 </td>
-                <td
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    fontFamily: "monospace",
-                    fontWeight: "bold", // Added bold font weight for data
-                  }}
-                >
+                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
                   {product.quantity}
                 </td>
-                <td
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    fontFamily: "monospace",
-                  }}
-                >
+                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
                   <button
                     onClick={() => incrementQuantity(index)}
                     style={{
                       marginRight: "10px",
                       padding: "5px 10px",
                       cursor: "pointer",
-                      backgroundColor: "#ff4747", // Red background for increment
-                      color: "#fff", // White text
+                      backgroundColor: "#ff4747",
+                      color: "#fff",
                       border: "none",
                       borderRadius: "5px",
                     }}
@@ -207,8 +161,8 @@ export const Cart = () => {
                     style={{
                       padding: "5px 10px",
                       cursor: "pointer",
-                      backgroundColor: "#4caf50", // Green background for decrement
-                      color: "#fff", // White text
+                      backgroundColor: "#4caf50",
+                      color: "#fff",
                       border: "none",
                       borderRadius: "5px",
                     }}
@@ -222,7 +176,6 @@ export const Cart = () => {
         </table>
       </div>
 
-      {/* Final Bill Section */}
       <div
         style={{
           width: "40%",
@@ -231,7 +184,6 @@ export const Cart = () => {
           backgroundColor: "#fff",
           borderRadius: "15px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          fontFamily: "monospace",
           textAlign: "center",
         }}
       >
@@ -240,8 +192,8 @@ export const Cart = () => {
             fontFamily: "cursive",
             fontWeight: "500",
             marginBottom: "20px",
-            backgroundColor: "red", // Orange background for final bill heading
-            color: "#fff", // White text
+            backgroundColor: "red",
+            color: "#fff",
             padding: "10px",
             borderRadius: "5px",
           }}
@@ -254,14 +206,25 @@ export const Cart = () => {
         <p>
           <strong>Total Amount:</strong> ₹{totalAmount}
         </p>
-        <p
-          style={{
-            color: "#4caf50",
-            fontWeight: "bold",
-          }}
-        >
+        <p style={{ color: "#4caf50", fontWeight: "bold" }}>
           Thank you for shopping with us!
         </p>
+        <Link
+          to="/checkout"
+          style={{
+            textDecoration: "none",
+            backgroundColor: "orange",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            fontSize: "16px",
+            fontWeight: "bold",
+            display: "inline-block",
+            marginTop: "15px",
+          }}
+        >
+          Proceed to Checkout
+        </Link>
       </div>
     </div>
   );

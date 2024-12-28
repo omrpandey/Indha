@@ -28,13 +28,14 @@ transition: all linear 0.2s;
     letter-spacing: 2px;
 }
 .customer .customer-bottom {
+
     /* background-color: red; */
  height: 20vh;
  width: 100%;
 }
 .customer .customer-bottom img{
     /* padding-left: 40px; */
-    height: auto;
+    height: 60px;
     width: 100%;
 }
 /* Customize navigation arrows */

@@ -19,6 +19,12 @@
 .adm-sidebar h2{
   font-size: 22px;
 }
+.adm-sidebar h2 .user{
+  color: orangered;
+  border-bottom: 2px solid red;
+  font-family: cursive;
+  font-size: 23px;
+}
 /* Adjusted list styles for left alignment */
 .adm-sidebar ul {
   list-style-type: none;
