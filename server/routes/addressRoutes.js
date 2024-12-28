@@ -25,16 +25,21 @@ router.get('/', async (req, res) => {
 });
 
 // Route to update an address
+// Route to update an address
 router.put('/:id', async (req, res) => {
-  try {
-    const updatedAddress = await Address.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedAddress) {
-      return res.status(404).json({ message: 'Address not found' });
+    try {
+      // Optional validation can go here
+      const updatedAddress = await Address.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      
+      if (!updatedAddress) {
+        return res.status(404).json({ message: 'Address not found' });
+      }
+  
+      // Send back the updated address as a full response
+      res.status(200).json(updatedAddress);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
-    res.status(200).json({ message: 'Address updated successfully', updatedAddress });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
+  });
+  
 module.exports = router;

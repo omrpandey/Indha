@@ -16,7 +16,7 @@ export const Address = () => {
     email: '',
   });
 
-  const [submittedData, setSubmittedData] = useState(null); // To store submitted address
+  const [submittedData, setSubmittedData] = useState(null); // To store the submitted address
   const [isEditing, setIsEditing] = useState(false); // To track if editing mode is active
 
   // Handle form input changes
@@ -35,7 +35,7 @@ export const Address = () => {
       const response = await axios.post("http://localhost:2000/api/addresses", formData);
       console.log('Address saved:', response.data);
 
-      // Clear the form fields
+      // Clear the form fields after submission
       setFormData({
         firstName: '',
         lastName: '',
@@ -64,13 +64,16 @@ export const Address = () => {
   };
 
   // Handle Update Submission
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.put(`http://localhost:2000/api/addresses/${submittedData._id}`, formData);
-      console.log('Address updated:', response.data);
-
-      // Update the displayed address
-      setSubmittedData(response.data.updatedAddress); // Assuming `updatedAddress` is returned in the response
+      console.log('Updated address response:', response.data);
+  
+      // Update the state with the updated address
+      setSubmittedData(response.data); // Use response.data directly
+  
+      // Clear form and exit editing mode
       setFormData({
         firstName: '',
         lastName: '',
@@ -83,11 +86,12 @@ export const Address = () => {
         phoneNumber: '',
         email: '',
       });
-      setIsEditing(false); // Disable editing mode
+      setIsEditing(false);
     } catch (error) {
       console.error('Error updating address:', error);
     }
   };
+  
 
   return (
     <div className="form-container">
