@@ -72,8 +72,8 @@ export const Update = () => {
     >
       <h2
         style={{
-          fontFamily: "Arial, sans-serif",
-          fontWeight: "700",
+          fontFamily: "cursive",
+          fontWeight: "500",
           textAlign: "center",
           marginBottom: "20px", // Reduced margin
           color: "#333",
