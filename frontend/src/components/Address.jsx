@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import './adress.css'
+import axios from 'axios';
+import './adress.css';
+
 export const Address = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -14,6 +16,9 @@ export const Address = () => {
     email: '',
   });
 
+  const [submittedData, setSubmittedData] = useState(null); // To store submitted address
+  const [isEditing, setIsEditing] = useState(false); // To track if editing mode is active
+
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,15 +29,70 @@ export const Address = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    try {
+      const response = await axios.post("http://localhost:2000/api/addresses", formData);
+      console.log('Address saved:', response.data);
+
+      // Clear the form fields
+      setFormData({
+        firstName: '',
+        lastName: '',
+        companyName: '',
+        country: '',
+        streetAddress: '',
+        city: '',
+        stateOrCountry: '',
+        pincode: '',
+        phoneNumber: '',
+        email: '',
+      });
+
+      // Store the submitted data
+      setSubmittedData(response.data.address); // Assuming the API response has the saved address under `address`
+      setIsEditing(false); // Ensure editing mode is off
+    } catch (error) {
+      console.error('Error saving address:', error);
+    }
+  };
+
+  // Handle Edit Button
+  const handleEdit = () => {
+    setFormData(submittedData); // Pre-fill the form with the submitted data
+    setIsEditing(true); // Enable editing mode
+  };
+
+  // Handle Update Submission
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(`http://localhost:2000/api/addresses/${submittedData._id}`, formData);
+      console.log('Address updated:', response.data);
+
+      // Update the displayed address
+      setSubmittedData(response.data.updatedAddress); // Assuming `updatedAddress` is returned in the response
+      setFormData({
+        firstName: '',
+        lastName: '',
+        companyName: '',
+        country: '',
+        streetAddress: '',
+        city: '',
+        stateOrCountry: '',
+        pincode: '',
+        phoneNumber: '',
+        email: '',
+      });
+      setIsEditing(false); // Disable editing mode
+    } catch (error) {
+      console.error('Error updating address:', error);
+    }
   };
 
   return (
     <div className="form-container">
-      <h2 className="form-h2">User Information Form</h2>
-      <form onSubmit={handleSubmit} className="form">
+      <h2 className="form-h2">{isEditing ? "Edit Address" : "User Information Form"}</h2>
+      <form onSubmit={isEditing ? handleUpdate : handleSubmit} className="form">
         <div>
           <label htmlFor="firstName" className="form-label">First Name:</label>
           <input
@@ -152,8 +212,30 @@ export const Address = () => {
             required
           />
         </div>
-        <button type="submit" className="form-button">Save</button>
+        <button type="submit" className="form-button">
+          {isEditing ? "Update" : "Save"}
+        </button>
       </form>
+
+      {/* Display Submitted Data */}
+      {submittedData && !isEditing && (
+        <div className="submitted-data">
+          <h3>Submitted Address:</h3>
+          <p><strong>First Name:</strong> {submittedData.firstName}</p>
+          <p><strong>Last Name:</strong> {submittedData.lastName}</p>
+          <p><strong>Company Name:</strong> {submittedData.companyName}</p>
+          <p><strong>Country:</strong> {submittedData.country}</p>
+          <p><strong>Street Address:</strong> {submittedData.streetAddress}</p>
+          <p><strong>City:</strong> {submittedData.city}</p>
+          <p><strong>State/Province:</strong> {submittedData.stateOrCountry}</p>
+          <p><strong>Pincode:</strong> {submittedData.pincode}</p>
+          <p><strong>Phone Number:</strong> {submittedData.phoneNumber}</p>
+          <p><strong>Email:</strong> {submittedData.email}</p>
+          <button className="form-button" onClick={handleEdit}>
+            Edit
+          </button>
+        </div>
+      )}
     </div>
   );
 };
