@@ -23,6 +23,21 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+// Route to get an address by firstName
+router.get('/:firstName', async (req, res) => {
+  const { firstName } = req.params;
+  try {
+    const address = await Address.findOne({ firstName: firstName });
+
+    if (!address) {
+      return res.status(404).json({ message: 'Address not found' });
+    }
+
+    res.status(200).json(address);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Route to update an address
 // Route to update an address

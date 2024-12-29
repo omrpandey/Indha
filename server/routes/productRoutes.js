@@ -43,7 +43,7 @@ router.get('/:id', async (req, res) => {
 
 // Add a new product
 router.post('/', upload.array('images'), async (req, res) => {
-  const { name, description, price, discountedPrice, category } = req.body;
+  const { name, description, price, discountedPrice,discountPercentage, category } = req.body;
   const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
 
   try {
@@ -52,6 +52,7 @@ router.post('/', upload.array('images'), async (req, res) => {
       description,
       price,
       discountedPrice,
+      discountPercentage, // Assuming discountPercentage is included in the request body
       images,
       category,
     });

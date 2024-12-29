@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -15,25 +15,48 @@ export const Checkout = () => {
 
   const [submitted, setSubmitted] = useState(false);
 
+  // Function to fetch address by firstName
+  const fetchAddress = async (firstName) => {
+    try {
+      const response = await fetch(`http://localhost:2000/api/addresses/${firstName}`);
+      if (!response.ok) {
+        throw new Error("Address not found");
+      }
+      const data = await response.json();
+      setFormData((prevData) => ({
+        ...prevData,
+        ...data, // Populate form fields with the fetched address data
+      }));
+    } catch (error) {
+      console.error("Error fetching address:", error);
+      alert("Could not fetch address. Please try again.");
+    }
+  };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+    // Fetch address when firstName is updated
+    if (name === "firstName" && value.trim() !== "") {
+      fetchAddress(value.trim());
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.phoneNo
-    ) {
-      alert("Please fill out all required fields!");
+    if (!formData.firstName) {
+      alert("Please enter a first name to fetch the address!");
       return;
     }
     setSubmitted(true);
     console.log("Order Details:", formData);
   };
 
+  // Styles (unchanged)
   const containerStyle = {
     padding: "20px",
     fontFamily: "Arial, sans-serif",
@@ -78,10 +101,6 @@ export const Checkout = () => {
     transition: "background-color 0.3s ease",
   };
 
-  const buttonHoverStyle = {
-    backgroundColor: "#0056b3",
-  };
-
   if (submitted) {
     return (
       <div style={containerStyle}>
@@ -98,7 +117,7 @@ export const Checkout = () => {
   return (
     <div style={containerStyle}>
       <h1 style={{ textAlign: "center", color: "#333", marginBottom: "20px" }}>
-        Place Your Order
+        Fetch and Fill Address
       </h1>
       <form onSubmit={handleSubmit} style={formStyle}>
         <div>
@@ -120,7 +139,7 @@ export const Checkout = () => {
             value={formData.lastName}
             onChange={handleChange}
             style={inputStyle}
-            required
+            disabled
           />
         </div>
         <div>
@@ -131,7 +150,7 @@ export const Checkout = () => {
             value={formData.country}
             onChange={handleChange}
             style={inputStyle}
-            required
+            disabled
           />
         </div>
         <div>
@@ -142,7 +161,7 @@ export const Checkout = () => {
             value={formData.street}
             onChange={handleChange}
             style={inputStyle}
-            required
+            disabled
           />
         </div>
         <div>
@@ -153,7 +172,7 @@ export const Checkout = () => {
             value={formData.town}
             onChange={handleChange}
             style={inputStyle}
-            required
+            disabled
           />
         </div>
         <div>
@@ -164,7 +183,7 @@ export const Checkout = () => {
             value={formData.state}
             onChange={handleChange}
             style={inputStyle}
-            required
+            disabled
           />
         </div>
         <div>
@@ -175,7 +194,7 @@ export const Checkout = () => {
             value={formData.pincode}
             onChange={handleChange}
             style={inputStyle}
-            required
+            disabled
           />
         </div>
         <div>
@@ -186,7 +205,7 @@ export const Checkout = () => {
             value={formData.phoneNo}
             onChange={handleChange}
             style={inputStyle}
-            required
+            disabled
           />
         </div>
         <div>
@@ -197,14 +216,11 @@ export const Checkout = () => {
             value={formData.email}
             onChange={handleChange}
             style={inputStyle}
-            required
+            disabled
           />
         </div>
-        <button
-          type="submit"
-          style={{ ...buttonStyle, ":hover": buttonHoverStyle }}
-        >
-          Submit Order
+        <button type="submit" style={buttonStyle}>
+          Fetch Address
         </button>
       </form>
     </div>

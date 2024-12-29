@@ -38,6 +38,7 @@ export const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/Sales" element={<Sales />} />
         
         {/* <Route path="/layout/*" element={<Layout />} /> */}
 
@@ -46,7 +47,7 @@ export const App = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="address" element={<Address />} />
           <Route path="productinsert" element={<Productinsert />} />
-          <Route path="sale" element={<Sales />} />
+
           <Route path="order" element={<Orders />} />
           <Route path="update" element={<Update />} />
         </Route>

@@ -21,46 +21,74 @@ export const Sales = () => {
   const [dropdownVisibility, setDropdownVisibility] = useState({});
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://localhost:2000/api/products");
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await response.json();
-        
-        // Filter products that have a discounted price
-        const discountedProducts = data.filter(product => product.discountedPrice < product.price);
-  
-        setProducts(discountedProducts);
-        setDisplayedProducts(discountedProducts);
-        setLoading(false);
-      } catch (error) {
-        setError("Error fetching products");
-        setLoading(false);
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:2000/api/products");
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
       }
-    };
-    fetchProducts();
-  }, []);
-  
-  useEffect(() => {
-    const filteredProducts = products.filter((product) => {
-      const matchesCategory =
-        selectedCategory === "All Categories" ||
-        (product.category || "").includes(selectedCategory);
-      const matchesSearchQuery =
-        product.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.tags?.some((tag) =>
-          tag?.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      const matchesPrice =
-        (product.discountedPrice || product.price) <= rangeValue;
+      const data = await response.json();
+      
+      // Filter products that have a discounted price
+      const discountedProducts = data.filter(product => product.discountedPrice < product.price);
 
-      return matchesCategory && matchesSearchQuery && matchesPrice;
-    });
+      setProducts(discountedProducts);
+      setDisplayedProducts(discountedProducts);
+      setLoading(false);
+    } catch (error) {
+      setError("Error fetching products");
+      setLoading(false);
+    }
+  };
+  fetchProducts();
+}, []);
 
-    setDisplayedProducts(filteredProducts);
-  }, [selectedCategory, searchQuery, rangeValue, products]);
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:2000/api/products");
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      const data = await response.json();
+
+      // Filter products with non-null and non-zero discountPercentage
+      const discountedProducts = data.filter(
+        (product) =>
+          product.discountPercentage !== null && product.discountPercentage > 0
+      );
+
+      setProducts(discountedProducts); // Set the filtered products
+      setDisplayedProducts(discountedProducts); // Initialize the displayed products
+      setLoading(false);
+    } catch (error) {
+      setError("Error fetching products");
+      setLoading(false);
+    }
+  };
+
+  fetchProducts();
+}, []);
+
+useEffect(() => {
+  // Apply filters dynamically
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory =
+      selectedCategory === "All Categories" ||
+      (product.category || "").includes(selectedCategory);
+    const matchesSearchQuery =
+      product.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.tags?.some((tag) =>
+        tag?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    const matchesPrice =
+      (product.discountedPrice || product.price) <= rangeValue;
+
+    return matchesCategory && matchesSearchQuery && matchesPrice;
+  });
+
+  setDisplayedProducts(filteredProducts);
+}, [selectedCategory, searchQuery, rangeValue, products]);
 
   const groupedProducts = products.reduce((acc, product) => {
     const category = product.category || "Uncategorized";
