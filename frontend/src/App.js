@@ -37,7 +37,6 @@ export const App = () => {
         <Route path="/productui/:productId" element={<Productui />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/try" element={<Try />} />
         <Route path="/checkout" element={<Checkout />} />
         
         {/* <Route path="/layout/*" element={<Layout />} /> */}

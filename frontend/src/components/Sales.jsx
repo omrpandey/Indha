@@ -1,84 +1,98 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./productpage.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useCategory } from "./CategoryContext";
 import CryptoJS from "crypto-js";
-import "./productui.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// Function to decode the hashed product ID
-const decodeProductId = (hash) => {
-  try {
-    const decoded = CryptoJS.enc.Base64.parse(hash).toString(CryptoJS.enc.Utf8);
-    if (!decoded) throw new Error("Invalid Base64 string");
-    return decoded;
-  } catch (error) {
-    console.error("Failed to decode product ID:", error.message);
-    return null; // Return null if decoding fails
-  }
-};
+// Function to hash product ID
+const hashProductId = (id) => CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(id));
 
 export const Sales = () => {
-  const { productId: hashedId } = useParams(); // Get hashed product ID from URL
-  const productId = decodeProductId(hashedId); // Decode the hash to get the original product ID
-
-  const [product, setProduct] = useState(null);
+  const { selectedCategory, searchQuery } = useCategory();
+  const [rangeValue, setRangeValue] = useState(5000);
+  const [products, setProducts] = useState([]);
+  const [displayedProducts, setDisplayedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [dropdownVisibility, setDropdownVisibility] = useState({});
 
   useEffect(() => {
-    if (!productId) {
-      setError("Invalid product ID.");
-      setLoading(false);
-      return;
-    }
-
-    const fetchProduct = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:2000/api/products/${productId}`);
+        const response = await fetch("http://localhost:2000/api/products");
         if (!response.ok) {
-          throw new Error(`Failed to fetch product: ${response.statusText}`);
+          throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        setProduct(data);
+        
+        // Filter products that have a discounted price
+        const discountedProducts = data.filter(product => product.discountedPrice < product.price);
+  
+        setProducts(discountedProducts);
+        setDisplayedProducts(discountedProducts);
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching product data:", error.message);
-        setError(`Error fetching product data: ${error.message}`);
-      } finally {
+        setError("Error fetching products");
         setLoading(false);
       }
     };
+    fetchProducts();
+  }, []);
+  
+  useEffect(() => {
+    const filteredProducts = products.filter((product) => {
+      const matchesCategory =
+        selectedCategory === "All Categories" ||
+        (product.category || "").includes(selectedCategory);
+      const matchesSearchQuery =
+        product.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.tags?.some((tag) =>
+          tag?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      const matchesPrice =
+        (product.discountedPrice || product.price) <= rangeValue;
 
-    fetchProduct();
-  }, [productId]);
+      return matchesCategory && matchesSearchQuery && matchesPrice;
+    });
 
-  const handleAddToCart = async () => {
-    try {
-      const response = await fetch("http://localhost:2000/api/cart/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ productId: product?._id }), // Use the decoded product ID
-      });
+    setDisplayedProducts(filteredProducts);
+  }, [selectedCategory, searchQuery, rangeValue, products]);
 
-      if (!response.ok) {
-        throw new Error("Failed to add product to cart");
-      }
-
-      const data = await response.json();
-      alert(data.message || "Product added to cart!");
-    } catch (error) {
-      console.error("Error adding product to cart:", error.message);
-      alert("Error adding product to cart. Please try again.");
+  const groupedProducts = products.reduce((acc, product) => {
+    const category = product.category || "Uncategorized";
+    if (!acc[category]) {
+      acc[category] = [];
     }
+    acc[category].push(product);
+    return acc;
+  }, {});
+
+  const handleCategoryClick = (category) => {
+    setDropdownVisibility((prevState) => ({
+      ...prevState,
+      [category]: !prevState[category],
+    }));
+    setDisplayedProducts(
+      category === "All Categories" ? products : groupedProducts[category] || []
+    );
   };
 
-  const handleAddToWishlist = async () => {
+  const handleRangeChange = (e) => {
+    setRangeValue(e.target.value);
+  };
+
+  const handleAddToWishlist = async (productId) => {
     try {
       const response = await fetch("http://localhost:2000/api/wishlist/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ productId: product?._id }), // Use the decoded product ID
+        body: JSON.stringify({ productId }),
       });
 
       if (!response.ok) {
@@ -86,54 +100,142 @@ export const Sales = () => {
       }
 
       const data = await response.json();
-      alert(data.message || "Product added to wishlist!");
+      toast.success(data.message || "Product added to wishlist!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } catch (error) {
       console.error("Error adding product to wishlist:", error.message);
-      alert("Error adding product to wishlist. Please try again.");
+      toast.error("Error adding product to wishlist. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
-  if (loading) return <p>Loading product details...</p>;
-  if (error) return <p>{error}</p>;
+  const handleAddToCart = async (productId) => {
+    try {
+      const response = await fetch("http://localhost:2000/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add product to cart");
+      }
+
+      const data = await response.json();
+      toast.success(data.message || "Product added to cart!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      console.error("Error adding product to cart:", error.message);
+      toast.error("Error adding product to cart. Please try again.", {
+        position: "top",
+        autoClose: 3000,
+      });
+    }
+  };
 
   return (
-    <div className="ui">
-      <div className="ui-left">
-        <img
-          src={`http://localhost:2000${product.images?.[0] || "/assets/nw3.png"}`}
-          alt={product.name}
-        />
+    <div className="category">
+      <ToastContainer /> {/* Add ToastContainer here */}
+      <div className="head">
+        <h3>
+          <span className="cc">C</span>atego
+          <span className="ory">ry</span>
+        </h3>
+        <div className="lists">
+          <ul>
+            {Object.keys(groupedProducts).map((category) => (
+              <li key={category}>
+                <div
+                  className="category-header"
+                  onClick={() => handleCategoryClick(category)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <span className="text">
+                    {category} ({groupedProducts[category].length})
+                  </span>
+                  <span className="plus">
+                    {dropdownVisibility[category] ? "-" : "+"}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <div className="ui-right">
-        <div className="ui-title">
-          <h3>{product.name}</h3>
-        </div>
-        <div className="ui-desc">
-          <p>{product.description}</p>
+      <div className="product-side">
+        <h6 className="filter-title">
+          Filter Item<span className="ccc">S</span>
+        </h6>
+
+        <div className="price-filter">
+          <input
+            type="range"
+            min="0"
+            max="10000"
+            value={rangeValue}
+            onChange={handleRangeChange}
+            className="price-range"
+          />
+          <span className="price-range">Current Price :₹{rangeValue}</span>
         </div>
 
-        <div className="ui-size">
-          {product.sizes?.length > 0 ? (
-            <ul>
-              {product.sizes.map((size) => (
-                <li key={size}>{size}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>No sizes available</p>
-          )}
-        </div>
-        <div className="add-cart">
-          <button className="ui-btn" onClick={handleAddToCart}>
-            Buy Now!
-          </button>
-          <button className="ui-save" onClick={handleAddToWishlist}>
-            Add to Wishlist
-          </button>
+        <div className="allproduct">
+          <div className="wrap">
+            {loading ? (
+              <p>Loading products...</p>
+            ) : error ? (
+              <p>{error}</p>
+            ) : displayedProducts.length > 0 ? (
+              displayedProducts.map((product) => (
+                <div className="card" key={product._id}>
+                  <Link to={`/productui/${hashProductId(product._id)}`}>
+                    <img
+                      src={
+                        product.images && product.images.length > 0
+                          ? product.images[0].startsWith("/")
+                            ? `http://localhost:2000${product.images[0]}`
+                            : `http://localhost:2000/${product.images[0]}`
+                          : "./assets/nw2.png"
+                      }
+                      alt={product.name}
+                    />
+                    <div className="detail">
+                      <h5>{product.name}</h5>
+                      <p>₹{product.discountedPrice || product.price} /-</p>
+                    </div>
+                  </Link>
+                  <div className="add-section">
+                    <button
+                      className="cart"
+                      onClick={() => handleAddToWishlist(product._id)}
+                    >
+                      <FontAwesomeIcon icon={faHeart} className="like" />
+                    </button>
+
+                    <button
+                      className="cart"
+                      onClick={() => handleAddToCart(product._id)}
+                    >
+                      <FontAwesomeIcon icon={faShoppingCart} />
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No products found.</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
 };
- 

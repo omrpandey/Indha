@@ -112,7 +112,7 @@ export const Header = () => {
             <NavLink to="/contact" className="nav-link">
               Contact Us
             </NavLink>
-            <NavLink to="/sale" className="nav-link">
+            <NavLink to="/Sales" className="nav-link">
               Sale
             </NavLink>
           </div>
