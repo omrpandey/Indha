@@ -1,22 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export const Orders = () => {
-  const [products, setProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      const orders = [
-        { name: "Product 1", price: 500, quantity: 2 },
-        { name: "Product 2", price: 1000, quantity: 1 },
-      ];
-      setProducts(orders);
-      const total = orders.reduce((acc, item) => acc + item.price * item.quantity, 0);
-      setTotalAmount(total);
+    const fetchCart = async () => {
+      try {
+        // Fetch cart products
+        const cartResponse = await axios.get("http://localhost:2000/api/cart");
+        const cartData = cartResponse.data.cart.products.map((product) => ({
+          ...product,
+          quantity: product.quantity || 1,
+        }));
+        setCartProducts(cartData);
+
+        // Calculate total amount
+        const cartTotal = cartData.reduce(
+          (acc, product) => acc + product.price * product.quantity,
+          0
+        );
+        setTotalAmount(cartTotal);
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      }
     };
 
-    fetchOrders();
+    fetchCart();
   }, []);
 
   return (
@@ -27,8 +39,6 @@ export const Orders = () => {
         alignItems: "center",
         justifyContent: "center",
         padding: "20px",
-        // backgroundColor: "#f4f4f8",
-        // minHeight: "100vh",
       }}
     >
       <div
@@ -45,7 +55,7 @@ export const Orders = () => {
       >
         <h3
           style={{
-            fontFamily:"Cursive",
+            fontFamily: "Cursive",
             fontWeight: "500",
             backgroundColor: "#d32f2f",
             color: "#fff",
@@ -57,7 +67,7 @@ export const Orders = () => {
             letterSpacing: "1px",
           }}
         >
-          Final Bill
+          Your Cart
         </h3>
         <div
           style={{
@@ -67,7 +77,8 @@ export const Orders = () => {
             marginBottom: "20px",
           }}
         >
-          {products.map((product, index) => (
+          <h4>Cart Items:</h4>
+          {cartProducts.map((product, index) => (
             <div
               key={index}
               style={{
@@ -93,7 +104,8 @@ export const Orders = () => {
           }}
         >
           <p>
-            Total Items: <span style={{ color: "#1976d2" }}>{products.length}</span>
+            Total Items:{" "}
+            <span style={{ color: "#1976d2" }}>{cartProducts.length}</span>
           </p>
           <p>
             Total Amount:{" "}
@@ -120,7 +132,7 @@ export const Orders = () => {
           onMouseLeave={(e) => (e.target.style.backgroundColor = "#ff9800")}
         >
           Proceed to Checkout
-        </Link>
+        </Link>  
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const cartRoutes = require('./routes/cart');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const wishlistRoutes=require('./routes/wishlist');
 const addressRoutes = require('./routes/addressRoutes');
-
+const orderRoutes = require('./routes/ordered');
 dotenv.config();
  
 const app = express();
@@ -19,6 +19,11 @@ const PORT = process.env.PORT || 2000;
 app.use(cors());
 app.use(express.json());
 
+
+// Welcome endpoint
+app.get('/api', (req, res) => {
+  res.send("Welcome to the API!");
+});
 
 
 // API Routes
@@ -30,6 +35,7 @@ app.use('/api', adminAuthRoutes);
 app.use('/api',wishlistRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/api/addresses', addressRoutes);
+app.use('/api/orders', orderRoutes);
 
 
 // MongoDB Connection
