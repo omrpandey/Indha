@@ -1,40 +1,39 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export const Dashboard = () => {
-  // Simulating user data
-  const [username, setUsername] = useState("Alice Cooper");
-  const [userDetails, setUserDetails] = useState({
-    email: "alice@ecommerce.com",
-    phone: "+1234567890",
-    address: "1234 Market Street, Cityville",
-  });
-
-  const [userStats, setUserStats] = useState({
-    totalOrders: 20,
-    wishlistItems: 7,
-    orderHistory: [
-      { id: 1, date: "2024-12-01", status: "Shipped", amount: "$120" },
-      { id: 2, date: "2024-11-15", status: "Delivered", amount: "$80" },
-    ],
-  });
+  const [username, setUsername] = useState("");
+  const [userDetails, setUserDetails] = useState({});
+  const [userStats, setUserStats] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    // Simulating fetching user data (can be replaced with API call)
-    setUsername("Alice Cooper");
-    setUserDetails({
-      email: "alice@ecommerce.com",
-      phone: "+1234567890",
-      address: "1234 Market Street, Cityville",
-    });
-    setUserStats({
-      totalOrders: 20,
-      wishlistItems: 7,
-      orderHistory: [
-        { id: 1, date: "2024-12-01", status: "Shipped", amount: "$120" },
-        { id: 2, date: "2024-11-15", status: "Delivered", amount: "$80" },
-      ],
-    });
-  }, []);
+    const fetchUserData = async () => {
+      try {
+        // Replace with your actual API endpoint
+        const response = await axios.get("http://localhost:2000/api/user/profile", {
+          headers: {
+            authorization: `Bearer ${token}`, // Replace with your token retrieval logic
+          },
+        });
+
+        const { username, email, phone, address, stats } = response.data;
+
+        setUsername(username);
+        setUserDetails({ username, email, phone, address });
+        setUserStats(stats);
+      } catch (err) {
+        console.error("Error fetching user data:", err);
+        setError("Failed to fetch user data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [token]);
 
   const styles = {
     dashboardContainer: {
@@ -128,10 +127,13 @@ export const Dashboard = () => {
     },
   };
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
   return (
     <div style={styles.dashboardContainer}>
       <div style={styles.dashboardContent}>
-       
+        <h2 style={styles.greeting}>Hello, {username}!</h2>
         <p style={styles.welcomeMessage}>
           Welcome back! Here’s a quick overview of your account.
         </p>
@@ -139,28 +141,26 @@ export const Dashboard = () => {
         {/* User Basic Info */}
         <div style={styles.userInfo}>
           <h3 style={styles.userInfoTitle}>User Information</h3>
+          <p><strong>Username:</strong> {userDetails.username}</p>
           <p><strong>Email:</strong> {userDetails.email}</p>
           <p><strong>Phone:</strong> {userDetails.phone}</p>
           <p><strong>Address:</strong> {userDetails.address}</p>
         </div>
 
         {/* User Stats */}
-        <div style={styles.userStats}>
-          {/* Total Orders */}
+        {/* <div style={styles.userStats}>
           <div style={styles.statsCard}>
-            <h3 style={styles.statsCardTitle}>Cart Count</h3>
+            <h3 style={styles.statsCardTitle}>Total Orders</h3>
             <h4 style={styles.statsCardAmount}>{userStats.totalOrders}</h4>
           </div>
-
-          {/* Wishlist Items */}
           <div style={styles.statsCard}>
             <h3 style={styles.statsCardTitle}>Wishlist Items</h3>
             <h4 style={styles.statsCardAmount}>{userStats.wishlistItems}</h4>
           </div>
-        </div>
+        </div> */}
 
         {/* Order History */}
-        <div style={styles.orderHistory}>
+        {/* <div style={styles.orderHistory}>
           <h3 style={styles.orderHistoryTitle}>Order History</h3>
           <ul>
             {userStats.orderHistory.map((order) => (
@@ -180,7 +180,7 @@ export const Dashboard = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );

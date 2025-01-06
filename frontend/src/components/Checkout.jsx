@@ -29,7 +29,7 @@ export const Checkout = () => {
       }));
     } catch (error) {
       console.error("Error fetching address:", error);
-      alert("Could not fetch address. Please try again.");
+      // alert("Could not fetch address. Please try again.");
     }
   };
 

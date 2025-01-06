@@ -36,6 +36,45 @@ router.post('/user/register', async (req, res) => {
   }
 });
 
+
+
+const authenticateToken = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1];  // Split 'Bearer <token>'
+
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied. No token provided.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, "your_jwt_secret");
+    req.user = decoded; // Attach the decoded payload to the request object
+    next();
+  } catch (error) {
+    res.status(403).json({ error: 'Invalid or expired token.' });
+  }
+};
+
+
+router.get('/user/profile', authenticateToken, async (req, res) => {
+  try {
+    console.log("User ID from token:", req.user.userId); // Log the user ID extracted from the token
+
+    const userId = req.user.userId;
+    const user = await User.findById(userId).select('-password');
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    console.log("User data:", user);  // Log the user data retrieved from the database
+    res.json(user); // Send user data as response
+  } catch (error) {
+    console.error('Error fetching user data:', error);  // More detailed error logging
+    res.status(500).json({ error: 'Server error.' });
+  }
+});
+
+
 // User Login Route
 router.post('/user/login', async (req, res) => {
   const { username, email, password } = req.body;
