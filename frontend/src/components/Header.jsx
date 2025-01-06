@@ -54,8 +54,8 @@ export const Header = () => {
     try {
       const isAdminLogin = loginData.username === "admin";
       const loginUrl = isAdminLogin
-        ? "http://localhost:2000/admin/login"
-        : "http://localhost:2000/api/auth/user/login";
+        ? "http://localhost:2000/api/admin/login"
+        : "http://localhost:2000/api/user/login";
   
       const response = await axios.post(loginUrl, loginData);
   

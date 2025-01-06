@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 export const Dashboard = () => {
-  // State to store dynamic user data
+  // Simulating user data
+  const [username, setUsername] = useState("Alice Cooper");
   const [userDetails, setUserDetails] = useState({
-    username: "",
-    email: "",
-    address: "1234 Market Street, Cityville", // Default value for address
+    email: "alice@ecommerce.com",
+    phone: "+1234567890",
+    address: "1234 Market Street, Cityville",
   });
 
   const [userStats, setUserStats] = useState({
@@ -17,43 +18,22 @@ export const Dashboard = () => {
     ],
   });
 
-  // Simulate an API call to fetch user details
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      const token = localStorage.getItem("jwtToken");
-      console.log(token); // Check if the token is being stored correctly.
-      // Retrieve the token
-  
-      if (!token) {
-        console.error("Authentication token is missing");
-        return; // Exit if no token is found
-      }
-  
-      try {
-        const response = await fetch("http://localhost:2000/api/auth/user/info", {  // Correct endpoint here
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`, // Add the token here
-          },
-        });
-  
-        if (response.ok) {
-          const data = await response.json();
-          setUserDetails({
-            username: data.username,
-            email: data.email,
-            address: data.address, // Assuming address is part of the data
-          });
-          setUserStats(data.stats);
-        } else {
-          console.error("Failed to fetch user details:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    };
-  
-    fetchUserDetails();
+    // Simulating fetching user data (can be replaced with API call)
+    setUsername("Alice Cooper");
+    setUserDetails({
+      email: "alice@ecommerce.com",
+      phone: "+1234567890",
+      address: "1234 Market Street, Cityville",
+    });
+    setUserStats({
+      totalOrders: 20,
+      wishlistItems: 7,
+      orderHistory: [
+        { id: 1, date: "2024-12-01", status: "Shipped", amount: "$120" },
+        { id: 2, date: "2024-11-15", status: "Delivered", amount: "$80" },
+      ],
+    });
   }, []);
 
   const styles = {
@@ -151,6 +131,7 @@ export const Dashboard = () => {
   return (
     <div style={styles.dashboardContainer}>
       <div style={styles.dashboardContent}>
+       
         <p style={styles.welcomeMessage}>
           Welcome back! Here’s a quick overview of your account.
         </p>
@@ -158,9 +139,9 @@ export const Dashboard = () => {
         {/* User Basic Info */}
         <div style={styles.userInfo}>
           <h3 style={styles.userInfoTitle}>User Information</h3>
-          <p><strong>Username:</strong> {userDetails.username || "Loading..."}</p>
-          <p><strong>Email:</strong> {userDetails.email || "Loading..."}</p>
-          <p><strong>Address:</strong> {userDetails.address || "Loading..."}</p>
+          <p><strong>Email:</strong> {userDetails.email}</p>
+          <p><strong>Phone:</strong> {userDetails.phone}</p>
+          <p><strong>Address:</strong> {userDetails.address}</p>
         </div>
 
         {/* User Stats */}

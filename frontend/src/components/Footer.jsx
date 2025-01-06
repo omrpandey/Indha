@@ -28,7 +28,7 @@ export const Footer = () => {
 
     try {
       // Send a POST request to the backend API
-      const response = await axios.post('http://localhost:2000/api/auth/user/register', {
+      const response = await axios.post('http://localhost:2000/api/user/register', {
         username,
         email,
         password

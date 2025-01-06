@@ -39,7 +39,6 @@ export const App = () => {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/Sales" element={<Sales />} />
-        <Route path="/try" element={<Try />} />
         
         {/* <Route path="/layout/*" element={<Layout />} /> */}
 
