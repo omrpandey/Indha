@@ -104,5 +104,35 @@ router.post('/user/login', async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+// Update User Profile Route
+router.put('/user/update', authenticateToken, async (req, res) => {
+  const { username, email, password } = req.body;
+  const userId = req.user.userId;
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Update fields if provided
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (password) {
+      // Hash the new password if provided
+      user.password = await bcrypt.hash(password, 10);
+    }
+
+    // Save the updated user
+    await user.save();
+    res.json({ message: 'User updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 
 module.exports = router;
