@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // To make API requests
 
 export const Update = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,31 @@ export const Update = () => {
     email: "",
     password: "",
   });
+
+  // Fetch current user data on component mount
+  useEffect(() => {
+    // Assuming the JWT token is stored in localStorage or cookies
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+      axios
+        .get('http://localhost:2000/api/user/profile', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          // Set the form fields with the user's existing data
+          const { username, email } = response.data;
+          setFormData({
+            username: username || "",
+            email: email || "",
+            password: "", // Don't pre-fill password for security reasons
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, []);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -51,8 +77,20 @@ export const Update = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Profile updated:", formData);
-      alert("Profile updated successfully!");
+      const token = localStorage.getItem('token');
+      axios
+        .put(
+          'http://localhost:2000/api/user/update',
+          formData,
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((response) => {
+          alert("Profile updated successfully!");
+        })
+        .catch((error) => {
+          console.error("Error updating user:", error);
+          alert("Failed to update profile");
+        });
     }
   };
 
@@ -60,12 +98,12 @@ export const Update = () => {
     <div
       style={{
         width: "100%",
-        maxWidth: "550px", // Reduced max-width
-        margin: "30px auto", // Reduced margin
-        padding: "40px", // Reduced padding
+        maxWidth: "550px", 
+        margin: "30px auto", 
+        padding: "40px", 
         backgroundColor: "#f7f9fc",
-        borderRadius: "10px", // Slightly smaller radius
-        boxShadow: "0 12px 20px rgba(0, 0, 0, 0.1)", // Softer shadow
+        borderRadius: "10px", 
+        boxShadow: "0 12px 20px rgba(0, 0, 0, 0.1)", 
         fontFamily: "'Roboto', sans-serif",
         overflow: "hidden",
       }}
@@ -75,9 +113,9 @@ export const Update = () => {
           fontFamily: "cursive",
           fontWeight: "500",
           textAlign: "center",
-          marginBottom: "20px", // Reduced margin
+          marginBottom: "20px", 
           color: "#333",
-          fontSize: "28px", // Slightly smaller font size
+          fontSize: "28px", 
           letterSpacing: "0.5px",
         }}
       >
@@ -85,23 +123,8 @@ export const Update = () => {
       </h2>
 
       <form onSubmit={handleSubmit}>
-        <div
-          style={{
-            marginBottom: "20px", // Reduced bottom margin
-            display: "flex",
-            flexDirection: "column",
-            position: "relative",
-          }}
-        >
-          <label
-            htmlFor="username"
-            style={{
-              marginBottom: "6px", // Reduced margin
-              fontSize: "15px",
-              fontWeight: "500",
-              color: "#5a5a5a",
-            }}
-          >
+        <div style={{ marginBottom: "20px", display: "flex", flexDirection: "column", position: "relative" }}>
+          <label htmlFor="username" style={{ marginBottom: "6px", fontSize: "15px", fontWeight: "500", color: "#5a5a5a" }}>
             Username
           </label>
           <input
@@ -111,10 +134,10 @@ export const Update = () => {
             value={formData.username}
             onChange={handleChange}
             style={{
-              padding: "12px", // Reduced padding
-              borderRadius: "6px", // Slightly smaller border radius
+              padding: "12px", 
+              borderRadius: "6px", 
               border: "1px solid #ddd",
-              fontSize: "15px", // Slightly smaller font size
+              fontSize: "15px", 
               color: "#333",
               outline: "none",
               boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)",
@@ -130,23 +153,8 @@ export const Update = () => {
           )}
         </div>
 
-        <div
-          style={{
-            marginBottom: "20px", // Reduced bottom margin
-            display: "flex",
-            flexDirection: "column",
-            position: "relative",
-          }}
-        >
-          <label
-            htmlFor="email"
-            style={{
-              marginBottom: "6px", // Reduced margin
-              fontSize: "15px",
-              fontWeight: "500",
-              color: "#5a5a5a",
-            }}
-          >
+        <div style={{ marginBottom: "20px", display: "flex", flexDirection: "column", position: "relative" }}>
+          <label htmlFor="email" style={{ marginBottom: "6px", fontSize: "15px", fontWeight: "500", color: "#5a5a5a" }}>
             Email
           </label>
           <input
@@ -156,10 +164,10 @@ export const Update = () => {
             value={formData.email}
             onChange={handleChange}
             style={{
-              padding: "12px", // Reduced padding
-              borderRadius: "6px", // Slightly smaller border radius
+              padding: "12px", 
+              borderRadius: "6px", 
               border: "1px solid #ddd",
-              fontSize: "15px", // Slightly smaller font size
+              fontSize: "15px", 
               color: "#333",
               outline: "none",
               boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)",
@@ -175,23 +183,8 @@ export const Update = () => {
           )}
         </div>
 
-        <div
-          style={{
-            marginBottom: "20px", // Reduced bottom margin
-            display: "flex",
-            flexDirection: "column",
-            position: "relative",
-          }}
-        >
-          <label
-            htmlFor="password"
-            style={{
-              marginBottom: "6px", // Reduced margin
-              fontSize: "15px",
-              fontWeight: "500",
-              color: "#5a5a5a",
-            }}
-          >
+        <div style={{ marginBottom: "20px", display: "flex", flexDirection: "column", position: "relative" }}>
+          <label htmlFor="password" style={{ marginBottom: "6px", fontSize: "15px", fontWeight: "500", color: "#5a5a5a" }}>
             Password
           </label>
           <input
@@ -201,10 +194,10 @@ export const Update = () => {
             value={formData.password}
             onChange={handleChange}
             style={{
-              padding: "12px", // Reduced padding
-              borderRadius: "6px", // Slightly smaller border radius
+              padding: "12px", 
+              borderRadius: "6px", 
               border: "1px solid #ddd",
-              fontSize: "15px", // Slightly smaller font size
+              fontSize: "15px", 
               color: "#333",
               outline: "none",
               boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)",
@@ -224,21 +217,17 @@ export const Update = () => {
           <button
             type="submit"
             style={{
-              padding: "12px 28px", // Reduced padding
-              backgroundColor: "orange",
-              color: "#fff",
-              borderRadius: "30px", // Pill shape with smaller border radius
-              border: "none",
-              fontSize: "15px", // Slightly smaller font size
-              fontWeight: "600",
-              cursor: "pointer",
-              width: "100%",
-              transition: "background-color 0.3s ease, transform 0.3s ease",
-              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+              backgroundColor: "#4CAF50", 
+              color: "white", 
+              padding: "12px 24px", 
+              border: "none", 
+              borderRadius: "6px", 
+              fontSize: "16px", 
+              cursor: "pointer", 
+              transition: "background-color 0.3s",
             }}
-           
           >
-            Save Changes
+            Update Profile
           </button>
         </div>
       </form>
