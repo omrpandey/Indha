@@ -148,10 +148,13 @@ export const Header = () => {
                 <ul>
                   {cartDetails.map((item, index) => (
                     <li key={index}>
-                      <img
-                        src={item.imageUrl.startsWith("/") ? `http://localhost:2000${item.imageUrl}` : item.imageUrl}
-                        alt={item.name}
-                      />
+                     <img
+  src={typeof item.imageUrl === "string" && item.imageUrl.startsWith("/")
+    ? `http://localhost:2000${item.imageUrl}`
+    : item.imageUrl || "default-image-url.jpg"}
+  alt={item.name || "Default Name"}
+/>
+
                       <p>{item.name}</p>
                       <p>Quantity: {item.quantity}</p>
                       <p>Price: ₹{item.price}</p>
