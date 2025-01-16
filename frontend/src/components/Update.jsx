@@ -17,7 +17,7 @@ export const Update = () => {
   // Fetch current user data on component mount
   useEffect(() => {
     // Assuming the JWT token is stored in localStorage or cookies
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     
     if (token) {
       axios
