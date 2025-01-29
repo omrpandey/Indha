@@ -1,5 +1,5 @@
 import React from 'react';
-import './arrival.css';
+import './Arrival.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 

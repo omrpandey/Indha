@@ -5,6 +5,7 @@ import { Dashboard } from "./components/Dashboard";
 import { About } from "./components/About";
 import { Blog } from "./components/Blog";
 import { Join } from "./components/Join";
+import { OrderDetails } from "./components/OrderDetails"
 import { Contact } from "./components/Contact";
 import { Productpage } from "./components/Productpage";
 import { Cart } from "./components/Cart";
@@ -39,7 +40,7 @@ export const App = () => {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/Sales" element={<Sales />} />
-        
+        <Route path="/orderdetails" element={<OrderDetails />} />
         {/* <Route path="/layout/*" element={<Layout />} /> */}
 
     
