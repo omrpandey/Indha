@@ -21,6 +21,7 @@ import { Try } from './components/Try';
 import { Checkout } from './components/Checkout';
 import { Orders } from './components/Orders';
 import { Update } from './components/Update';
+import {AdmDash} from './components/AdmDash'
 import "./App.css";
 
 export const App = () => {
@@ -41,17 +42,22 @@ export const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/Sales" element={<Sales />} />
         <Route path="/orderdetails" element={<OrderDetails />} />
-        {/* <Route path="/layout/*" element={<Layout />} /> */}
+        < Route path="/admindashboard" element={<AdmDash />} />
+  <Route path="/productinsert" element={<Productinsert />} />
 
-    
+       
+         <Route path="/layout/*" element={<Layout />} /> 
+       
+
+    {/* =================================user admin ========================== */}
         <Route path="/admin/*" element={<Layout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="address" element={<Address />} />
-          <Route path="productinsert" element={<Productinsert />} />
-
           <Route path="order" element={<Orders />} />
           <Route path="update" element={<Update />} />
         </Route>
+        {/* =============admin ===================== */}
+     
       </Routes>
       <Footer />
     </Router>
