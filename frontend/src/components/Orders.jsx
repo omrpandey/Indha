@@ -111,101 +111,162 @@ export const Orders = () => {
         padding: "20px",
       }}
     >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "500px",
-          padding: "20px",
-          backgroundColor: "#ffffff",
-          borderRadius: "20px",
-          boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
-          textAlign: "center",
-          transition: "transform 0.2s",
-        }}
-      >
-        <h3
-          style={{
-            fontFamily: "Cursive",
-            fontWeight: "500",
-            backgroundColor: "#d32f2f",
-            color: "#fff",
-            padding: "15px",
-            borderRadius: "12px",
-            marginBottom: "20px",
-            fontSize: "22px",
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-          }}
-        >
-          Your Cart
-        </h3>
+     {cartProducts.length > 0 ? (
+  <div
+    style={{
+      width: "100%",
+      maxWidth: "500px",
+      padding: "20px",
+      backgroundColor: "#ffffff",
+      borderRadius: "20px",
+      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
+      textAlign: "center",
+      transition: "transform 0.2s",
+    }}
+  >
+    <h3
+      style={{
+        fontFamily: "Cursive",
+        fontWeight: "500",
+        backgroundColor: "#d32f2f",
+        color: "#fff",
+        padding: "15px",
+        borderRadius: "12px",
+        marginBottom: "20px",
+        fontSize: "22px",
+        textTransform: "uppercase",
+        letterSpacing: "1px",
+      }}
+    >
+      Your Cart
+    </h3>
+    <div
+      style={{
+        backgroundColor: "#fafafa",
+        padding: "15px",
+        borderRadius: "10px",
+        marginBottom: "20px",
+      }}
+    >
+      <h4>Cart Items:</h4>
+      {cartProducts.map((product, index) => (
         <div
+          key={index}
           style={{
-            backgroundColor: "#fafafa",
-            padding: "15px",
-            borderRadius: "10px",
-            marginBottom: "20px",
-          }}
-        >
-          <h4>Cart Items:</h4>
-          {cartProducts.map((product, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "10px",
-                fontSize: "16px",
-                fontWeight: "500",
-              }}
-            >
-              <span>{product.name}</span>
-              <span>
-                ₹{product.price} x {product.quantity}
-              </span>
-            </div>
-          ))}
-        </div>
-        <div
-          style={{
-            marginBottom: "20px",
-            fontSize: "18px",
-            fontWeight: "bold",
-          }}
-        >
-          <p>
-            Total Items:{" "}
-            <span style={{ color: "#1976d2" }}>{cartProducts.length}</span>
-          </p>
-          <p>
-            Total Amount:{" "}
-            <span style={{ color: "#d32f2f" }}>₹{totalAmount}</span>
-          </p>
-        </div>
-        <p
-          style={{ color: "#4caf50", fontWeight: "600", marginBottom: "15px" }}
-        >
-          Thank you for shopping with us!
-        </p>
-        <Link
-          to="/checkout"
-          style={{
-            display: "inline-block",
-            textDecoration: "none",
-            padding: "12px 25px",
-            backgroundColor: "#ff9800",
-            color: "#fff",
-            borderRadius: "8px",
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "10px",
             fontSize: "16px",
-            fontWeight: "bold",
-            transition: "all 0.3s ease",
+            fontWeight: "500",
           }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#f57c00")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#ff9800")}
         >
-          Proceed to Checkout
-        </Link>
-      </div>
+          <span>{product.name}</span>
+          <span>
+            ₹{product.price} x {product.quantity}
+          </span>
+        </div>
+      ))}
+    </div>
+    <div
+      style={{
+        marginBottom: "20px",
+        fontSize: "18px",
+        fontWeight: "bold",
+      }}
+    >
+      <p>
+        Total Items:{" "}
+        <span style={{ color: "#1976d2" }}>{cartProducts.length}</span>
+      </p>
+      <p>
+        Total Amount:{" "}
+        <span style={{ color: "#d32f2f" }}>₹{totalAmount}</span>
+      </p>
+    </div>
+    <p
+      style={{ color: "#4caf50", fontWeight: "600", marginBottom: "15px" }}
+    >
+      Thank you for shopping with us!
+    </p>
+    <Link
+      to="/checkout"
+      style={{
+        display: "inline-block",
+        textDecoration: "none",
+        padding: "12px 25px",
+        backgroundColor: "#ff9800",
+        color: "#fff",
+        borderRadius: "8px",
+        fontSize: "16px",
+        fontWeight: "bold",
+        transition: "all 0.3s ease",
+      }}
+      onMouseEnter={(e) => (e.target.style.backgroundColor = "#f57c00")}
+      onMouseLeave={(e) => (e.target.style.backgroundColor = "#ff9800")}
+    >
+      Proceed to Checkout
+    </Link>
+  </div>
+) : (
+  <div
+    style={{
+      width: "100%",
+      maxWidth: "500px",
+      padding: "20px",
+      backgroundColor: "#fff3cd",
+      borderRadius: "20px",
+      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
+      textAlign: "center",
+      transition: "transform 0.2s",
+    }}
+  >
+    <h3
+      style={{
+        fontFamily: "Cursive",
+        fontWeight: "500",
+        backgroundColor: "#ff9800",
+        color: "#fff",
+        padding: "15px",
+        borderRadius: "12px",
+        marginBottom: "20px",
+        fontSize: "22px",
+        textTransform: "uppercase",
+        letterSpacing: "1px",
+      }}
+    >
+      Your Cart is Empty!
+    </h3>
+    <p
+      style={{
+        fontSize: "18px",
+        fontWeight: "bold",
+        color: "#d32f2f",
+        marginBottom: "15px",
+      }}
+    >
+      “Oops! Your cart feels lonely. Fill it up with amazing products!”
+    </p>
+    <Link
+      to="/productpage"
+      style={{
+        display: "inline-block",
+        textDecoration: "none",
+        padding: "12px 25px",
+        backgroundColor: "#4caf50",
+        color: "#fff",
+        borderRadius: "8px",
+        fontSize: "16px",
+        fontWeight: "bold",
+        transition: "all 0.3s ease",
+      }}
+      onMouseEnter={(e) => (e.target.style.backgroundColor = "#388e3c")}
+      onMouseLeave={(e) => (e.target.style.backgroundColor = "#4caf50")}
+    >
+      Start Shopping Now
+    </Link>
+  </div>
+)}
+
       <div className="order-container">
         <h2>User Order Details</h2>
         {loading ? (
