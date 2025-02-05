@@ -18,6 +18,7 @@ export const Layout = () => {
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("username");
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     setUsername("");
     navigate("/login");
