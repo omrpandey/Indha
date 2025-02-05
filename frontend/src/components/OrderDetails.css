@@ -30,6 +30,9 @@
     width: 100%;
    border: solid 1px #ddd;
     margin-top: 20px;
+    margin-left: -170px;
+    align-items: center;
+    justify-content: center;
   }
   th {
     background: #f9f9f9;
