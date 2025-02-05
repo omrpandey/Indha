@@ -1,15 +1,76 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./OrderDetails.css";
 
 export const Orders = () => {
+  // Declare state variables
   const [cartProducts, setCartProducts] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [orders, setOrders] = useState([]);
+  const [totalOrders, setTotalOrders] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [firstName, setFirstName] = useState("");
+  const token = localStorage.getItem("token");
+  // Fetch user data from the API when the component mounts
+  useEffect(() => {
+    if (!token) {
+      console.error("Token not found in localStorage");
+      return;
+    }
+  
+    const fetchUserData = async () => {
+      try {
+        console.log("Fetching user data..."); // Debugging log
+        const response = await axios.get("http://localhost:2000/api/user/profile", {
+          headers: { authorization: `Bearer ${token}` },
+        });
+  
+        if (response.data && response.data.username) {
+          console.log("Fetched firstName:", response.data.username); // Debugging log
+          setFirstName(response.data.username);
+        } else {
+          console.error("User data is empty or malformed:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+  
+    fetchUserData();
+  }, [token]);
+  
+  useEffect(() => {
+    console.log("Updated firstName:", firstName); // Logs whenever firstName updates
+  }, [firstName]);
 
+  // Fetch orders from the API when the component mounts and when the firstName state changes
+  useEffect(() => {
+    if (!firstName) return; // Ensure firstName is available before making API calls
+
+    const fetchOrders = async () => {
+      try {
+        const userResponse = await axios.get(`http://localhost:2000/api/orders/user/${firstName}/total-orders`);
+        setTotalOrders(userResponse.data.totalOrders || 0);
+
+        const ordersResponse = await axios.get(`http://localhost:2000/api/orders/orders/user/${firstName}`);
+        setOrders(ordersResponse.data || []);
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        setLoading(false); // Ensure loading is set to false even in case of an error
+      }
+    };
+
+    fetchOrders();
+  }, [firstName]);
+
+
+  // Fetch cart data from the API when the component mounts
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        // Fetch cart products
         const cartResponse = await axios.get("http://localhost:2000/api/cart");
         const cartData = cartResponse.data.cart.products.map((product) => ({
           ...product,
@@ -17,7 +78,6 @@ export const Orders = () => {
         }));
         setCartProducts(cartData);
 
-        // Calculate total amount
         const cartTotal = cartData.reduce(
           (acc, product) => acc + product.price * product.quantity,
           0
@@ -31,6 +91,7 @@ export const Orders = () => {
     fetchCart();
   }, []);
 
+  // Render the component
   return (
     <div
       style={{
@@ -112,7 +173,9 @@ export const Orders = () => {
             <span style={{ color: "#d32f2f" }}>₹{totalAmount}</span>
           </p>
         </div>
-        <p style={{ color: "#4caf50", fontWeight: "600", marginBottom: "15px" }}>
+        <p
+          style={{ color: "#4caf50", fontWeight: "600", marginBottom: "15px" }}
+        >
           Thank you for shopping with us!
         </p>
         <Link
@@ -132,8 +195,47 @@ export const Orders = () => {
           onMouseLeave={(e) => (e.target.style.backgroundColor = "#ff9800")}
         >
           Proceed to Checkout
-        </Link>  
+        </Link>
       </div>
+      <div className="order-container">
+      <h2>User Order Details</h2>
+      {loading ? (
+        <p>Loading...</p>
+      ) : orders.length === 0 ? (
+        <p>No orders found for {firstName}.</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Number of Orders</th>
+              <th>Address</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+              <th>Order Date</th>
+              <th>Total Amount</th>
+              <th>Delivery Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td>{`${order.firstName} ${order.lastName || ""}`}</td>
+                <td>{totalOrders}</td>
+                <td>{`${order.country}, ${order.street}, ${order.town}, ${order.state}, ${order.pincode}`}</td>
+                <td>{order.phoneNo}</td>
+                <td>{order.email}</td>
+                <td>{new Date(order.orderDate).toLocaleDateString()}</td>
+                <td>${order.totalPrice || "N/A"}</td>
+                <td>
+                  {new Date(new Date(order.orderDate).setDate(new Date(order.orderDate).getDate() + 7)).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
     </div>
   );
 };
