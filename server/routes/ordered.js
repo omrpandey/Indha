@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require('../models/admin'); // Import the User model
 const Order = require('../models/order'); // Import the Order model
-const carts = require('../models/cart'); // Import the Cart model
-
+const Cart = require('../models/cart'); // Import the Cart model
 router.post("/", async (req, res) => {
   try {
     let orders = req.body; // Ensure data is an array
@@ -14,9 +13,13 @@ router.post("/", async (req, res) => {
     // Remove `_id` from each order before inserting
     const sanitizedOrders = orders.map(({ _id, ...order }) => order);
 
+    // Insert orders into the Order collection
     await Order.insertMany(sanitizedOrders);
 
-    res.status(201).json({ message: "Orders saved successfully!" });
+    // Clear the entire cart collection after successful order placement
+    await Cart.deleteMany({});
+
+    res.status(201).json({ message: "Orders saved successfully! Cart cleared." });
   } catch (error) {
     console.error("Error saving orders:", error);
     res.status(500).json({ message: "Failed to save the orders.", error: error.message });
