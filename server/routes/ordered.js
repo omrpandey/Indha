@@ -16,8 +16,6 @@ router.post("/", async (req, res) => {
     // Insert orders into the Order collection
     await Order.insertMany(sanitizedOrders);
 
-    // Clear the entire cart collection after successful order placement
-    await Cart.deleteMany({});
 
     res.status(201).json({ message: "Orders saved successfully! Cart cleared." });
   } catch (error) {

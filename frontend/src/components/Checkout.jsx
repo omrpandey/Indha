@@ -122,7 +122,7 @@ export const Checkout = () => {
 
       if (response.ok) {
         setSubmitted(true);
-        navigate("/admin/order");
+        navigate("/admin/payment");
       } else {
         alert(`Failed to submit the order: ${responseData.message}`);
       }
