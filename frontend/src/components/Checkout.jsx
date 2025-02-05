@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Checkout = () => {
+  const [cartProducts, setCartProducts] = useState([]);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -15,10 +17,42 @@ export const Checkout = () => {
     pincode: "",
     phoneNumber: "",
     email: "",
-    products: [], // Assuming products are added elsewhere
+    products: [], // Assuming products are added elsewhere'
+    TAmount: 0, // Assuming total amount is calculated elsewhere
   });
 
   const [submitted, setSubmitted] = useState(false);
+
+  
+  // Fetch cart data from the API when the component mounts
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const cartResponse = await axios.get("http://localhost:2000/api/cart");
+        const cartData = cartResponse.data.cart.products.map((product) => ({
+          ...product,
+          quantity: product.quantity || 1,
+        }));
+        setCartProducts(cartData);
+  
+        const cartTotal = cartData.reduce(
+          (acc, product) => acc + product.price * product.quantity,
+          0
+        );
+  
+        // Update only the TAmount in the formData state
+        setFormData((prevData) => ({
+          ...prevData,
+          TAmount: cartTotal,
+        }));
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      }
+    };
+  
+    fetchCart();
+  }, []);
+  
 
   // Function to fetch address by firstName
   const fetchAddress = async (firstName) => {
@@ -72,6 +106,7 @@ export const Checkout = () => {
         phoneNo: formData.phoneNumber,
         email: formData.email,
         products: formData.products,
+        totalAmount: formData.TAmount,
       };
 
       const response = await fetch("http://localhost:2000/api/orders", {

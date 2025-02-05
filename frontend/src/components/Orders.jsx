@@ -7,6 +7,7 @@ export const Orders = () => {
   // Declare state variables
   const [cartProducts, setCartProducts] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [totalAmount2, setTotalAmount2] = useState(0);
   const [orders, setOrders] = useState([]);
   const [totalOrders, setTotalOrders] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -18,14 +19,17 @@ export const Orders = () => {
       console.error("Token not found in localStorage");
       return;
     }
-  
+
     const fetchUserData = async () => {
       try {
         console.log("Fetching user data..."); // Debugging log
-        const response = await axios.get("http://localhost:2000/api/user/profile", {
-          headers: { authorization: `Bearer ${token}` },
-        });
-  
+        const response = await axios.get(
+          "http://localhost:2000/api/user/profile",
+          {
+            headers: { authorization: `Bearer ${token}` },
+          }
+        );
+
         if (response.data && response.data.username) {
           console.log("Fetched firstName:", response.data.username); // Debugging log
           setFirstName(response.data.username);
@@ -36,10 +40,10 @@ export const Orders = () => {
         console.error("Error fetching user data:", error);
       }
     };
-  
+
     fetchUserData();
   }, [token]);
-  
+
   useEffect(() => {
     console.log("Updated firstName:", firstName); // Logs whenever firstName updates
   }, [firstName]);
@@ -50,10 +54,16 @@ export const Orders = () => {
 
     const fetchOrders = async () => {
       try {
-        const userResponse = await axios.get(`http://localhost:2000/api/orders/user/${firstName}/total-orders`);
+        const userResponse = await axios.get(
+          `http://localhost:2000/api/orders/user/${firstName}/total-orders`
+        );
         setTotalOrders(userResponse.data.totalOrders || 0);
+        setTotalAmount2(userResponse.data.totalAmount || 0);
+        console.log("Total Orders:", userResponse.data.totalOrders); // Debugging log
 
-        const ordersResponse = await axios.get(`http://localhost:2000/api/orders/orders/user/${firstName}`);
+        const ordersResponse = await axios.get(
+          `http://localhost:2000/api/orders/orders/user/${firstName}`
+        );
         setOrders(ordersResponse.data || []);
 
         setLoading(false);
@@ -65,7 +75,6 @@ export const Orders = () => {
 
     fetchOrders();
   }, [firstName]);
-
 
   // Fetch cart data from the API when the component mounts
   useEffect(() => {
@@ -198,44 +207,53 @@ export const Orders = () => {
         </Link>
       </div>
       <div className="order-container">
-      <h2>User Order Details</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : orders.length === 0 ? (
-        <p>No orders found for {firstName}.</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Number of Orders</th>
-              <th>Address</th>
-              <th>Phone Number</th>
-              <th>Email</th>
-              <th>Order Date</th>
-              <th>Total Amount</th>
-              <th>Delivery Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{`${order.firstName} ${order.lastName || ""}`}</td>
-                <td>{totalOrders}</td>
-                <td>{`${order.country}, ${order.street}, ${order.town}, ${order.state}, ${order.pincode}`}</td>
-                <td>{order.phoneNo}</td>
-                <td>{order.email}</td>
-                <td>{new Date(order.orderDate).toLocaleDateString()}</td>
-                <td>${order.totalPrice || "N/A"}</td>
-                <td>
-                  {new Date(new Date(order.orderDate).setDate(new Date(order.orderDate).getDate() + 7)).toLocaleDateString()}
-                </td>
+        <h2>User Order Details</h2>
+        {loading ? (
+          <p>Loading...</p>
+        ) : orders.length === 0 ? (
+          <p>No orders found for {firstName}.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Number of Orders</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Order Date</th>
+                <th>Total Amount</th>
+                <th>Delivery Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {orders.map((order, index) => (
+                <tr key={order._id}>
+                  <td>{`${order.firstName} ${order.lastName || ""}`}</td>
+
+                  {/* Only render rowSpan and totalOrders in the first row */}
+                  {index === 0 && (
+                    <td rowSpan={orders.length}>{orders.length}</td>
+                  )}
+
+                  <td>{`${order.country}, ${order.street}, ${order.town}, ${order.state}, ${order.pincode}`}</td>
+                  <td>{order.phoneNo}</td>
+                  <td>{order.email}</td>
+                  <td>{new Date(order.orderDate).toLocaleDateString()}</td>
+                  <td>${order.totalAmount || "N/A"}</td>
+                  <td>
+                    {new Date(
+                      new Date(order.orderDate).setDate(
+                        new Date(order.orderDate).getDate() + 7
+                      )
+                    ).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 };
