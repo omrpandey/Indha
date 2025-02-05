@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Checkout = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    companyName: "",
     country: "",
-    street: "",
-    town: "",
-    state: "",
+    streetAddress: "",
+    city: "",
+    stateOrCountry: "",
     pincode: "",
-    phoneNo: "",
+    phoneNumber: "",
     email: "",
+    products: [], // Assuming products are added elsewhere
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -23,13 +28,13 @@ export const Checkout = () => {
         throw new Error("Address not found");
       }
       const data = await response.json();
+      console.log("Fetched Address:", data);
       setFormData((prevData) => ({
         ...prevData,
-        ...data,
+        ...data, // Spreading the fetched data into formData
       }));
     } catch (error) {
       console.error("Error fetching address:", error);
-      // alert("Could not fetch address. Please try again.");
     }
   };
 
@@ -47,33 +52,51 @@ export const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("Submitting Order Data:", formData);
+
     if (!formData.firstName) {
       alert("Please enter a first name to fetch the address!");
       return;
     }
 
     try {
+      const orderData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        country: formData.country,
+        street: formData.streetAddress,
+        town: formData.city,
+        state: formData.stateOrCountry,
+        pincode: formData.pincode,
+        phoneNo: formData.phoneNumber,
+        email: formData.email,
+        products: formData.products,
+      };
+
       const response = await fetch("http://localhost:2000/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(orderData),
       });
+
+      const responseData = await response.json();
+      console.log("Order Response:", responseData);
 
       if (response.ok) {
         setSubmitted(true);
+        navigate("/admin/order");
       } else {
-        const errorData = await response.json();
-        alert(`Failed to submit the order: ${errorData.message}`);
+        alert(`Failed to submit the order: ${responseData.message}`);
       }
     } catch (error) {
       console.error("Error submitting the order:", error);
-      alert("There was an error submitting your order. Please try again.");
     }
   };
 
-  // Styles (unchanged)
+  // Styling
   const containerStyle = {
     padding: "20px",
     fontFamily: "Arial, sans-serif",
@@ -148,7 +171,6 @@ export const Checkout = () => {
             required
           />
         </div>
-        {/* The rest of the input fields */}
         <div>
           <label style={labelStyle}>Last Name:</label>
           <input
@@ -160,7 +182,93 @@ export const Checkout = () => {
             disabled
           />
         </div>
-        {/* Repeat similar fields for other properties */}
+        <div>
+          <label style={labelStyle}>Company Name:</label>
+          <input
+            type="text"
+            name="companyName"
+            value={formData.companyName}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>Country:</label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>Street Address:</label>
+          <input
+            type="text"
+            name="streetAddress"
+            value={formData.streetAddress}
+            onChange={handleChange}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>City:</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>State or Country:</label>
+          <input
+            type="text"
+            name="stateOrCountry"
+            value={formData.stateOrCountry}
+            onChange={handleChange}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>Pincode:</label>
+          <input
+            type="text"
+            name="pincode"
+            value={formData.pincode}
+            onChange={handleChange}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>Phone Number:</label>
+          <input
+            type="text"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            style={inputStyle}
+            required
+          />
+        </div>
         <button type="submit" style={buttonStyle}>
           Order on this address
         </button>
