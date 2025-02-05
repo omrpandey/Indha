@@ -19,10 +19,10 @@ export const Dashboard = () => {
           },
         });
 
-        const { username, email, phone, address, stats } = response.data;
+        const { username, email, phonenumber, address, stats } = response.data;
 
         setUsername(username);
-        setUserDetails({ username, email, phone, address });
+        setUserDetails({ username, email, phonenumber, address });
         setUserStats(stats);
       } catch (err) {
         console.error("Error fetching user data:", err);
