@@ -100,14 +100,14 @@ export const Footer = () => {
           <div className="footer-copy">
             <p>© Copyright 2019. All Rights Reserved</p>
             <div className="payment">
-              <img src="./assets/p1.svg" alt="p1" />
-              <img src="./assets/p2.svg" alt="p2" />
-              <img src="./assets/p3.svg" alt="p3" />
-              <img src="./assets/p4.svg" alt="p4" />
-              <img src="./assets/p5.svg" alt="p5" />
-              <img src="./assets/p6.svg" alt="p6" />
-              <img src="./assets/p7.svg" alt="p7" />
-              <img src="./assets/p8.svg" alt="p8" />
+              <img src="/assets/p1.svg" alt="p1" />
+              <img src="/assets/p2.svg" alt="p2" />
+              <img src="/assets/p3.svg" alt="p3" />
+              <img src="/assets/p4.svg" alt="p4" />
+              <img src="/assets/p5.svg" alt="p5" />
+              <img src="/assets/p6.svg" alt="p6" />
+              <img src="/assets/p7.svg" alt="p7" />
+              <img src="/assets/p8.svg" alt="p8" />
             </div>
           </div>
         </div>
