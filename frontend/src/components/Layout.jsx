@@ -65,7 +65,7 @@ export const Layout = () => {
       </div>
 
       <footer>
-        <p>© 2024 Admin Panel. All Rights Reserved.</p>
+        <p>© 2025 User Panel. All Rights Reserved by Group 07 SYIT.</p>
       </footer>
     </>
   );
