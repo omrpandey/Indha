@@ -78,7 +78,7 @@ export const Header = () => {
 
         // Navigation logic
         if (isAdminLogin) {
-          //navigate("/adminlayout"); // Navigate to AdminLayout for admins
+          navigate("/admindashboard"); // Navigate to AdminLayout for admins
         } else {
           navigate("/admin/dashboard"); // Navigate to Layout for users
         }

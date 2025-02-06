@@ -134,7 +134,7 @@ router.put('/user/update', authenticateToken, async (req, res) => {
   }
 });
 
-router.get('/users/logins', authenticateToken, async (req, res) => {
+router.get('/users/logins', async (req, res) => {
   try {
     const users = await User.find().select('username email'); // Fetch only username & email
     res.json(users);
@@ -143,6 +143,7 @@ router.get('/users/logins', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 
 router.delete('/user/:id', async (req, res) => {

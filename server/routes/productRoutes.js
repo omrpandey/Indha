@@ -64,4 +64,50 @@ router.post('/', upload.array('images'), async (req, res) => {
   }
 });
 
+// Update a product by ID
+router.put('/:id', upload.array('images'), async (req, res) => {
+  const { name, description, price, discountedPrice, discountPercentage, category } = req.body;
+  const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
+
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        name,
+        description,
+        price,
+        discountedPrice,
+        discountPercentage,
+        category,
+        images: images.length > 0 ? images : undefined, // Only update images if new ones are provided
+      },
+      { new: true } // Return updated document
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.json({ message: 'Product updated successfully', product: updatedProduct });
+  } catch (error) {
+    console.error("Error updating product:", error.message);
+    res.status(500).json({ error: 'Error updating product' });
+  }
+});
+// Delete a product by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (!deletedProduct) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error("Error deleting product:", error.message);
+    res.status(500).json({ error: 'Error deleting product' });
+  }
+});
+
+
+
 module.exports = router;
