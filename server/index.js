@@ -37,6 +37,20 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api/addresses', addressRoutes);
 app.use('/api/orders', orderRoutes);
 
+//generate QR code for UPI payment
+app.post("/generate-upi", (req, res) => {
+  const { amount} = req.body;
+  const upi_id = "omrajkumarpandeystandard10th@okhdfcbank"; // Replace with your UPI ID
+  const recipient_name = "Ompandey"; // Replace with the recipient's name
+  if (!amount || !recipient_name) {
+      return res.status(400).json({ error: "Missing required fields" });
+  }
+
+  // Encode UPI payment link
+  const upiLink = `upi://pay?pa=${encodeURIComponent(upi_id)}&pn=${encodeURIComponent(recipient_name)}&am=${encodeURIComponent(amount)}&cu=INR`;
+
+  res.json({ upiLink });
+});
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://ompandeyit69:ecCcVXpCZNwADj5m@cluster0.bhvni.mongodb.net/", {

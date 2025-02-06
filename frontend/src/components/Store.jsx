@@ -1,5 +1,5 @@
 import React from 'react';
-import './Store.css';
+import './store.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 export const Store = () => {

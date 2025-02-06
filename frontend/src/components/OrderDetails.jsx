@@ -1,22 +1,68 @@
-import React from "react";
-import "./OrderDetails.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-export const OrderDetails = () => {
+
+export const OrderDetails = ({ firstName }) => {
+  const [orders, setOrders] = useState([]);
+  const [user, setUser] = useState(null);
+  
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const userResponse = await axios.get(`/user/${firstName}/total-orders`);
+        if (!userResponse.data) {
+          console.error("User not found");
+          return;
+        }
+        setUser(userResponse.data);
+
+        const ordersResponse = await axios.get(`/orders/user/${firstName}`);
+        setOrders(ordersResponse.data);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
+
+    fetchOrders();
+  }, [firstName]);
+
   return (
-    <div className="order-container">
+    <div className="order-container"> 
       <h2>User Order Details</h2>
-      <div className="order-card">
-        <p><strong>Name:</strong> Pahadi</p>
-        <p><strong>Number of Orders:</strong> 12</p>
-        <p><strong>Address:</strong> chemburrr</p>
-        <p><strong>Phone Number:</strong> 1731214</p>
-        <p><strong>Email:</strong> php@gmail.com</p>
-        <p><strong>Order Date:</strong> 12-10-24</p>
-        <p><strong>Total Amount:</strong> $1000</p>
-        <p><strong>Delivery Date:</strong> 1-1-25</p>
-      </div>
+      {user && (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Number of Orders</th>
+              <th>Address</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+              <th>Order Date</th>
+              <th>Total Amount</th>
+              <th>Delivery Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td>{`${order.firstName} ${order.lastName}`}</td>
+                <td>{orders.length}</td>
+                <td>
+                  {`${order.address.country}, ${order.address.street}, ${order.address.town}, ${order.address.state}, ${order.address.pincode}`}
+                </td>
+                <td>{order.phoneNumber}</td>
+                <td>{order.email}</td>
+                <td>{new Date(order.orderDate).toLocaleDateString()}</td>
+                <td>${order.totalPrice}</td>
+                <td>{new Date(order.deliveryDate).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
 
-// export default UserOrderDetails;
+export default OrderDetails;

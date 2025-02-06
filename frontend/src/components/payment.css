@@ -1,0 +1,191 @@
+
+/* Main Container Styles */
+/* .flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+} */
+
+.payment-container{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 2rem;
+    background-color: #1f2937;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: black;
+}
+
+/* Title and Tagline */
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+h1:hover {
+    transform: scale(1.1);
+}
+
+.button-container{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tagline */
+.m2 {
+    color: #ffffff;
+}
+
+.m2 {
+    color: #000000;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-shadow: 1px 1px 6px rgba(73, 64, 64, 0.267);
+    opacity: 0.9;
+    text-align: center;
+    margin: 10px 0 20px 0;
+}
+
+.m1 {
+    color: #ffffff;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-shadow: 1px 1px 6px rgba(73, 64, 64, 0.267);
+    opacity: 0.9;
+    text-align: center;
+    margin: 10px 0 20px 0;
+}
+
+
+/* QR Code Wrapper */
+.mt-6 {
+    margin-top: 1.5rem;
+}
+
+.bg-white {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1), 0px 4px 10px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+}
+
+.bg-white:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2), 0px 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.qrCode {
+    transition: transform 0.3s ease-in-out;
+}
+
+.qrCode:hover {
+    transform: scale(1.05);
+}
+
+/* Button Styles */
+button {
+    background-color: #34d399;
+    color: white;
+    font-weight: 600;
+    padding: 0.8rem 2rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    justify-content: center;
+    align-items: center;
+}
+
+button:hover {
+    background-color: #10b981;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    background-color: #059669;
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Cancel Button */
+button.bg-red-500 {
+    background-color: #f87171;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button.bg-red-500:hover {
+    background-color: #f43f5e;
+}
+
+button.bg-red-500:active {
+    background-color: #e11d48;
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .bg-white {
+        padding: 1rem;
+    }
+
+    button {
+        padding: 0.6rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 0.5rem 1rem;
+    }
+
+    .bg-white {
+        padding: 0.8rem;
+    }
+}

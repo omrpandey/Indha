@@ -18,6 +18,7 @@ export const Layout = () => {
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("username");
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     setUsername("");
     navigate("/login");
@@ -65,7 +66,7 @@ export const Layout = () => {
       </div>
 
       <footer>
-        <p>© 2024 Admin Panel. All Rights Reserved.</p>
+        <p>© 2025 User Panel. All Rights Reserved by Group 07 SYIT.</p>
       </footer>
     </>
   );

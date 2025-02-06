@@ -21,7 +21,8 @@ import { Try } from './components/Try';
 import { Checkout } from './components/Checkout';
 import { Orders } from './components/Orders';
 import { Update } from './components/Update';
-import {AdmDash} from './components/AdmDash'
+import {AdmDash} from './components/AdmDash';
+import {PaymentPage} from './components/payment-gateway';
 import "./App.css";
 
 export const App = () => {
@@ -53,6 +54,7 @@ export const App = () => {
           <Route path="address" element={<Address />} />
           <Route path="order" element={<Orders />} />
           <Route path="update" element={<Update />} />
+          <Route path="payment" element={<PaymentPage />} />
         </Route>
         {/* =============admin ===================== */}
      
