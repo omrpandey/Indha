@@ -44,8 +44,6 @@ export const App = () => {
         <Route path="/orderdetails" element={<OrderDetails />} />
         < Route path="/admindashboard" element={<AdmDash />} />
   <Route path="/productinsert" element={<Productinsert />} />
-
-       
          <Route path="/layout/*" element={<Layout />} /> 
        
 
