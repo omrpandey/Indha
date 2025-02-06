@@ -100,7 +100,7 @@ export const Orders = () => {
             data.pincode &&
             data.phoneNumber &&
             data.email;
-          setIsValid(isAllFieldsFilled);
+          setIsValid(true);
         } else {
           setIsValid(false);
         }
