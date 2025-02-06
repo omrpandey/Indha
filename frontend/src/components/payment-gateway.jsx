@@ -5,7 +5,7 @@ import "./payment.css";
 
 export const PaymentPage = () => {
     const [upiLink, setUpiLink] = useState("");
-    const [amount] = useState("100"); // Default amount (change as needed)
+    const [amount] = useState(""); // Default amount (change as needed)
     const [recipient] = useState("John Doe"); // Default recipient name (change as needed)
     const [cartProducts, setCartProducts] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
@@ -52,31 +52,34 @@ export const PaymentPage = () => {
       }
     };
 
-    fetchCart();
+    fetchCart(); 
   }, []);
 
+  useEffect(() => {
+    const generateUPI = async () => {
+        if (totalAmount > 0) {  // Ensure totalAmount is set before making API call
+            try {
+                const response = await fetch("http://localhost:2000/generate-upi", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ amount: totalAmount }),
+                });
 
-    // Generate UPI QR Code when the page loads
-    useEffect(() => {
-        const generateUPI = async () => {
-            const response = await fetch("http://localhost:2000/generate-upi", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    amount: amount,
-                }),
-            });
-
-            const data = await response.json();
-            if (data.upiLink) {
-                setUpiLink(data.upiLink);
+                const data = await response.json();
+                if (data.upiLink) {
+                    setUpiLink(data.upiLink);
+                }
+            } catch (error) {
+                console.error("Error generating UPI:", error);
             }
-        };
+        }
+    };
 
-        generateUPI();
-    }, []);
+    generateUPI();
+}, [totalAmount]); // Runs only when totalAmount updates
+
 
     return (
         <div className="payment-container flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 ">

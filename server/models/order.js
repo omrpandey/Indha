@@ -16,8 +16,7 @@ const orderSchema = new mongoose.Schema({
       quantity: { type: Number, required: true }
     }
   ],
-  orderDate: { type: Date, default: Date.now }, // Automatically sets today's date
-  totalAmount: { type: Number, required: true },
+  orderDate: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Order", orderSchema); // Ensure capitalization
+module.exports = mongoose.model("Order", orderSchema);
