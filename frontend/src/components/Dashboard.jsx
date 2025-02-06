@@ -5,7 +5,7 @@ export const Dashboard = () => {
   const [username, setUsername] = useState("");
   const [userDetails, setUserDetails] = useState({});
   const [userStats, setUserStats] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);
   const token = localStorage.getItem("token");
 

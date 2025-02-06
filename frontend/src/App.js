@@ -23,6 +23,10 @@ import { Orders } from './components/Orders';
 import { Update } from './components/Update';
 import {AdmDash} from './components/AdmDash';
 import {PaymentPage} from './components/payment-gateway';
+import Admindashboard from './components/Admindashboard'
+import admHeader from './components/admHeader' 
+import UserPage from "./components/UserPage";
+import ShowProduct from "./components/ShowProduct";
 import "./App.css";
 
 export const App = () => {
@@ -43,8 +47,8 @@ export const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/Sales" element={<Sales />} />
         <Route path="/orderdetails" element={<OrderDetails />} />
-        < Route path="/admindashboard" element={<AdmDash />} />
-  <Route path="/productinsert" element={<Productinsert />} />
+        {/* < Route path="/admindashboard" element={<AdmDash />} />
+  <Route path="/productinsert" element={<Productinsert />} /> */}
          <Route path="/layout/*" element={<Layout />} /> 
        
 
@@ -57,7 +61,13 @@ export const App = () => {
           <Route path="payment" element={<PaymentPage />} />
         </Route>
         {/* =============admin ===================== */}
-     
+        <Route path="/admindashboard/*" element={<Admindashboard />}>
+        <Route path="productinsert" element={<Productinsert />} />
+  <Route path="userpage" element={<UserPage />} />
+  <Route path="showproduct" element={<ShowProduct />} />
+</Route>
+
+   
       </Routes>
       <Footer />
     </Router>
