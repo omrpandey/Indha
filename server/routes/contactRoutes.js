@@ -4,12 +4,11 @@ const Contact = require('../models/Contact'); // Import your Contact model
 
 const router = express.Router();
 
-// POST route for handling the contact form submission
 router.post('/submit', async (req, res) => {
   const { name, email, priority, department, telephone, subject, comment } = req.body;
 
   try {
-    // Create a new contact document using the Contact model
+    
     const newContact = new Contact({
       name,
       email,
@@ -20,15 +19,33 @@ router.post('/submit', async (req, res) => {
       comment,
     });
 
-    // Save the document to the database
+   
     await newContact.save();
 
-    // Send a success response
+    
     res.status(201).json({ message: 'Contact form submitted successfully.' });
   } catch (err) {
     // Handle validation errors or other issues
     console.error(err);
     res.status(400).json({ error: 'Error submitting contact form', details: err });
+  }
+});
+
+router.delete('/contacts/:id', async (req, res) => {
+  try {
+    const contactId = req.params.id;
+
+    // Find and delete the contact
+    const deletedContact = await Contact.findByIdAndDelete(contactId);
+
+    if (!deletedContact) {
+      return res.status(404).json({ error: 'Contact not found' });
+    }
+
+    res.json({ message: 'Contact deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting contact:', err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 

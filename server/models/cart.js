@@ -9,7 +9,7 @@ const cartSchema = new mongoose.Schema({
             discount: { type: Number },
             description: { type: String },
             quantity: { type: Number, default: 1 },
-            imageUrl: { type: String } // Add this line to include the image URL
+            imageUrl: { type: String } 
         }
     ]
 });

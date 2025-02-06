@@ -39,7 +39,7 @@ router.post('/user/register', async (req, res) => {
 
 
 const authenticateToken = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];  // Split 'Bearer <token>'
+  const token = req.headers['authorization']?.split(' ')[1];  
 
   if (!token) {
     return res.status(401).json({ error: 'Access denied. No token provided.' });
@@ -47,7 +47,7 @@ const authenticateToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, "your_jwt_secret");
-    req.user = decoded; // Attach the decoded payload to the request object
+    req.user = decoded; 
     next();
   } catch (error) {
     res.status(403).json({ error: 'Invalid or expired token.' });
@@ -80,9 +80,9 @@ router.post('/user/login', async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    // Check if the user is using a username or email
+    
     const user = await User.findOne({
-      $or: [{ username }, { email }]  // Search by username or email
+      $or: [{ username }, { email }]  
     });
 
     if (!user) {
@@ -104,32 +104,61 @@ router.post('/user/login', async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-// Update User Profile Route
+
 router.put('/user/update', authenticateToken, async (req, res) => {
   const { username, email, password } = req.body;
   const userId = req.user.userId;
 
   try {
-    // Find the user by ID
+    
     const user = await User.findById(userId);
     
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Update fields if provided
+    
     if (username) user.username = username;
     if (email) user.email = email;
     if (password) {
-      // Hash the new password if provided
+     
       user.password = await bcrypt.hash(password, 10);
     }
 
-    // Save the updated user
+    
     await user.save();
     res.json({ message: 'User updated successfully' });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+router.get('/users/logins', authenticateToken, async (req, res) => {
+  try {
+    const users = await User.find().select('username email'); // Fetch only username & email
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching user login details:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+router.delete('/user/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ message: 'User deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting user:', err);
     res.status(500).json({ error: 'Server error' });
   }
 });
