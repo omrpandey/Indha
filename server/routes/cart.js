@@ -71,4 +71,19 @@ router.get('/cart', async (req, res) => {
     }
 });
 
+// Route to clear the cart
+router.delete("/clear-cart", async (req, res) => {
+    try {
+        // Delete all items from the Cart collection
+        await Cart.deleteMany({});
+
+        // Send a success response
+        res.status(200).json({ message: "Cart cleared successfully!" });
+    } catch (error) {
+        console.error("Error clearing cart:", error);
+        res.status(500).json({ message: "Error clearing the cart", error: error.message });
+    }
+});
+
+
 module.exports = router;

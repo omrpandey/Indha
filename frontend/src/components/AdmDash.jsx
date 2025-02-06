@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
 import "./admdash.css";
 
@@ -47,9 +48,9 @@ export const AdmDash = () => {
       {/* Product Management */}
       <div className="section product-section">
         <h2>Manage Products</h2>
-        <button className="add-button" onClick={() => window.location.href='/admindashboard/productinsert'}>
+        <NavLink to ="/productinsert" className="add-button" >
           <FaPlus /> Add Product
-        </button>
+        </NavLink>
         <h3>Existing Products</h3>
         <table className="styled-table">
           <thead>
