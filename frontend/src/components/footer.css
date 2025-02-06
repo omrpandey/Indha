@@ -94,7 +94,7 @@ gap: 10px;
     padding-left: 20px;
 width: 350px;
 height: 40px;
-border-radius: 10px;
+border-radius: 3px;
 outline: none;
 border: 2px solid rgba(255, 255, 255, 0.534);
 font-family: cursive;
@@ -107,22 +107,22 @@ font-family: cursive;
 .footer .footer-right .footer-sigin .row input::placeholder{
 color:rgba(0, 0, 0, 0.587);
 /* color: rgba(255, 0, 0, 0.677); */
-font-weight: 300;
+font-weight: normal;
 font-family: cursive;
 }
-.footer .footer-right .footer-sigin .btn{
+.footer .footer-right .footer-sigin .Fbtn{
     background-color: rgb(79, 124, 12);
     border: none;
-    width: 380px;
+    width: 350px;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 3px;
     color: white;
     letter-spacing: 1px;    
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: 200;
+    font-size: 14px;
     margin-top: 10px;
 }
-.footer .footer-right .footer-sigin .btn:hover{
+.footer .footer-right .footer-sigin .Fbtn:hover{
     background-color: rgb(99, 151, 20);
 }
 .footer .footer-right .footer-copy{

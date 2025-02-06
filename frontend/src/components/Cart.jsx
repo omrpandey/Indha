@@ -78,7 +78,8 @@ export const Cart = () => {
           backgroundColor: "#fff",
           borderRadius: "10px",
           boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
-          padding: "20px",
+          paddingLeft: "300px",
+          paddingBottom:"20px"
         }}
       >
         <table
@@ -95,6 +96,7 @@ export const Cart = () => {
                   <th
                     key={header}
                     style={{
+                      textAlign:"center",
                       border: "1px solid #ddd",
                       padding: "12px",
                       fontWeight: "500",

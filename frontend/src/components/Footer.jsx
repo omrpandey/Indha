@@ -93,7 +93,7 @@ export const Footer = () => {
                 <input type="email" className="email" placeholder="Email" />
               </span>
               <span className="input">
-                <input type="submit" value={isLoading ? "Signing Up..." : "SIGN UP"} className="btn" disabled={isLoading} />
+                <input type="submit" value={isLoading ? "Signing Up..." : "SIGN UP"} className="Fbtn" disabled={isLoading} />
               </span>
             </form>
           </div>

@@ -23,12 +23,8 @@ export const Customer = () => {
                                    scrollbar={{ draggable: true }}
                                         className="mySwiper"
                                     >
-                                        <SwiperSlide>
-                                            <img src="./assets/cc1.png" alt="Slide 1" className="slide-image" />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <img src="./assets/cc2.jpg" alt="Slide 2" className="slide-image" />
-                                        </SwiperSlide>
+                                       
+                                      
                                         <SwiperSlide>
                                             <img src="./assets/cc3.jpg" alt="Slide 4" className="slide-image" />
                                         </SwiperSlide>
@@ -36,11 +32,17 @@ export const Customer = () => {
                                             <img src="./assets/cc4.jpg" alt="Slide 1" className="slide-image" />
                                         </SwiperSlide>
                                         <SwiperSlide>
+                                            <img src="./assets/cc2.jpg" alt="Slide 2" className="slide-image" />
+                                        </SwiperSlide>
+                                        <SwiperSlide>
                                             <img src="./assets/cc5.jpg" alt="Slide 2" className="slide-image" />
                                         </SwiperSlide>
                                         <SwiperSlide>
                                             <img src="./assets/cc6.jpg" alt="Slide 4" className="slide-image" />
                                         </SwiperSlide>
+                                         {/* <SwiperSlide className='cust_Slider'>
+                                            <img src="./assets/cc1.png" alt="Slide 1" className="slide-image" />
+                                        </SwiperSlide> */}
                                         <SwiperSlide>
                                             <img src="./assets/cc7.jpg" alt="Slide 2" className="slide-image" />
                                         </SwiperSlide>

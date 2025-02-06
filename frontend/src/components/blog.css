@@ -52,7 +52,7 @@ padding-left: 10px;
 .blog .blog-flex  .flex .btn{
     background-color: rgba(255, 68, 0, 0.927);
     color: white;
-    padding-left: 10px; 
+    /* padding-left: 20px;  */
     font-family: cursive;
     height: 50px;
     border-radius: 10px;
@@ -62,14 +62,22 @@ padding-left: 10px;
     font-weight: 700;
     letter-spacing: 1px;
 }
+.blog .blog-flex  .line{
+height: 10px;
+width: 300px;
+margin-left: 50px;
+border-bottom: 1px solid rgba(0, 0, 0, 0.533);
+}
 .blog .blog-flex  .flex .btn:hover{
-background-color: red;}
+background-color: red;
+transform:scale(1.04);
+}
 /* Customize Swiper scrollbar */
 .swiper-scrollbar {
     background: #e0e0e0; /* Background for the scrollbar track */
     height: 8px; /* Thickness of the scrollbar */
     border-radius: 4px;
-    width:100px;
+    width:600px;
   }
   
   .swiper-scrollbar-drag {

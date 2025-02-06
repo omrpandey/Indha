@@ -84,7 +84,7 @@ export const Contact = () => {
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Name</label>
+            <label>Enter Your Name:</label>
             <input
               type="text"
               name="name"
@@ -96,7 +96,7 @@ export const Contact = () => {
           </div>
 
           <div className="form-group">
-            <label>Email</label>
+            <label>Enter Your Email:</label>
             <input
               type="email"
               name="email"
@@ -108,7 +108,7 @@ export const Contact = () => {
           </div>
 
           <div className="form-group">
-            <label>Option 1 </label>
+            <label>Select Option 1 </label>
             <select
               name="option1"
               value={formData.option1}
@@ -122,7 +122,7 @@ export const Contact = () => {
           </div>
 
           <div className="form-group">
-            <label>Option 2</label>
+            <label>Select Option 2</label>
             <select
               name="option2"
               value={formData.option2}
@@ -136,7 +136,7 @@ export const Contact = () => {
           </div>
 
           <div className="form-group">
-            <label>Telephone</label>
+            <label>Enter Your Telephone No.</label>
             <input
               type="text"
               name="telephone"
@@ -148,7 +148,7 @@ export const Contact = () => {
           </div>
 
           <div className="form-group">
-            <label>Subject</label>
+            <label>Enter Subject</label>
             <input
               type="text"
               name="subject"
@@ -160,7 +160,7 @@ export const Contact = () => {
           </div>
 
           <div className="form-group">
-            <label>Comments</label>
+            <label>Enter Some Comments:</label>
             <textarea
               name="comments"
               rows="4"

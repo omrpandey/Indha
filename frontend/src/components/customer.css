@@ -7,6 +7,7 @@
 transition: all linear 0.2s;
 }
 .customer{
+    /* background-color: red; */
     display: flex;
     flex-direction: column;
     height: auto;
@@ -29,13 +30,12 @@ transition: all linear 0.2s;
 }
 .customer .customer-bottom {
 
-    /* background-color: red; */
  height: 20vh;
  width: 100%;
 }
 .customer .customer-bottom img{
     /* padding-left: 40px; */
     height: 60px;
-    width: 100%;
+    width: 60%;
 }
 /* Customize navigation arrows */

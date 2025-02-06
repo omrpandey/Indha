@@ -10,7 +10,7 @@
     padding: 20px;
     /* background-color: #f8f9fa; */
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
   }
   .contact-container option{
     width: 700px;
@@ -22,15 +22,19 @@
 .form-group textarea {
   width: 100%; /* Ensure all form elements have the same width */
   padding: 10px;
+  font-family: cursive;
+  color: rgba(0, 0, 0, 0.752);
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
   box-sizing: border-box;
-}
+} 
 
 .form-group select {
-  appearance: none; /* Remove default browser styling for dropdown */
+  appearance: none;
+  /* color: orangered; */
+   /* Remove default browser styling for dropdown */
   background: white;
 }
 
@@ -89,7 +93,7 @@
   }
   
  .contact-container input:focus,
-  textarea:focus {
+  textarea:focus s {
     border-color: orangered;
     box-shadow: 0 0 3px orangered;
   }
@@ -100,10 +104,14 @@
   }
   
   .btn-submit {
+    font-weight: normal;
+    font-family: cursive;
     background-color: orangered;
     color: #ffffff;
+    width: 150px;
     padding: 10px 15px;
     font-size: 1rem;
+    /* font-size: 16px; */
     border: none;
     border-radius: 5px;
     cursor: pointer;

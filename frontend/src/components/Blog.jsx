@@ -43,7 +43,8 @@ export const Blog = () => {
                   special attention on quality, ensuring that nothing goes to
                   waste. Old designs are repurposed, and recycling is
                 </p>
-                <button className="btn">Read more</button>
+                <p className='line'> </p>
+                {/* <button className="btn">Read more</button> */}
               </div>
             </SwiperSlide>
 
@@ -68,7 +69,7 @@ export const Blog = () => {
                   special attention on quality, ensuring that nothing goes to
                   waste. Old designs are repurposed, and recycling is
                 </p>
-                <button className="btn">Read more</button>
+                <p className='line'> </p>
               </div>
             </SwiperSlide>
 
@@ -93,7 +94,7 @@ export const Blog = () => {
                   special attention on quality, ensuring that nothing goes to
                   waste. Old designs are repurposed, and recycling is
                 </p>
-                <button className="btn">Read more</button>
+                <p className='line'> </p>
               </div>
             </SwiperSlide>
                 {/* Card 1 */}
@@ -117,7 +118,7 @@ export const Blog = () => {
                   special attention on quality, ensuring that nothing goes to
                   waste. Old designs are repurposed, and recycling is
                 </p>
-                <button className="btn">Read more</button>
+                <p className='line'> </p>
               </div>
             </SwiperSlide>
 
@@ -142,7 +143,7 @@ export const Blog = () => {
                   special attention on quality, ensuring that nothing goes to
                   waste. Old designs are repurposed, and recycling is
                 </p>
-                <button className="btn">Read more</button>
+                <p className='line'> </p>
               </div>
             </SwiperSlide>
 
@@ -167,7 +168,7 @@ export const Blog = () => {
                   special attention on quality, ensuring that nothing goes to
                   waste. Old designs are repurposed, and recycling is
                 </p>
-                <button className="btn">Read more</button>
+                <p className='line'> </p>
               </div>
             </SwiperSlide>
 
