@@ -69,12 +69,12 @@ export const Wishlist = () => {
               <p>Price: ₹{product.price}</p>
               <div className="btn-container">
                 <button
-                  className="btn add-to-cart"
+                  className="add-to-cart"
                   onClick={() => handleAddToCart(product.productId)}
                 >
                   Add to Cart
                 </button>
-                <button className="btn wishlist">Remove Wishlist</button>
+               
               </div>
             </div>
           </div>

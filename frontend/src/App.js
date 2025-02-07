@@ -9,6 +9,7 @@ import { OrderDetails } from "./components/OrderDetails"
 import { Contact } from "./components/Contact";
 import { Productpage } from "./components/Productpage";
 import { Cart } from "./components/Cart";
+import { Showcontact } from "./components/Showcontact";
 import { Productui } from "./components/Productui";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Productinsert } from "./components/Productinsert";
@@ -64,6 +65,7 @@ export const App = () => {
         <Route path="/admindashboard/*" element={<Admindashboard />}>
         <Route path="productinsert" element={<Productinsert />} />
   <Route path="userpage" element={<UserPage />} />
+  <Route path="showcontact" element={<Showcontact />} />
   <Route path="showproduct" element={<ShowProduct />} />
 </Route>
 

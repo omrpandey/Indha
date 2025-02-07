@@ -17,7 +17,14 @@ function Admindashboard() {
             <NavLink to="/admindashboard/showproduct" style={({ isActive }) => isActive ? { ...styles.link, ...styles.activeLink } : styles.link}>
               <FaBoxes style={styles.icon} /> Products
             </NavLink>
-          </li>
+            </li>
+            <li><NavLink to="/admindashboard/showcontact" style={({ isActive }) => isActive ? { ...styles.link, ...styles.activeLink } : styles.link}>
+              <FaBoxes style={styles.icon} /> Contacts
+            </NavLink></li>
+        <li>    <NavLink to="/admindashboard/logout" style={({ isActive }) => isActive ? { ...styles.link, ...styles.activeLink } : styles.link}>
+              <FaBoxes style={styles.icon} /> Log-Out
+            </NavLink></li>
+          
         </ul>
       </div>
 
