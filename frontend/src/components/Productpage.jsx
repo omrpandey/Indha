@@ -171,16 +171,29 @@ export const Productpage = () => {
         <h6 className="filter-title">
           Filter Item<span className="ccc">S</span>
         </h6>
-
-        <div className="price-filter">
-          <input
-            type="range"
-            min="0"
-            max="10000"
-            value={rangeValue}
-            onChange={handleRangeChange}
-            className="price-range"
-          />
+<br />
+        <div className="price-filter"
+        br>
+      <input
+        type="range"
+        min="0"
+        max="10000"
+        value={rangeValue}
+        onChange={handleRangeChange}
+        className="price-range"
+        style={{
+          width: "100%",
+          appearance: "none",
+          height: "6px",
+          background: `linear-gradient(90deg, #ff4500 ${(rangeValue / 10000) * 100}%, #ddd ${(rangeValue / 10000) * 100}%)`,
+          borderRadius: "3px",
+          outline: "none",
+          transition: "background 0.3s ease-in-out",
+          boxShadow: "inset 0 1px 3px rgba(0,0,0,0.2)",
+          position: "relative",
+        }}
+      />
+      <br />
           <span className="price-range">Current Price :₹{rangeValue}</span>
         </div>
 

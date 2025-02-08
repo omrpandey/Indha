@@ -91,7 +91,7 @@ export const Cart = () => {
         >
           <thead>
             <tr>
-              {["Sr. No", "Image", "Name", "Price", "Quantity", "Actions"].map(
+              {["Sr. No", "Image", "Name", "Price", "Quantity", "Count","Actions"].map(
                 (header) => (
                   <th
                     key={header}
@@ -173,6 +173,21 @@ export const Cart = () => {
                     -
                   </button>
                 </td>
+                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
+                <button
+                    onClick={() => decrementQuantity(index)}
+                    style={{
+                      padding: "5px 10px",
+                      cursor: "pointer",
+                      backgroundColor: "red",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Delete
+                  </button>
+                  </td>
               </tr>
             ))}
           </tbody>

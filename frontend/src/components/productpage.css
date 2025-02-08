@@ -303,7 +303,7 @@ color: rgba(0, 0, 0, 0.742);
 }
 .allproduct .wrap .card .detail h5{
     font-family: cursive;
-    font-weight: 500;
+    font-weight: 500; 
     font-size: 16px;
     color: black;
 }

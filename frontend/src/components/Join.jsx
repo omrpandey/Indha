@@ -58,19 +58,19 @@ export const Join=()=>{
                         <div className="tick">
                             <div className="boxyFirst">
                             <FontAwesomeIcon className='boxyIco' icon={faCheck} style={{ color: "green" }} />
-                            <span className='join_txt'> Online marketing coordinator</span>
+                            <span className='join_txt'> Human Resources coordinator</span>
                             </div>
                             <div className="boxyFirst">
                             <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
-                            <span className='join_txt'> Market Research and Analyst</span>
+                            <span className='join_txt'> Finance</span>
                             </div>
                             <div className="boxyFirst">
                             <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
-                            <span className='join_txt'> Bussiness Development Executive</span>
+                            <span className='join_txt'> Project Management</span>
                             </div>
                             <div className="boxyFirst">
                             <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
-                            <span className='join_txt'>Bussiness Adminstrator</span>
+                            <span className='join_txt'>Informations</span>
                             </div>
                         </div>
                         <div className="rightImage">
@@ -91,20 +91,26 @@ export const Join=()=>{
                         <div className="tick">
                             <div className="boxyFirst">
                             <FontAwesomeIcon className='boxyIco' icon={faCheck} style={{ color: "green" }} />
-                            <span className='join_txt'> Online marketing coordinator</span>
+                            <span className='join_txt'> Software Developer</span>
                             </div>
                             <div className="boxyFirst">
                             <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
-                            <span className='join_txt'> Market Research and Analyst</span>
+                            <span className='join_txt'> Mobile Developer</span>
                             </div>
                             <div className="boxyFirst">
                             <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
-                            <span className='join_txt'> Bussiness Development Executive</span>
+                            <span className='join_txt'>Web Developer</span>
                             </div>
                             <div className="boxyFirst">
                             <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
-                            <span className='join_txt'>Bussiness Adminstrator</span>
+                            <span className='join_txt'>Content Writer</span>
                             </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'>Graphic Designer</span>
+                            </div>
+                        
+                           
                         </div>
                         <div className="rightImage">
                            <span className="img">
