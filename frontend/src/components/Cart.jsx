@@ -52,6 +52,18 @@ export const Cart = () => {
     );
   };
 
+  // Delete a single product from cart
+  const deleteProduct = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:2000/api/cart/${productId}`);
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.productId !== productId)
+      );
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   useEffect(() => {
     const total = products.reduce(
       (acc, product) => acc + product.price * product.quantity,
@@ -79,7 +91,7 @@ export const Cart = () => {
           borderRadius: "10px",
           boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
           paddingLeft: "300px",
-          paddingBottom:"20px"
+          paddingBottom: "20px",
         }}
       >
         <table
@@ -91,12 +103,12 @@ export const Cart = () => {
         >
           <thead>
             <tr>
-              {["Sr. No", "Image", "Name", "Price", "Quantity", "Count","Actions"].map(
+              {["Sr. No", "Image", "Name", "Price", "Quantity", "Count", "Actions"].map(
                 (header) => (
                   <th
                     key={header}
                     style={{
-                      textAlign:"center",
+                      textAlign: "center",
                       border: "1px solid #ddd",
                       padding: "12px",
                       fontWeight: "500",
@@ -154,7 +166,7 @@ export const Cart = () => {
                       color: "#fff",
                       border: "none",
                       borderRadius: "5px",
-                      fontFamily:"cursive",
+                      fontFamily: "cursive",
                     }}
                   >
                     +
@@ -175,8 +187,8 @@ export const Cart = () => {
                   </button>
                 </td>
                 <td style={{ border: "1px solid #ddd", padding: "10px" }}>
-                <button
-                    onClick={() => decrementQuantity(index)}
+                  <button
+                    onClick={() => deleteProduct(product.productId)}
                     style={{
                       padding: "5px 10px",
                       cursor: "pointer",
@@ -188,7 +200,7 @@ export const Cart = () => {
                   >
                     Delete
                   </button>
-                  </td>
+                </td>
               </tr>
             ))}
           </tbody>
