@@ -17,6 +17,7 @@ const orderSchema = new mongoose.Schema({
     }
   ],
   orderDate: { type: Date, default: Date.now },
+  totalAmount: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model("Order", orderSchema);

@@ -40,10 +40,11 @@ export const Checkout = () => {
           0
         );
   
-        // Update only the TAmount in the formData state
+        // Update both `TAmount` and `products` in `formData`
         setFormData((prevData) => ({
           ...prevData,
           TAmount: cartTotal,
+          products: cartData, // Fix: Add products to formData
         }));
       } catch (error) {
         console.error("Error fetching cart data:", error);
@@ -52,6 +53,8 @@ export const Checkout = () => {
   
     fetchCart();
   }, []);
+  
+  
   
 
   // Function to fetch address by firstName
