@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const User = require('../models/admin'); // Import the User model
-const Order = require('../models/order'); // Import the Order model
-const Cart = require('../models/cart'); // Import the Cart model
+const User = require('../models/admin');
+const Order = require('../models/order'); 
+const Cart = require('../models/cart'); 
 router.post("/", async (req, res) => {
   try {
     let orders = req.body; // Ensure data is an array

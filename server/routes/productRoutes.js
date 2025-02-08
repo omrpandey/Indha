@@ -52,7 +52,7 @@ router.post('/', upload.array('images'), async (req, res) => {
       description,
       price,
       discountedPrice,
-      discountPercentage, // Assuming discountPercentage is included in the request body
+      discountPercentage, 
       images,
       category,
     });
@@ -97,16 +97,20 @@ router.put('/:id', upload.array('images'), async (req, res) => {
 // Delete a product by ID
 router.delete('/:id', async (req, res) => {
   try {
-    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
-    if (!deletedProduct) {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    
+    if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
+
     res.json({ message: 'Product deleted successfully' });
   } catch (error) {
     console.error("Error deleting product:", error.message);
     res.status(500).json({ error: 'Error deleting product' });
   }
 });
+
+
 
 
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Wishlist = require('../models/wishlist'); // Import Wishlist schema
-const Product = require('../models/product');   // Import Product schema
+const Wishlist = require('../models/wishlist'); 
+const Product = require('../models/product');   
 
 router.post('/wishlist/add', async (req, res) => {
     try {
