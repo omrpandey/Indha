@@ -168,6 +168,7 @@ export const Cart = () => {
                       color: "#fff",
                       border: "none",
                       borderRadius: "5px",
+                      height:"30px",
                     }}
                   >
                     -

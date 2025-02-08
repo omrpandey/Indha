@@ -7,6 +7,9 @@ import "./productui.css";
 const decodeProductId = (hash) => CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(hash));
 
 export const Productui = () => {
+  const [selectedSize, setSelectedSize] = useState('');
+
+  const sizes = ['S', 'M', 'L', 'XL'];
   const { productId: hashedId } = useParams(); // Get hashed product ID from URL
   const productId = decodeProductId(hashedId); // Decode the hash to get the original product ID
 
@@ -106,7 +109,30 @@ export const Productui = () => {
               ))}
             </ul>
           ) : (
-            <p>No sizes available</p>
+    
+      <div>
+        <h5 style={{fontFamily:"cursive",paddingLeft:"10px"}}>Select Size</h5>
+        {sizes.map((size) => (
+          <button
+            key={size}
+            style={{
+              padding: '10px 20px',
+              margin: '5px',
+              fontSize: '16px',
+              cursor: 'pointer',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              backgroundColor: size === selectedSize ? '#ff5722' : '#ffffff',
+              color: size === selectedSize ? '#fff' : '#000',
+              fontWeight: size === selectedSize ? 'bold' : 'normal',
+            }}
+            onClick={() => setSelectedSize(size)}
+          >
+            {size}
+          </button>
+        ))}
+      </div>
+    
           )}
         </div>
         <div className="add-cart">
