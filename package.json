@@ -2,7 +2,9 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "leo-profanity": "^1.7.0",
     "mongoose": "^8.8.4",
+    "profane-words": "^1.6.0",
     "react-qr-code": "^2.0.15"
   }
 }

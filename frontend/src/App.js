@@ -27,6 +27,7 @@ import Admindashboard from './components/Admindashboard'
 import admHeader from './components/admHeader' 
 import UserPage from "./components/UserPage";
 import ShowProduct from "./components/ShowProduct";
+import {Productedit} from './components/Productedit';
 import "./App.css";
 
 export const App = () => {
@@ -66,6 +67,7 @@ export const App = () => {
   <Route path="userpage" element={<UserPage />} />
   <Route path="showcontact" element={<Showcontact />} />
   <Route path="showproduct" element={<ShowProduct />} />
+  <Route path="productedit/:id" element={<Productedit />} />
 </Route>
 
    
