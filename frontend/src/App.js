@@ -22,7 +22,6 @@ import { Try } from './components/Try';
 import { Checkout } from './components/Checkout';
 import { Orders } from './components/Orders';
 import { Update } from './components/Update';
-import {AdmDash} from './components/AdmDash';
 import {PaymentPage} from './components/payment-gateway';
 import Admindashboard from './components/Admindashboard'
 import admHeader from './components/admHeader' 
