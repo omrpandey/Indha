@@ -347,7 +347,7 @@ export const Productpage = () => {
                     />
                     <div className="detail">
                       <h5>{product.name}</h5>
-                      <p>₹{product.discountedPrice || product.price} /-</p>
+                      <p>₹{product.price} /-</p>
                     </div>
                   </Link>
                   <div className="add-section">
