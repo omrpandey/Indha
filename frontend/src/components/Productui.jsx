@@ -114,7 +114,7 @@ export const Productui = () => {
             Buy Now!
           </button>
           <button className="ui-save" onClick={handleAddToWishlist}>
-            Add to Wishlist
+            Add to Wishlist 
           </button>
         </div>
       </div>

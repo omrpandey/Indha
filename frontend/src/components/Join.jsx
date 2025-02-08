@@ -16,21 +16,138 @@ export const Join=()=>{
             <p></p>
             <div className="flex">
                 <div className="card">
-                    <span>
+                    <span className='jTitle'>
                         Amazing opportunity in marketing and sales to gain practical experience in the digital world.
                     </span>
                     <div className="boxy">
-                      <div className="boxyLeft">
+                      
                         <div className="tick">
                             <div className="boxyFirst">
-                            <FontAwesomeIcon icon={faCheck} style={{ color: "green" }} />
+                            <FontAwesomeIcon className='boxyIco' icon={faCheck} style={{ color: "green" }} />
                             <span className='join_txt'> Online marketing coordinator</span>
                             </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Market Research and Analyst</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Bussiness Development Executive</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'>Bussiness Adminstrator</span>
+                            </div>
                         </div>
-                      </div>
+                        <div className="rightImage">
+                           <span className="img">
+                           <img src="./assets/cccc1.png" alt=""  height="250px" width={"250px"}/>
+                           </span>
+                        </div>
+                      
                     </div>
                     
                 </div>
+              
+                <div className="card">
+                    <span className='jTitle'>
+                        Amazing opportunity in marketing and sales to gain practical experience in the digital world.
+                    </span>
+                    <div className="boxy">
+                      
+                        <div className="tick">
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Online marketing coordinator</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Market Research and Analyst</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Bussiness Development Executive</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'>Bussiness Adminstrator</span>
+                            </div>
+                        </div>
+                        <div className="rightImage">
+                           <span className="img">
+                           <img src="./assets/HRM.jpg" alt=""  height="200px" width={"200px"}/>
+                           </span>
+                        </div>
+                      
+                    </div>
+                    
+                </div>
+                <div className="card">
+                    <span className='jTitle'>
+                        Amazing opportunity in marketing and sales to gain practical experience in the digital world.
+                    </span>
+                    <div className="boxy">
+                      
+                        <div className="tick">
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Online marketing coordinator</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Market Research and Analyst</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Bussiness Development Executive</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'>Bussiness Adminstrator</span>
+                            </div>
+                        </div>
+                        <div className="rightImage">
+                           <span className="img">
+                           <img src="./assets/cccc2.png" alt=""  height="250px" width={"250px"}/>
+                           </span>
+                        </div>
+                      
+                    </div>
+                    
+                </div>
+                <div className="card">
+                    <span className='jTitle'>
+                        Amazing opportunity in marketing and sales to gain practical experience in the digital world.
+                    </span>
+                    <div className="boxy">
+                      
+                        <div className="tick">
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Online marketing coordinator</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Market Research and Analyst</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'> Bussiness Development Executive</span>
+                            </div>
+                            <div className="boxyFirst">
+                            <FontAwesomeIcon  className='boxyIco' icon={faCheck} style={{ color: "green" }} />
+                            <span className='join_txt'>Bussiness Adminstrator</span>
+                            </div>
+                        </div>
+                        <div className="rightImage">
+                           <span className="img">
+                           <img src="./assets/cccc3.jpg" alt=""  height="200px" width={"200px"}/>
+                           </span>
+                        </div>
+                      
+                    </div>
+                    
+                </div>          
                </div>
                     
             <p></p>

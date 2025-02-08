@@ -42,22 +42,21 @@
 .join .bottom .card{
     margin: 20px 0px;
     /* background-color: red; */
-    height: 450px;
+    height: 350px;
     width: 600px;
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.608);
 }
-.join .bottom .card span{
+.join .bottom .card .jTitle{
     padding-top: 20px;
-    font-size: 18px;
+    font-size:25px;
     font-weight: 900;
-    /* font-family: 'Times New Roman', Times, serif; */
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-family: cursive;
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
     margin-bottom: 20px;
     color: brown;
     letter-spacing: 2px;
-    font-size: 17px;
+    font-size: 18px;
     text-align: center;
     text-align: center;
     display: flex;
@@ -73,7 +72,50 @@ justify-content: center;
     gap: 20px;
 }
 .join .bottom .card .boxy{
+    width: 100%;
+   /* background-color: red; */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 30px;
+}
+.join .bottom .card .boxy .tick{
     display: flex;
-    justify-content: center;
-    align-items: center;
+flex-direction: column;
+justify-content: center; 
+align-items: center;
+gap: 20px;
+/* margin-top: 30px; */
+    width: 60%;
+}
+.join .bottom .card .boxy .rightImage{
+   width: 40%;
+}
+.boxyFirst{
+    /* background-color: red; */
+    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.boxyFirst .join_txt{
+    font-size: 16px;
+    font-weight: 500;
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: cursive;
+    color: green;
+    letter-spacing: 2px;
+    font-size: 16px;
+
+}
+.boxyFirst .boxyIco{
+    width: 10%;
+    font-size: 20px;
+    /* background-color: blue; */
+}
+.boxyFirst .join_txt{
+    width: 90%;
+    /* background-color: yellow; */
 }

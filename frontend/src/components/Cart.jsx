@@ -154,6 +154,7 @@ export const Cart = () => {
                       color: "#fff",
                       border: "none",
                       borderRadius: "5px",
+                      fontFamily:"cursive",
                     }}
                   >
                     +

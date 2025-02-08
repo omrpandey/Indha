@@ -108,6 +108,7 @@ font-family: cursive;
     border-radius: 10px;
     font-family: cursive;
     font-size: 15px;
+    display: flex;
 }
 .ui .add-cart .ui-save{
     background-color: rgba(213, 255, 255, 0.798);
