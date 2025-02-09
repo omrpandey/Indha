@@ -9,8 +9,10 @@ const cartRoutes = require('./routes/cart');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const wishlistRoutes=require('./routes/wishlist');
 const addressRoutes = require('./routes/addressRoutes');
+const nodemailer = require("nodemailer");
 const orderRoutes = require('./routes/ordered');
 dotenv.config();
+const User = require("./models/signin");
  
 const app = express();
 const PORT = process.env.PORT || 2000;
@@ -36,6 +38,52 @@ app.use('/api',wishlistRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/api/addresses', addressRoutes);
 app.use('/api/orders', orderRoutes);
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
+  },
+});
+app.post("/send-mails", async (req, res) => {
+  const { subject, body } = req.body;
+
+  try {
+    const users = await User.find();
+    if (!users.length) return res.json({ success: false, message: "No users found." });
+
+    let successCount = 0, failureCount = 0;
+
+    // Function to resolve nested keys like {user.username}
+    const resolvePlaceholder = (user, keyPath) => {
+      return keyPath.split('.').reduce((obj, key) => obj?.[key], user) || "";
+    };
+
+    for (const user of users) {
+      // Replace placeholders like {user.username} with actual values from MongoDB
+      let personalizedBody = body.replace(/\{(.*?)\}/g, (_, keyPath) => resolvePlaceholder(user, keyPath));
+      let personalizedSubject = subject.replace(/\{(.*?)\}/g, (_, keyPath) => resolvePlaceholder(user, keyPath));
+
+      try {
+        await transporter.sendMail({
+          from: process.env.EMAIL,
+          to: user.email,
+          subject: personalizedSubject,
+          html: personalizedBody,
+        });
+        successCount++;
+      } catch (error) {
+        failureCount++;
+      }
+    }
+
+    res.json({ success: true, successCount, failureCount });
+  } catch (error) {
+    res.json({ success: false, message: "Error fetching users." });
+  }
+});
+
 
 //generate QR code for UPI payment
 app.post("/generate-upi", (req, res) => {

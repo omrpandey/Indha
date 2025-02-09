@@ -22,6 +22,7 @@ import { Try } from './components/Try';
 import { Checkout } from './components/Checkout';
 import { Orders } from './components/Orders';
 import { Update } from './components/Update';
+import { MailSender } from './components/Bulk-mail';
 import {PaymentPage} from './components/payment-gateway';
 import Admindashboard from './components/Admindashboard'
 import admHeader from './components/admHeader' 
@@ -63,12 +64,13 @@ export const App = () => {
         </Route>
         {/* =============admin ===================== */}
         <Route path="/admindashboard/*" element={<Admindashboard />}>
-        <Route path="productinsert" element={<Productinsert />} />
-  <Route path="userpage" element={<UserPage />} />
-  <Route path="showcontact" element={<Showcontact />} />
-  <Route path="showproduct" element={<ShowProduct />} />
-  <Route path="productedit/:id" element={<Productedit />} />
-</Route>
+          <Route path="productinsert" element={<Productinsert />} />
+          <Route path="userpage" element={<UserPage />} />
+          <Route path="showcontact" element={<Showcontact />} />
+          <Route path="showproduct" element={<ShowProduct />} />
+          <Route path="productedit/:id" element={<Productedit />} />
+          <Route path="bulkmail" element={<MailSender />} />
+        </Route>
 
    
       </Routes>
