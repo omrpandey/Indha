@@ -11,21 +11,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* gap: 20px; */
+    gap: 50px;
   
 }
 .ui .ui-left{
-    width: 40%;
-    height: 100%;
+    width: 30%;
+    height: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: red; */
+    background-color: rgb(255, 222, 222);
+    border-radius: 10px;
 }
 
 .ui .ui-left img{
-    height: 70%;
-    width: 80%;
+    height: 90%;
+    width: 90%;
     border-radius: 10px;
     /* border-left: 2px solid orangered;
     border-bottom: 2px solid orangered;
@@ -36,35 +37,44 @@
     height: 60%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     /* background-color: yellow; */
 }
+.cst_inr{
+    color: orangered;
+    font-family: cursive;
+    padding-left: 5px;
+    font-weight: 900;
+}
 .ui .ui-right .ui-title h3{
-    padding-top: 20px;
+    padding-top: 10px;
     font-size: 24px;
     font-weight: 900;
+    padding-left: 10px;
     /* font-family: 'Times New Roman', Times, serif; */
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-family: cursive;
     color: orangered;
     letter-spacing: 2px;
+    padding-bottom: 5px;
     font-size: 27px;
-    text-align: center;
+    /* text-align: center; */
     font-weight: 500;
 }
 .ui .ui-right .ui-title{
-    width: 70%;
+    /* background-color: red; */
+    width: 100%;
     margin: 0px auto;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: start;
-    gap: 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.37);
-    padding-bottom: 20px;
+    justify-content: start; */
+    /* gap: 15px; */
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.37); */
+    padding-bottom: 10px;
 }
 .ui .ui-right .ui-desc .diff{
     font-family: cursive;
-/* padding-left: 140px; */
+/* padding-left: 14px; */
 color: rgba(0, 0, 0, 0.614);
 }   
 .ui .ui-right .ui-desc .diff .val{
@@ -74,6 +84,7 @@ color: rgba(0, 0, 0, 0.614);
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding-left: 10px;
 }
 .ui .ui-right .ui-desc p{
     font-family: cursive;
@@ -97,7 +108,15 @@ font-family: cursive;
 }
 .ui .add-cart{
     display: flex;
-  gap: 20px;
+  gap: 5px;
+
+}
+.proui_line{
+    border: 1px solid rgba(0, 0, 0, 0.411);
+    width: 20%;
+    height: 1px;
+    margin-left: 10px;
+    color: rgba(0, 0, 0, 0.542);
 }
 .ui .add-cart .ui-btn{
     background-color: black;
@@ -109,14 +128,21 @@ font-family: cursive;
     font-family: cursive;
     font-size: 15px;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .ui .add-cart .ui-save{
     background-color: rgba(213, 255, 255, 0.798);
+    /* background-color: orangered; */
     color: black;
     border: none;
     height: 40px;
-    width: 150px;
+    width: 180px;
     border-radius: 10px;
     font-family: cursive;
     font-size: 15px;
+    /* padding-bottom: 3px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

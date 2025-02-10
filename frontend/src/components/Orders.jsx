@@ -55,7 +55,7 @@ export const Orders = () => {
   useEffect(() => {
     if (!firstName) return; // Ensure firstName is available before making API calls
 
-    const fetchOrders = async () => {
+    const fetchOrders = async () => { 
       try {
         const userResponse = await axios.get(
           `http://localhost:2000/api/orders/user/${firstName}/total-orders`
@@ -253,7 +253,7 @@ export const Orders = () => {
               <p>
                 Address not set.{" "}
                 <Link
-                  to="/address"
+                  to="/admin/address"
                   style={{
                     color: "#ff9800",
                     fontWeight: "bold",

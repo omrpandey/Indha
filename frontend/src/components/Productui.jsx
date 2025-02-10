@@ -96,11 +96,21 @@ export const Productui = () => {
       <div className="ui-right">
         <div className="ui-title">
           <h3>{product.name}</h3>
+          <p className="proui_line"></p>
         </div>
+        <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500",paddingLeft:"8px" }}>
+  <span>★★★★☆</span>
+  
+</div>
+
         <div className="ui-desc">
           <p>{product.description}</p>
         </div>
-
+        <div className="ui-desc">
+          
+          <span className="cst_inr">${product.price}</span>
+          
+        </div>
         <div className="ui-size">
           {product.sizes?.length > 0 ? (
             <ul>
@@ -111,7 +121,7 @@ export const Productui = () => {
           ) : (
     
       <div>
-        <h5 style={{fontFamily:"cursive",paddingLeft:"10px"}}>Select Size</h5>
+        <h5 style={{fontFamily:"cursive",paddingLeft:"10px",paddingBottom:"5px"}}>Select Size</h5>
         {sizes.map((size) => (
           <button
             key={size}

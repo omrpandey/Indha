@@ -245,7 +245,7 @@ color: rgba(0, 0, 0, 0.742);
     /* align-items: center; */
     gap: 10px;
 }
-.allproduct .wrap .card{
+.allproduct .wrap .cardpro{
     /* background-color: blue; */
     margin: 10px 8px;
     /* background-color: white; */
@@ -256,24 +256,25 @@ color: rgba(0, 0, 0, 0.742);
     box-shadow: 0px 5px 10px silver;
     transition: transform 0.3s, box-shadow 0.3s ease-in-out;
 }
-.allproduct .wrap .card:hover {
+.allproduct .wrap .cardpro:hover {
     transform: translateY(-2px);
     box-shadow: 5px 20px 20px silver;
 }
-.allproduct .wrap .card img{
-    height: 270px !important;
+.allproduct .wrap .cardpro img{
+    height: 310px !important;
     width: 100% !important;
     margin: auto;
-    /* box-shadow: 5px 5px 20px silver; */
-    border-radius: 10px;
-    /* transition: transform 0.3s ease-in-out; */
-    border-bottom: 1px solid rgba(245, 94, 40, 0.901);
-    /* border-left: 1px solid orangered; */
+    margin-left: 2px;
+  
+    border-radius:2px;
+  /* border-left: 2px solid rgba(245, 94, 40, 0.901) ;*/
+    border-bottom: 1px solid rgba(25, 17, 14, 0.244); 
+    height: 300px;
+    /* box-shadow: 2px 2px 2px  silver; */
+    
 }
-.allproduct .wrap .card img:hover {
-    /* transform: scale(1.02); */
-}
-.allproduct .wrap .card .cart{
+
+.allproduct .wrap .cardpro .cart{
     margin-left: 15px;
     display: flex;
     justify-content: center;
@@ -286,30 +287,36 @@ color: rgba(0, 0, 0, 0.742);
     transition: all 0.3s ease-in-out;
     color: white;
 }
-.allproduct .wrap .card .cart:hover {
+.allproduct .wrap .cardpro .cart:hover {
     background-color: rgb(255, 68, 0);
 }
-.allproduct .wrap .card .cart .icon,.like{
+.allproduct .wrap .cardpro .cart .icon,.like{
     color: white;
     font-size: 17px;
 }
-.allproduct .wrap .card .detail{
+.allproduct .wrap .cardpro .detail{
     display: flex;
-    /* flex-direction: column; */
+  
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-top: 15px;
-    padding: 5px 0px;
+    margin-top: 5px;
+    
 }
-.allproduct .wrap .card .detail h5{
+.allproduct .wrap .cardpro .detail h5{
     font-family: cursive;
+    /* background-color: red; */
+    width: 70%;
     font-weight: 500; 
     font-size: 16px;
+    height: 25px;
+    padding-left: 15px;
     color: black;
+    overflow:hidden;
 }
-.allproduct .wrap .card .detail p{
+.allproduct .wrap .cardpro .detail p{
     font-family: cursive;
+    width: 40%;
     font-size: 14px;
     color: orangered;
     font-weight: 700;
@@ -322,7 +329,7 @@ margin: 5px 0px;
 .loader{
     margin-bottom: 100px;
 }
-/* From Uiverse.io by JkHuger */ 
+
 @keyframes loader_5191 {
     from {
       opacity: 0;
@@ -949,8 +956,15 @@ margin: 5px 0px;
   transform: scaleY(24.5) scaleX(9);
 }
 .text_4042 {
-  transform: scaleY(24.5) scaleX(9);
+  transform: scaleY(24.5) scaleX(9); 
 }
 .text_4043 {
   transform: scaleY(24.5) scaleX(9);
 }
+.product-side .filter-title{
+  width: 16%;
+  padding-top: 6px;
+  /* padding-top: 20px; */
+}
+
+/* tryy  */

@@ -240,22 +240,7 @@ export const Cart = () => {
         <p style={{ color: "#4caf50", fontWeight: "bold" }}>
           Thank you for shopping with us!
         </p>
-        <Link
-          to="/checkout"
-          style={{
-            textDecoration: "none",
-            backgroundColor: "orange",
-            color: "#fff",
-            padding: "10px 20px",
-            borderRadius: "5px",
-            fontSize: "16px",
-            fontWeight: "bold",
-            display: "inline-block",
-            marginTop: "15px",
-          }}
-        >
-          Proceed to Checkout
-        </Link>
+       
       </div>
     </div>
   );

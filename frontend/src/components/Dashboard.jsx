@@ -51,7 +51,7 @@ export const Dashboard = () => {
     },
     greeting: {
       fontSize: "32px",
-      fontWeight: "700",
+      fontWeight: "300",
       color: "#333",
       marginBottom: "20px",
     },
@@ -64,16 +64,22 @@ export const Dashboard = () => {
     userInfo: {
       backgroundColor: "#fff",
       padding: "25px",
-      borderRadius: "12px",
+      // width:"30%",
+      borderRadius: "4px",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
       marginBottom: "30px",
-      borderLeft: "4px solid #4caf50",
+      borderLeft: "2px solid rgb(232, 86, 38)",
+      borderBottom: "1px solid rgba(246, 126, 52, 0.98)",
     },
     userInfoTitle: {
       fontSize: "24px",
-      fontWeight: "600",
+      fontWeight: "500",
       color: "#ff6347",
       marginBottom: "20px",
+    },
+    admstyle:{
+      color:"red",
+      fontWeight:"500",
     },
   };
 
@@ -83,7 +89,7 @@ export const Dashboard = () => {
   return (
     <div style={styles.dashboardContainer}>
       <div style={styles.dashboardContent}>
-        <h2 style={styles.greeting}>Hello, {username}!</h2>
+        <h2 style={styles.greeting}>Welcome Back, <span style={styles.admstyle}>{username}!</span> </h2>
         <p style={styles.welcomeMessage}>
           Welcome back! Here’s a quick overview of your account.
         </p>

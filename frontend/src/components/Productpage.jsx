@@ -139,7 +139,7 @@ export const Productpage = () => {
 
   return (
     <div className="category">
-      <ToastContainer /> {/* Add ToastContainer here */}
+      <ToastContainer /> 
       <div className="head">
         <h3>
           <span className="cc">C</span>atego
@@ -168,34 +168,40 @@ export const Productpage = () => {
       </div>
 
       <div className="product-side">
+        {/* <br /> */}
         <h6 className="filter-title">
           Filter Item<span className="ccc">S</span>
         </h6>
-<br />
+
         <div className="price-filter"
         br>
+          {/* <br /> */}
       <input
+      
         type="range"
         min="0"
-        max="10000"
-        value={rangeValue}
+          max="10000"
+          value={rangeValue}
         onChange={handleRangeChange}
         className="price-range"
         style={{
-          width: "100%",
+          marginTop:"12px",
+          marginBottom:"12px",
+          width: "80%",
+          height:"30px",
           appearance: "none",
           height: "6px",
           background: `linear-gradient(90deg, #ff4500 ${(rangeValue / 10000) * 100}%, #ddd ${(rangeValue / 10000) * 100}%)`,
-          borderRadius: "3px",
-          outline: "none",
+           outline: "none",
           transition: "background 0.3s ease-in-out",
           boxShadow: "inset 0 1px 3px rgba(0,0,0,0.2)",
-          position: "relative",
+          // position: "relative",
+          borderRadius:"2px",
         }}
       />
-      <br />
-      <br />
-          <span style={{fontFamily:"cursive"}}>Current Price <span className="price-range"> ₹{rangeValue}</span>:   </span>
+      {/* <br /> */}
+    <br />
+          <span style={{fontFamily:"cursive",marginTop:"5px"}}>Current Price <span className="price-range"> ₹{rangeValue}</span>:   </span>
         </div>
 
         <div className="allproduct">
@@ -333,7 +339,7 @@ export const Productpage = () => {
               <p>{error}</p>
             ) : displayedProducts.length > 0 ? (
               displayedProducts.map((product) => (
-                <div className="card" key={product._id}>
+                <div className="cardpro" key={product._id}>
                   <Link to={`/productui/${hashProductId(product._id)}`}>
                     <img
                       src={
@@ -346,8 +352,8 @@ export const Productpage = () => {
                       alt={product.name}
                     />
                     <div className="detail">
-                      <h5>{product.name}</h5>
-                      <p>₹{product.price} /-</p>
+                      <h5 className="pro_h5">{product.name}</h5>
+                      <p>₹{product.discountedPrice || product.price} /-</p>
                     </div>
                   </Link>
                   <div className="add-section">
