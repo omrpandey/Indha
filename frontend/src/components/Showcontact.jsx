@@ -26,19 +26,11 @@ export const Showcontact = () => {
   ];
 
   return (
-    <div style={{ 
-        marginLeft:"200px",
-        padding: "20px" }}>
-      <h2 style={{ color: "red", textAlign: "center" }}>Contact Requests</h2>
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          border: "1px solid red",
-        }}
-      >
+    <div style={styles.container}>
+      <h2 style={styles.header}>Contact Requests</h2>
+      <table style={styles.table}>
         <thead>
-          <tr style={{ backgroundColor: "#ffe6e6", color: "red" }}>
+          <tr style={styles.tableHeader}>
             <th style={styles.th}>Name</th>
             <th style={styles.th}>Email</th>
             <th style={styles.th}>Priority</th>
@@ -51,7 +43,7 @@ export const Showcontact = () => {
         </thead>
         <tbody>
           {contacts.map((contact, index) => (
-            <tr key={index} style={{ color: "red" }}>
+            <tr key={index} style={styles.tableRow}>
               <td style={styles.td}>{contact.name}</td>
               <td style={styles.td}>{contact.email}</td>
               <td style={styles.td}>{contact.priority}</td>
@@ -69,15 +61,49 @@ export const Showcontact = () => {
 };
 
 const styles = {
-  th: {
-    border: "1px solid red",
-    padding: "10px",
+  container: {
+    marginLeft: "200px",
+    padding: "20px",
+    fontFamily: "'Arial', sans-serif",
+  },
+  header: {
+    color: "#333",
+    textAlign: "center",
+    fontSize: "2rem",
+    marginBottom: "20px",
+  },
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    borderRadius: "8px",
+    overflow: "hidden",
+  },
+  tableHeader: {
+    backgroundColor: "#f9f9f9",
+    color: "#333",
     textAlign: "left",
   },
+  th: {
+    padding: "15px",
+    border: "1px solid #ddd",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    fontSize: "0.9rem",
+  },
   td: {
-    border: "1px solid red",
-    padding: "10px",
+    padding: "12px",
+    border: "1px solid #ddd",
+    textAlign: "left",
+    fontSize: "0.9rem",
+  },
+  tableRow: {
+    backgroundColor: "#fff",
+    transition: "background-color 0.3s ease",
+  },
+  tableRowHover: {
+    backgroundColor: "#f0f0f0",
   },
 };
 
-
+export default Showcontact;
