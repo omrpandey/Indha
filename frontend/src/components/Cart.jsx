@@ -86,6 +86,8 @@ export const Cart = () => {
         padding: "20px",
       }}
     >
+       <h6 style={{fontFamily:"Cursive",fontWeight:"400",fontSize:"22px",borderBottom:"1px solid rgba(10, 10, 10, 0.58)",width:"30%",marginLeft:"120px",marginBottom:"20px",paddingBottom:"10px"}}>Almost There! Complete Your Purchase</h6>
+
       <div
         style={{
           width: "100%",

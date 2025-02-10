@@ -48,40 +48,44 @@ export const Wishlist = () => {
   };
 
   return (
-    <div className="wishlist-card">
-      {loading ? (
-        <p>Loading wishlist...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : wishlist.length > 0 ? (
-        wishlist.map((product) => (
-          <div className="product-card" key={product.productId}>
-            <img
-              src={
-                product.imageUrl?.startsWith("/")
-                  ? `http://localhost:2000${product.imageUrl}`
-                  : product.imageUrl || "./assets/nw2.png"
-              }
-              alt={product.name}
-            />
-            <div className="wish-content">
-              <h3>{product.name}</h3>
-              <p>Price: ₹{product.price}</p>
-              <div className="btn-container">
-                <button
-                  className="add-to-cart"
-                  onClick={() => handleAddToCart(product.productId)}
-                >
-                  Add to Cart
-                </button>
-               
+    <div className="wishlist-container">
+      {/* Added Heading */}
+      <h2 className="wishlist-heading">Find Your Best Product at one Place</h2>
+
+      <div className="wishlist-card">
+        {loading ? (
+          <p>Loading wishlist...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : wishlist.length > 0 ? (
+          wishlist.map((product) => (
+            <div className="product-card" key={product.productId}>
+              <img
+                src={
+                  product.imageUrl?.startsWith("/")
+                    ? `http://localhost:2000${product.imageUrl}`
+                    : product.imageUrl || "./assets/nw2.png"
+                }
+                alt={product.name}
+              />
+              <div className="wish-content">
+                <h3>{product.name}</h3>
+                <p>Price: ₹{product.price}</p>
+                <div className="btn-container">
+                  <button
+                    className="add-to-cart"
+                    onClick={() => handleAddToCart(product.productId)}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p>No items in wishlist.</p>
-      )}
+          ))
+        ) : (
+          <p>No items in wishlist.</p>
+        )}
+      </div>
     </div>
   );
 };
