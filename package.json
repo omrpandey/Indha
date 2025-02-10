@@ -7,6 +7,7 @@
     "mongoose": "^8.8.4",
     "profane-words": "^1.6.0",
     "react-icons": "^5.4.0",
-    "react-qr-code": "^2.0.15"
+    "react-qr-code": "^2.0.15",
+    "react-router-dom": "^7.1.5"
   }
 }

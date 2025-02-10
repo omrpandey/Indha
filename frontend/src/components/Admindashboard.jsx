@@ -1,137 +1,83 @@
-import React from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { FaUser, FaBoxes } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import "./layout.css";
 
-function Admindashboard() {
-  const navigate = useNavigate(); // Hook for navigation
+export const Admindashboard = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const storedUsername = Cookies.get("username");
+    setIsLoggedIn(!!token);
+    setUsername(storedUsername || "User");
+
+    // Redirect to admindash only if currently on /admindashboard
+    if (location.pathname === "/admindashboard") {
+      navigate("/admindashboard/admindash");
+    }
+  }, [navigate, location.pathname]);
 
   const handleLogout = () => {
-    // Remove authentication tokens
     Cookies.remove("token");
     Cookies.remove("username");
-    Cookies.remove("isAdmin");
-
-    // Redirect to the homepage
-    window.location.href = "http://localhost:3000"; // Force full-page reload
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setUsername("");
+    navigate("/login");
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <div style={styles.sidebar}>
-        <h3 style={styles.header}>Admin Panel</h3>
-        <ul style={styles.navList}>
-          <li style={styles.navItem}>
-            <NavLink
-              to="/admindashboard/userpage"
-              style={({ isActive }) =>
-                isActive ? { ...styles.link, ...styles.activeLink } : styles.link
-              }
-            >
-              <FaUser style={styles.icon} /> Users
-            </NavLink>
-          </li>
-          <li style={styles.navItem}>
-            <NavLink
-              to="/admindashboard/showproduct"
-              style={({ isActive }) =>
-                isActive ? { ...styles.link, ...styles.activeLink } : styles.link
-              }
-            >
-              <FaBoxes style={styles.icon} /> Products
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/admindashboard/showcontact"
-              style={({ isActive }) =>
-                isActive ? { ...styles.link, ...styles.activeLink } : styles.link
-              }
-            >
-              <FaBoxes style={styles.icon} /> Contacts
-            </NavLink>
-          </li>
-          <li>
-            {/* Logout button */}
-            <button onClick={handleLogout} style={styles.logoutButton}>
-              <FaBoxes style={styles.icon} /> Log-Out
-            </button>
-          </li>
-        </ul>
+    <>
+      <div className="admin-container">
+        <div className="adm-sidebar">
+          <h2>Welcome <span className="user">{username}</span></h2>
+          <ul>
+            <li>
+              <NavLink to="/admindashboard/admindash" className={({ isActive }) => (isActive ? "active" : "")}>
+                Dashboard
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admindashboard/userpage" className={({ isActive }) => (isActive ? "active" : "")}>
+                Users
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admindashboard/showproduct" className={({ isActive }) => (isActive ? "active" : "")}>
+                Products
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admindashboard/showcontact" className={({ isActive }) => (isActive ? "active" : "")}>
+                Contact Details
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admindashboard/bulkmail" className={({ isActive }) => (isActive ? "active" : "")}>
+             Email Sender
+              </NavLink>
+            </li> 
+            {isLoggedIn && (
+              <li>
+                <NavLink to="/" onClick={handleLogout} className={({ isActive }) => (isActive ? "active" : "")}>
+                  Log-Out
+                </NavLink>
+              </li>
+            )}
+          </ul>
+        </div>
+        <div className="adm-content">
+          <Outlet />
+        </div>
       </div>
 
-      {/* This will render the child components */}
-      <div style={{ flexGrow: 1, padding: "20px" }}>
-        <Outlet />
-      </div>
-    </div>
+      <footer>
+        <p>© 2025 User Panel. All Rights Reserved by Group 07 SYIT.</p>
+      </footer>
+    </>
   );
-}
-
-const styles = {
-  sidebar: {
-    width: "250px",
-    backgroundColor: "#B71C1C",
-    color: "white",
-    height: "100vh",
-    padding: "20px 15px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    boxShadow: "4px 0 15px rgba(0, 0, 0, 0.2)",
-  },
-  header: {
-    color: "white",
-    fontSize: "1.8rem",
-    fontWeight: "600",
-    marginBottom: "30px",
-    textAlign: "center",
-    fontFamily: "Arial, sans-serif",
-  },
-  navList: {
-    listStyle: "none",
-    padding: 0,
-    width: "100%",
-  },
-  navItem: {
-    width: "100%",
-    marginBottom: "20px",
-  },
-  link: {
-    textDecoration: "none",
-    color: "white",
-    fontSize: "1.1rem",
-    padding: "12px 20px",
-    display: "flex",
-    alignItems: "center",
-    borderRadius: "6px",
-    transition: "all 0.3s ease",
-    fontFamily: "Arial, sans-serif",
-    width: "100%",
-  },
-  icon: {
-    marginRight: "15px",
-  },
-  activeLink: {
-    backgroundColor: "#FF5722",
-    color: "white",
-    fontWeight: "bold",
-    paddingLeft: "25px",
-  },
-  logoutButton: {
-    backgroundColor: "#FF5722",
-    color: "white",
-    border: "none",
-    fontSize: "1.1rem",
-    padding: "12px 20px",
-    display: "flex",
-    alignItems: "center",
-    borderRadius: "6px",
-    transition: "all 0.3s ease",
-    fontFamily: "Arial, sans-serif",
-    width: "100%",
-    cursor: "pointer",
-  },
 };
-
-export default Admindashboard;
