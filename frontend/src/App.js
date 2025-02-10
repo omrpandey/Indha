@@ -2,6 +2,7 @@ import { Header } from "./components/Header";
 import { Home } from "./components/Home";
 import { Footer } from "./components/Footer";
 import { Dashboard } from "./components/Dashboard";
+import admHeader from './components/admHeader';
 import { About } from "./components/About";
 import { Blog } from "./components/Blog";
 import { Join } from "./components/Join";
@@ -24,11 +25,11 @@ import { Orders } from './components/Orders';
 import { Update } from './components/Update';
 import { MailSender } from './components/Bulk-mail';
 import {PaymentPage} from './components/payment-gateway';
-import Admindashboard from './components/Admindashboard'
-import admHeader from './components/admHeader' 
+import {Admindashboard} from './components/Admindashboard'
 import UserPage from "./components/UserPage";
 import ShowProduct from "./components/ShowProduct";
 import {Productedit} from './components/Productedit';
+import { AdminDash } from "./components/AdminDash";
 import "./App.css";
 
 export const App = () => {
@@ -66,6 +67,7 @@ export const App = () => {
         <Route path="/admindashboard/*" element={<Admindashboard />}>
           <Route path="productinsert" element={<Productinsert />} />
           <Route path="userpage" element={<UserPage />} />
+          <Route path="admindash" element={<AdminDash />} />
           <Route path="showcontact" element={<Showcontact />} />
           <Route path="showproduct" element={<ShowProduct />} />
           <Route path="productedit/:id" element={<Productedit />} />
