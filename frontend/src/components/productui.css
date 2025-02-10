@@ -14,7 +14,7 @@
     gap: 50px;
   
 }
-.ui .ui-left{
+.ui .ui-left{ 
     width: 30%;
     height: 70%;
     display: flex;
@@ -45,14 +45,17 @@
     font-family: cursive;
     padding-left: 5px;
     font-weight: 900;
-    text-decoration: line-through;
-    text-decoration-thickness: 2px; /* Adjust the value as needed */
+   /* Adjust the value as needed */
     
     
 }
+.cut{
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+}
 .cst_dcr{
     font-family: cursive;
-    color: rgb(37, 37, 37);
+    color: rgba(37, 37, 37, 0.891);
     font-family: cursive;
     padding-left: 5px;
     font-weight: 900;

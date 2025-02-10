@@ -68,11 +68,12 @@
   letter-spacing: 1px;
 }
 
-.content p {
+.wish-content p {
   margin: 10px 0;
   font-size: 16px;
   font-family: cursive;
   font-weight: 400;
+
   /* color: #ffb400; */
 }
 

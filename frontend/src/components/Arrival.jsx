@@ -2,11 +2,11 @@ import React from 'react';
 import './arrival.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { Autoplay } from 'swiper/modules';
 
 export const Arrival = () => {
   return (
@@ -20,168 +20,39 @@ export const Arrival = () => {
           <Swiper
             spaceBetween={20}
             slidesPerView={4}
+            autoplay={{
+              delay: 1500,
+              disableOnInteraction: false,
+            }}
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
+            modules={[Autoplay]}
+            className="arrival-swiper"
           >
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw1.jpg"
-                    alt="Product 1"
-                    className="card-image"
-                  />
-                  <h3>Indha Hand Block</h3>
-                  <p>$ 290/-</p>
+            {[
+              { src: './assets/nw1.jpg', title: 'Indha Hand Block', price: '$ 290/-' },
+              { src: './assets/nw2.png', title: 'Indha Hand Painted', price: '$ 320/-' },
+              { src: './assets/nw3.png', title: 'Indha Hand Painted', price: '$ 400/-' },
+              { src: './assets/nw4.png', title: 'Indha Hand Painted', price: '$ 600/-' },
+              { src: './assets/nw5.png', title: 'Indha Hand Painted', price: '$ 320/-' },
+              { src: './assets/nw6.png', title: 'Indha Unique Embroid', price: '$ 250/-' },
+              { src: './assets/nw7.jpg', title: 'Indha Unique Handprint', price: '$ 550/-' },
+              { src: './assets/nw8.png', title: 'Indha 20X20 Pillow', price: '$240/-' },
+              { src: './assets/nw9.png', title: 'Indha Printed Books', price: '$ 240/-' },
+              { src: './assets/nw10.png', title: 'Indha Hand Painted', price: '$ 590/-' },
+              { src: './assets/nw11.png', title: 'Indha Handcraft', price: '$ 700/-' },
+              { src: './assets/nw12.jpg', title: 'Indha Blue Dupion', price: '$ 800/-' },
+            ].map((item, index) => (
+              <SwiperSlide key={index}>
+                <div className="card">
+                  <div className="face">
+                    <img src={item.src} alt={item.title} className="card-image" />
+                    <h3>{item.title}</h3>
+                    <p>{item.price}</p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw2.png"
-                    alt="Product 2"
-                    className="card-image"
-                  />
-                  <h3>Indha Hand Painteted</h3>
-                  <p>$ 320/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw3.png"
-                    alt="Product 3"
-                    className="card-image"
-                  />
-                  <h3>Indha Hand Painteted</h3>
-                  <p>$ 400/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw4.png"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha Hand Painteted</h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw5.png"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha Hand Painteted</h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw6.png"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha Unique Embroid</h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw7.jpg"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha Unique Handprint</h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw8.png"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha 20X20 Pillow </h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw9.png"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha printed Books</h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw10.png"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha Hand Painteted</h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw11.png"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha Handcraft</h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card">
-                <div className="face">
-                  <img
-                    src="./assets/nw12.jpg"
-                    alt="Product 4"
-                    className="card-image"
-                  />
-                  <h3>Indha Blue Dupion</h3>
-                  <p>$ 500/-</p>
-                </div>
-              </div>
-            </SwiperSlide>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>

@@ -79,7 +79,7 @@ export const Cart = () => {
   return (
     <div
       style={{
-        height: "100vh",
+        height: "auto",
         display: "flex",
         flexDirection: "column",
         backgroundColor: "#f9f9f9",
@@ -94,13 +94,13 @@ export const Cart = () => {
           backgroundColor: "#fff",
           borderRadius: "10px",
           boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
-          paddingLeft: "300px",
+          paddingLeft: "280px",
           paddingBottom: "20px",
         }}
       >
         <table
           style={{
-            width: "100%",
+            width: "110%",
             borderCollapse: "collapse",
             textAlign: "center",
           }}
@@ -218,40 +218,110 @@ export const Cart = () => {
         </table>
       </div>
 
-      <div
-        style={{
-          width: "40%",
-          margin: "auto",
-          padding: "20px",
-          backgroundColor: "#fff",
-          borderRadius: "15px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          textAlign: "center",
-        }}
-      >
-        <h3
-          style={{
-            fontFamily: "cursive",
-            fontWeight: "500",
-            marginBottom: "20px",
-            backgroundColor: "red",
-            color: "#fff",
-            padding: "10px",
-            borderRadius: "5px",
-          }}
-        >
-          Final Bill
-        </h3>
-        <p>
-          <strong>Total Items:</strong> {products.length}
-        </p>
-        <p>
-          <strong>Total Amount:</strong> ₹{totalAmount}
-        </p>
-        <p style={{ color: "#4caf50", fontWeight: "bold" }}>
-          Thank you for shopping with us!
+      <div style={{
+      backgroundColor: '#ffffff',
+      width:"400px",
+      borderRadius: '16px',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+      padding: '30px',
+      maxWidth: '420px',
+      margin: '20px auto',
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      transition: 'all 0.3s ease-in-out',
+     
+   
+    }}>
+      {/* Header */}
+      <h2 style={{
+        // margin: '0 0 20px 0',
+        // color: '#1A202C',
+        fontSize: '1.7rem',
+        fontWeight: '800',
+        letterSpacing: '1.2px',
+        // textAlign: 'center',
+        display:"flex",
+        alignItems:"start",
+        justifyContent:"start",
+
+        borderBottom: '2px solid #CBD5E0',
+        fontFamily:"cursive",
+        paddingBottom: '5px',
+        // textTransform: 'uppercase',
+        background: 'linear-gradient(90deg, rgba(72, 187, 120, 0.8), rgba(72, 187, 120, 1))',
+        WebkitBackgroundClip: 'text',
+        color: 'transparent',
+        color:"orangered",
+      }}>
+        Order Summary
+      </h2>
+
+      {/* Order Details */}
+      <div style={{
+        marginBottom: '24px',
+      }}>
+        {/* Total Items */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: '20px',
+          color: '#2D3748',
+          fontSize: '1.1rem',
+        }}>
+          <span style={{
+            fontWeight: '600',
+            color: '#4A5568',
+          }}>Total Items:</span>
+          <span style={{
+            fontWeight: '500',
+            color: 'red',
+          }}>{products.length}</span>
+        </div>
+
+        {/* Total Price */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: '20px',
+          color: '#2D3748',
+          fontSize: '1.1rem',
+        }}>
+          <span style={{
+            fontWeight: '600',
+            color: '#4A5568',
+          }}>Total Amount:</span>
+          <span style={{
+            fontWeight: '500',
+            color: '#2D3748',
+            fontSize: '1.2rem',
+            color: 'red',
+          }}>${totalAmount.toFixed(2)}</span>
+        </div>
+      </div>
+
+      {/* Thank You Section */}
+      <div style={{
+        backgroundColor: 'rgb(255, 231, 231)',
+        borderRadius: '10px',
+        padding: '20px',
+        textAlign: 'center',
+        marginTop: '30px',
+        transition: 'transform 0.3s ease',
+        '&:hover': {
+          transform: 'scale(1.05)'
+        }
+      }}>
+        <p style={{
+          margin: '0',
+          color: 'red',
+          fontWeight: '500',
+          fontSize: '1.1rem',
+          fontStyle: 'italic',
+          letterSpacing: '1px',
+        }}>
+          Thank you for your purchase! 🎉
         </p>
       </div>
+    </div>
     </div>
   );
 };

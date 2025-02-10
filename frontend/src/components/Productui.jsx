@@ -100,17 +100,55 @@ export const Productui = () => {
  </div>
  {product.rating > 0 ? (
   <div className="rating-cont">
-    {product.rating === 5 && <div>★★★★★</div>}
-    {product.rating === 4.5 && <div>★★★★☆</div>}
-    {product.rating === 4 && <div>★★★★</div>}
-    {product.rating === 3.5 && <div>★★★☆</div>}
-    {product.rating === 3 && <div>★★★</div>}
-    {product.rating === 2.5 && <div>★★☆</div>}
-    {product.rating === 2 && <div>★★</div>}
-    {product.rating === 1.5 && <div>★☆</div>}
-    {product.rating === 1 && <div>★</div>}
+    {product.rating === 5 && 
+     <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+     <span style={{paddingLeft:"10px"}}>★★★★★</span>
+   </div>
+    }
+    {product.rating === 4.5 && 
+     <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+     <span style={{paddingLeft:"10px"}}>★★★★☆</span>
+   </div>
+}
+
+    {product.rating === 4 && 
+     <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+     <span style={{paddingLeft:"10px"}}>★★★★</span>
+   </div>
+    }
+    {product.rating === 3.5 && 
+     <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+     <span style={{paddingLeft:"10px"}}>★★★☆</span>
+   </div>
+    }
+    {product.rating === 3 && 
+     <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+     <span style={{paddingLeft:"10px"}}>★★★</span>
+   </div>
+    }
+    {product.rating === 2.5 && 
+     <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+     <span style={{paddingLeft:"10px"}}>★★☆</span>
+   </div>
+    }
+    {product.rating === 2 && 
+     <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+     <span style={{paddingLeft:"10px"}}>★★</span>
+   </div>
+    }
+    {product.rating === 1.5 && 
+     <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+     <span style={{paddingLeft:"10px"}}>★☆</span>
+   </div>
+    }
+    {product.rating === 1 &&   
+    
+    <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500" }}>
+  <span style={{paddingLeft:"10px"}}>★</span>
+</div>
+}
     {product.rating === 0 && <div>No stars</div>}
-  </div>
+</div>  
 ) : (
   <div>No stars</div>
 )}
@@ -126,10 +164,10 @@ export const Productui = () => {
        {product.discountedPrice > 0 ? (
       
         <span className="p_price">
-           <span className="cst_inr">${product.price}</span>
-           <span className="cst_dcr">${product.discountedPrice}</span>
+           <span className="cst_inr cut">  ₹{product.price}</span>
+           <span className="cst_dcr">  ₹{product.discountedPrice}</span>
         </span>
-      ):( <span className="cst_inr">${product.price}</span>)}
+      ):( <span className="cst_inr">  ₹{product.price}</span>)}
           
         </div>
         <div className="ui-size">

@@ -18,9 +18,7 @@ export const Customer = () => {
                                     <Swiper
                                        spaceBetween={20}
                                        slidesPerView={5}
-                                   navigation
-                                   pagination={{ clickable: true }}
-                                   scrollbar={{ draggable: true }}
+                              
                                         className="mySwiper"
                                     >
                                        

@@ -215,7 +215,7 @@ useEffect(() => {
       style={{
         marginTop:"12px",
         marginBottom:"12px",
-        width: "80%",
+        width: "94%",
         height:"30px",
         appearance: "none",
         height: "6px",
@@ -364,7 +364,11 @@ useEffect(() => {
             ) : displayedProducts.length > 0 ? (
               displayedProducts.map((product) => (
                 <div className="cardpro" key={product._id}>
-                  <Link to={`/productui/${hashProductId(product._id)}`}>
+                <Link to={`/productui/${hashProductId(product._id)}`}>
+                  <div className="image-container">
+                    {product.discountedPrice && product.discountedPrice < product.price && (
+                      <span className="sale-badge">Sale</span>
+                    )}
                     <img
                       src={
                         product.images && product.images.length > 0
@@ -375,27 +379,23 @@ useEffect(() => {
                       }
                       alt={product.name}
                     />
-                    <div className="detail">
-                      <h5>{product.name}</h5>
-                      <p>₹{product.discountedPrice || product.price} /-</p>
-                    </div>
-                  </Link>
-                  <div className="add-section">
-                    <button
-                      className="cart"
-                      onClick={() => handleAddToWishlist(product._id)}
-                    >
-                      <FontAwesomeIcon icon={faHeart} className="like" />
-                    </button>
-
-                    <button
-                      className="cart"
-                      onClick={() => handleAddToCart(product._id)}
-                    >
-                      <FontAwesomeIcon icon={faShoppingCart} />
-                    </button>
                   </div>
+                  <div className="detail">
+                    <h5>{product.name}</h5>
+                    <p>₹{product.discountedPrice || product.price} /-</p>
+                  </div>
+                </Link>
+                <div className="add-section">
+                  <button className="cart" onClick={() => handleAddToWishlist(product._id)}>
+                    <FontAwesomeIcon icon={faHeart} className="like" />
+                  </button>
+              
+                  <button className="cart" onClick={() => handleAddToCart(product._id)}>
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                  </button>
                 </div>
+              </div>
+              
               ))
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '20vh', }}>
