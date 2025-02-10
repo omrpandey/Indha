@@ -55,10 +55,14 @@ export const Cart = () => {
   // Delete a single product from cart
   const deleteProduct = async (productId) => {
     try {
+      console.log("Deleting product with ID:", productId);
       await axios.delete(`http://localhost:2000/api/cart/${productId}`);
-      setProducts((prevProducts) =>
-        prevProducts.filter((product) => product.productId !== productId)
+      setProducts(
+        (prevProducts) =>
+          prevProducts.filter((product) => products._id !== productId) // Use _id here
       );
+       // Reload the page to reflect the changes
+       window.location.reload();  
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -103,24 +107,30 @@ export const Cart = () => {
         >
           <thead>
             <tr>
-              {["Sr. No", "Image", "Name", "Price", "Quantity", "Count", "Actions"].map(
-                (header) => (
-                  <th
-                    key={header}
-                    style={{
-                      textAlign: "center",
-                      border: "1px solid #ddd",
-                      padding: "12px",
-                      fontWeight: "500",
-                      fontFamily: "cursive",
-                      backgroundColor: "red",
-                      color: "#fff",
-                    }}
-                  >
-                    {header}
-                  </th>
-                )
-              )}
+              {[
+                "Sr. No",
+                "Image",
+                "Name",
+                "Price",
+                "Quantity",
+                "Count",
+                "Actions",
+              ].map((header) => (
+                <th
+                  key={header}
+                  style={{
+                    textAlign: "center",
+                    border: "1px solid #ddd",
+                    padding: "12px",
+                    fontWeight: "500",
+                    fontFamily: "cursive",
+                    backgroundColor: "red",
+                    color: "#fff",
+                  }}
+                >
+                  {header}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -180,7 +190,7 @@ export const Cart = () => {
                       color: "#fff",
                       border: "none",
                       borderRadius: "5px",
-                      height:"30px",
+                      height: "30px",
                     }}
                   >
                     -
@@ -188,7 +198,7 @@ export const Cart = () => {
                 </td>
                 <td style={{ border: "1px solid #ddd", padding: "10px" }}>
                   <button
-                    onClick={() => deleteProduct(product.productId)}
+                    onClick={() => deleteProduct(product._id)} // Use _id instead of productId
                     style={{
                       padding: "5px 10px",
                       cursor: "pointer",
@@ -240,7 +250,6 @@ export const Cart = () => {
         <p style={{ color: "#4caf50", fontWeight: "bold" }}>
           Thank you for shopping with us!
         </p>
-       
       </div>
     </div>
   );

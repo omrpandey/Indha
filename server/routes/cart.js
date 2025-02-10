@@ -87,16 +87,31 @@ router.delete("/clear-cart", async (req, res) => {
 // Route to remove a single product from the cart
 router.delete("/cart/:productId", async (req, res) => {
     try {
-        const { productId } = req.params;
+        const { productId } = req.params; // Get the product _id from the request params
 
+        // Find the cart (assuming a single cart document exists)
         let cart = await Cart.findOne();
         if (!cart) {
             return res.status(404).json({ error: "Cart not found" });
         }
 
-        // Remove the product from the cart
-        cart.products = cart.products.filter(product => product.productId.toString() !== productId);
+        // Find index of the product to be deleted by matching its `_id`
+        const productIndex = cart.products.findIndex(product => product._id.toString() === productId);
 
+        if (productIndex === -1) {
+            return res.status(404).json({ error: "Product not found in cart" });
+        }
+
+        // Remove the product from the cart array
+        cart.products.splice(productIndex, 1);
+
+        // If the cart is empty after deletion, delete the cart document
+        if (cart.products.length === 0) {
+            await Cart.deleteOne({ _id: cart._id });
+            return res.status(200).json({ message: "Product removed, cart is now empty", cart: null, cartCount: 0 });
+        }
+
+        // Save the updated cart
         await cart.save();
 
         // Calculate the updated cart count
@@ -108,7 +123,6 @@ router.delete("/cart/:productId", async (req, res) => {
         res.status(500).json({ error: "Something went wrong!" });
     }
 });
-
 
 
 module.exports = router;
