@@ -100,19 +100,21 @@ export const Productui = () => {
  </div>
  {product.rating > 0 ? (
   <div className="rating-cont">
-    {product.rating === 1 && <div>1 star</div>}
-    {product.rating === 1.5 && <div>1.5 stars</div>}
-    {product.rating === 2 && <div>2 stars</div>}
-    {product.rating === 2.5 && <div>2.5 stars</div>}
-    {product.rating === 3 && <div>3 stars</div>}
-    {product.rating === 3.5 && <div>3.5 stars</div>}
-    {product.rating === 4 && <div>4 stars</div>}
-    {product.rating === 4.5 && <div>4.5 stars</div>}
-    {product.rating === 5 && <div>5 stars</div>}
+    {product.rating === 5 && <div>★★★★★</div>}
+    {product.rating === 4.5 && <div>★★★★☆</div>}
+    {product.rating === 4 && <div>★★★★</div>}
+    {product.rating === 3.5 && <div>★★★☆</div>}
+    {product.rating === 3 && <div>★★★</div>}
+    {product.rating === 2.5 && <div>★★☆</div>}
+    {product.rating === 2 && <div>★★</div>}
+    {product.rating === 1.5 && <div>★☆</div>}
+    {product.rating === 1 && <div>★</div>}
+    {product.rating === 0 && <div>No stars</div>}
   </div>
 ) : (
   <div>No stars</div>
 )}
+
 
 
         <div className="ui-desc">

@@ -34,16 +34,23 @@ router.get('/:id', async (req, res) => {
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
-    res.json(product);
+
+    // Ensure rating and totalReviews are always included
+    res.json({
+      ...product.toObject(),
+      rating: product.rating || 0,
+      totalReviews: product.totalReviews || 0,
+    });
   } catch (error) {
     console.error("Error fetching product by ID:", error.message);
     res.status(500).json({ error: 'Error fetching product' });
   }
 });
 
+
 // Add a new product
 router.post('/', upload.array('images'), async (req, res) => {
-  const { name, description, price, discountedPrice,discountPercentage, category } = req.body;
+  const { name, description, price, discountedPrice, discountPercentage, category, rating, totalReviews } = req.body;
   const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
 
   try {
@@ -52,10 +59,13 @@ router.post('/', upload.array('images'), async (req, res) => {
       description,
       price,
       discountedPrice,
-      discountPercentage, 
+      discountPercentage,
       images,
       category,
+      rating: rating || 0, // Default rating to 0
+      totalReviews: totalReviews || 0, // Default totalReviews to 0
     });
+
     await product.save();
     res.status(201).json({ message: 'Product added successfully', product });
   } catch (error) {
@@ -66,7 +76,7 @@ router.post('/', upload.array('images'), async (req, res) => {
 
 // Update a product by ID
 router.put('/:id', upload.array('images'), async (req, res) => {
-  const { name, description, price, discountedPrice, discountPercentage, category } = req.body;
+  const { name, description, price, discountedPrice, discountPercentage, category, rating } = req.body;
   const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
 
   try {
@@ -79,6 +89,8 @@ router.put('/:id', upload.array('images'), async (req, res) => {
         discountedPrice,
         discountPercentage,
         category,
+        rating,
+        
         images: images.length > 0 ? images : undefined, // Only update images if new ones are provided
       },
       { new: true } // Return updated document
