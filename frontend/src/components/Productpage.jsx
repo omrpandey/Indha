@@ -187,7 +187,7 @@ export const Productpage = () => {
         style={{
           marginTop:"12px",
           marginBottom:"12px",
-          width: "80%",
+          width: "94%",
           height:"30px",
           appearance: "none",
           height: "6px",

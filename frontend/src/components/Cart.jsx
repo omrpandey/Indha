@@ -59,10 +59,10 @@ export const Cart = () => {
       await axios.delete(`http://localhost:2000/api/cart/${productId}`);
       setProducts(
         (prevProducts) =>
-          prevProducts.filter((product) => products._id !== productId) // Use _id here
+          prevProducts.filter((product) => product._id !== productId) // Use _id here
       );
-       // Reload the page to reflect the changes
-       window.location.reload();  
+      // Reload the page to reflect the changes
+      window.location.reload();  
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -136,10 +136,10 @@ export const Cart = () => {
           <tbody>
             {products.map((product, index) => (
               <tr key={product.productId}>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
+                <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
                   {index + 1}
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
+                <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
                   <img
                     src={
                       product &&
@@ -156,49 +156,50 @@ export const Cart = () => {
                     }}
                   />
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
+                <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
                   {product.name}
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
+                <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
                   ₹{product.price}
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
+                <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
                   {product.quantity}
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
-                  <button
-                    onClick={() => incrementQuantity(index)}
-                    style={{
-                      marginRight: "10px",
-                      padding: "5px 10px",
-                      cursor: "pointer",
-                      backgroundColor: "#ff4747",
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: "5px",
-                      fontFamily: "cursive",
-                    }}
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={() => decrementQuantity(index)}
-                    style={{
-                      padding: "5px 10px",
-                      cursor: "pointer",
-                      backgroundColor: "#4caf50",
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: "5px",
-                      height: "30px",
-                    }}
-                  >
-                    -
-                  </button>
+                <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <button
+                      onClick={() => incrementQuantity(index)}
+                      style={{
+                        marginRight: "10px",
+                        padding: "5px 10px",
+                        cursor: "pointer",
+                        backgroundColor: "#ff4747",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      +
+                    </button>
+                    <button
+                      onClick={() => decrementQuantity(index)}
+                      style={{
+                        marginRight: "10px",
+                        padding: "5px 10px",
+                        cursor: "pointer",
+                        backgroundColor: "#4caf50",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      -
+                    </button>
+                  </div>
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>
+                <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
                   <button
-                    onClick={() => deleteProduct(product._id)} // Use _id instead of productId
+                    onClick={() => deleteProduct(product._id)}
                     style={{
                       padding: "5px 10px",
                       cursor: "pointer",
