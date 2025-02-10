@@ -213,17 +213,19 @@ export const Update = () => {
           )}
         </div>
 
-        <div style={{ textAlign: "center" }}>
+        <div>
           <button
             type="submit"
             style={{
-              backgroundColor: "#4CAF50", 
+              backgroundColor: "orangered", 
               color: "white", 
               padding: "12px 24px", 
-              border: "none", 
+              border: "1px solid white", 
               borderRadius: "6px", 
               fontSize: "16px", 
               cursor: "pointer", 
+              fontFamily:"cursive",
+              fontWeight:"100",
               transition: "background-color 0.3s",
             }}
           >

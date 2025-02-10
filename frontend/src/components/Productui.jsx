@@ -7,9 +7,6 @@ import "./productui.css";
 const decodeProductId = (hash) => CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(hash));
 
 export const Productui = () => {
-  const [selectedSize, setSelectedSize] = useState('');
-
-  const sizes = ['S', 'M', 'L', 'XL'];
   const { productId: hashedId } = useParams(); // Get hashed product ID from URL
   const productId = decodeProductId(hashedId); // Decode the hash to get the original product ID
 
@@ -99,16 +96,38 @@ export const Productui = () => {
           <p className="proui_line"></p>
         </div>
         <div style={{ display: "flex", alignItems: "center", fontSize: "20px", color: "#ffa500",paddingLeft:"8px" }}>
-  <span>★★★★☆</span>
   
-</div>
+ </div>
+ {product.rating > 0 ? (
+  <div className="rating-cont">
+    {product.rating === 1 && <div>1 star</div>}
+    {product.rating === 1.5 && <div>1.5 stars</div>}
+    {product.rating === 2 && <div>2 stars</div>}
+    {product.rating === 2.5 && <div>2.5 stars</div>}
+    {product.rating === 3 && <div>3 stars</div>}
+    {product.rating === 3.5 && <div>3.5 stars</div>}
+    {product.rating === 4 && <div>4 stars</div>}
+    {product.rating === 4.5 && <div>4.5 stars</div>}
+    {product.rating === 5 && <div>5 stars</div>}
+  </div>
+) : (
+  <div>No stars</div>
+)}
+
 
         <div className="ui-desc">
           <p>{product.description}</p>
         </div>
         <div className="ui-desc">
+        
           
-          <span className="cst_inr">${product.price}</span>
+       {product.discountedPrice > 0 ? (
+      
+        <span className="p_price">
+           <span className="cst_inr">${product.price}</span>
+           <span className="cst_dcr">${product.discountedPrice}</span>
+        </span>
+      ):( <span className="cst_inr">${product.price}</span>)}
           
         </div>
         <div className="ui-size">
@@ -121,26 +140,8 @@ export const Productui = () => {
           ) : (
     
       <div>
-        <h5 style={{fontFamily:"cursive",paddingLeft:"10px",paddingBottom:"5px"}}>Select Size</h5>
-        {sizes.map((size) => (
-          <button
-            key={size}
-            style={{
-              padding: '10px 20px',
-              margin: '5px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              backgroundColor: size === selectedSize ? '#ff5722' : '#ffffff',
-              color: size === selectedSize ? '#fff' : '#000',
-              fontWeight: size === selectedSize ? 'bold' : 'normal',
-            }}
-            onClick={() => setSelectedSize(size)}
-          >
-            {size}
-          </button>
-        ))}
+      
+      
       </div>
     
           )}

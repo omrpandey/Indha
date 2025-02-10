@@ -37,14 +37,16 @@ export const Dashboard = () => {
   const styles = {
     dashboardContainer: {
       fontFamily: "Cursive",
+    
       padding: "30px",
       backgroundColor: "#f5f7fb",
       height: "100vh",
     },
     dashboardContent: {
+     
       maxWidth: "1200px",
       margin: "0 auto",
-      backgroundColor: "#fff",
+     
       borderRadius: "15px",
       boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)",
       padding: "30px",
@@ -64,6 +66,8 @@ export const Dashboard = () => {
     userInfo: {
       backgroundColor: "#fff",
       padding: "25px",
+
+      backgroundColor:"rgb(253, 248, 248)",
       // width:"30%",
       borderRadius: "4px",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
