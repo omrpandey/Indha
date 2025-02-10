@@ -58,7 +58,7 @@ export const Header = () => {
     e.preventDefault();
 
     try {
-      const isAdminLogin = loginData.username === "admin";
+      const isAdminLogin = loginData.username === "admin" || "admin1"|| "admin2";
       const loginUrl = isAdminLogin
         ? "http://localhost:2000/api/admin/login"
         : "http://localhost:2000/api/user/login";
