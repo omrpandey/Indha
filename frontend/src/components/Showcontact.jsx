@@ -1,29 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-export const Showcontact = () => {
-  // Dummy data
-  const contacts = [
-    {
-      name: "John Doe",
-      email: "johndoe@example.com",
-      priority: "High",
-      department: "Sales Support",
-      telephone: "1234567890",
-      subject: "Product Inquiry",
-      comment: "I need more details about your services.",
-      submittedAt: "2025-02-07",
-    },
-    {
-      name: "Jane Smith",
-      email: "janesmith@example.com",
-      priority: "Low",
-      department: "B2B Enquiry",
-      telephone: "9876543210",
-      subject: "Partnership Request",
-      comment: "Interested in collaborating.",
-      submittedAt: "2025-02-06",
-    },
-  ];
+const Showcontact = () => {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    const fetchContacts = async () => {
+      try {
+        const response = await axios.get("http://localhost:2000/api/contact/all"); // Adjust port if needed
+        setContacts(response.data);
+      } catch (error) {
+        console.error("Error fetching contacts:", error);
+      }
+    };
+
+    fetchContacts();
+  }, []);
 
   return (
     <div style={styles.container}>
@@ -42,18 +34,26 @@ export const Showcontact = () => {
           </tr>
         </thead>
         <tbody>
-          {contacts.map((contact, index) => (
-            <tr key={index} style={styles.tableRow}>
-              <td style={styles.td}>{contact.name}</td>
-              <td style={styles.td}>{contact.email}</td>
-              <td style={styles.td}>{contact.priority}</td>
-              <td style={styles.td}>{contact.department}</td>
-              <td style={styles.td}>{contact.telephone}</td>
-              <td style={styles.td}>{contact.subject}</td>
-              <td style={styles.td}>{contact.comment}</td>
-              <td style={styles.td}>{contact.submittedAt}</td>
+          {contacts.length > 0 ? (
+            contacts.map((contact, index) => (
+              <tr key={index} style={styles.tableRow}>
+                <td style={styles.td}>{contact.name}</td>
+                <td style={styles.td}>{contact.email}</td>
+                <td style={styles.td}>{contact.priority}</td>
+                <td style={styles.td}>{contact.department}</td>
+                <td style={styles.td}>{contact.telephone}</td>
+                <td style={styles.td}>{contact.subject}</td>
+                <td style={styles.td}>{contact.comment}</td>
+                <td style={styles.td}>{new Date(contact.createdAt).toLocaleDateString()}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="8" style={{ textAlign: "center", padding: "20px" }}>
+                No contact requests found.
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
@@ -61,49 +61,13 @@ export const Showcontact = () => {
 };
 
 const styles = {
-  container: {
-    marginLeft: "200px",
-    padding: "20px",
-    fontFamily: "'Arial', sans-serif",
-  },
-  header: {
-    color: "#333",
-    textAlign: "center",
-    fontSize: "2rem",
-    marginBottom: "20px",
-  },
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    borderRadius: "8px",
-    overflow: "hidden",
-  },
-  tableHeader: {
-    backgroundColor: "#f9f9f9",
-    color: "#333",
-    textAlign: "left",
-  },
-  th: {
-    padding: "15px",
-    border: "1px solid #ddd",
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    fontSize: "0.9rem",
-  },
-  td: {
-    padding: "12px",
-    border: "1px solid #ddd",
-    textAlign: "left",
-    fontSize: "0.9rem",
-  },
-  tableRow: {
-    backgroundColor: "#fff",
-    transition: "background-color 0.3s ease",
-  },
-  tableRowHover: {
-    backgroundColor: "#f0f0f0",
-  },
+  container: { marginLeft: "200px", padding: "20px", fontFamily: "Arial, sans-serif" },
+  header: { color: "#333", textAlign: "center", fontSize: "2rem", marginBottom: "20px" },
+  table: { width: "100%", borderCollapse: "collapse", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", borderRadius: "8px" },
+  tableHeader: { backgroundColor: "#f9f9f9", color: "#333", textAlign: "left" },
+  th: { padding: "15px", border: "1px solid #ddd", fontWeight: "bold", textTransform: "uppercase", fontSize: "0.9rem" },
+  td: { padding: "12px", border: "1px solid #ddd", textAlign: "left", fontSize: "0.9rem" },
+  tableRow: { backgroundColor: "#fff", transition: "background-color 0.3s ease" },
 };
 
 export default Showcontact;

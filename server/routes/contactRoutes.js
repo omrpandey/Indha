@@ -40,5 +40,14 @@ router.post('/submit', async (req, res) => {
     res.status(400).json({ error: 'Error submitting contact form', details: err });
   }
 });
+router.get('/all', async (req, res) => {
+  try {
+    const contacts = await Contact.find().sort({ createdAt: -1 }); // Fetch and sort by latest
+    res.status(200).json(contacts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch contacts' });
+  }
+});
 
 module.exports = router;
