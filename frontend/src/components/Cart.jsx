@@ -73,13 +73,34 @@ export const Cart = () => {
   };
 
   return (
-    <div style={{ padding: "20px", backgroundColor: "#f9f9f9" }}>
-      <h6 style={{ fontFamily: "Cursive", fontSize: "22px", borderBottom: "1px solid rgba(10, 10, 10, 0.58)", width: "30%", marginLeft: "120px", marginBottom: "20px", paddingBottom: "10px" }}>
-        Almost There! Complete Your Purchase
-      </h6>
+    <div
+      style={{
+        height: "auto",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#f9f9f9",
+        padding: "20px",
+      }}
+    >
+       <h6 style={{fontFamily:"Cursive",fontWeight:"400",fontSize:"22px",borderBottom:"1px solid rgba(10, 10, 10, 0.58)",width:"30%",marginLeft:"120px",marginBottom:"20px",paddingBottom:"10px"}}>Welcome to cart! <br /> Add more products to your cart</h6>
 
-      <div style={{ backgroundColor: "#fff", padding: "20px", borderRadius: "10px", boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)" }}>
-        <table style={{ width: "100%", textAlign: "center" }}>
+      <div
+        style={{
+          width: "100%",
+          marginBottom: "20px",
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
+          paddingBottom: "20px",
+        }}
+      >
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            textAlign: "center",
+          }}
+        >
           <thead>
             <tr>
               {["Sr. No", "Image", "Name", "Price", "Quantity", "Count", "Actions"].map((header) => (
@@ -97,11 +118,39 @@ export const Cart = () => {
                 <td>{product.name}</td>
                 <td>₹{product.discount > 0 ? product.discount : product.price}</td>
                 <td>{product.quantity}</td>
-                <td>
-                  <button onClick={() => incrementQuantity(index)}>+</button>
-                  <button onClick={() => decrementQuantity(index)}>-</button>
+                <td style={{ padding: "10px", fontFamily: "cursive" }}>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <button
+                      onClick={() => incrementQuantity(index)}
+                      style={{
+                        marginRight: "10px",
+                        padding: "5px 10px",
+                        cursor: "pointer",
+                        backgroundColor: "#ff4747",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      +
+                    </button>
+                    <button
+                      onClick={() => decrementQuantity(index)}
+                      style={{
+                        marginRight: "10px",
+                        padding: "5px 10px",
+                        cursor: "pointer",
+                        backgroundColor: "#4caf50",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      -
+                    </button>
+                  </div>
                 </td>
-                <td>
+                <td style={{ padding: "10px" }}>
                   <button onClick={() => deleteProduct(product._id)}>Delete</button>
                 </td>
               </tr>
@@ -110,12 +159,115 @@ export const Cart = () => {
         </table>
       </div>
 
-      <div style={{ backgroundColor: "#fff", padding: "20px", borderRadius: "10px", marginTop: "20px", textAlign: "center" }}>
-        <h2 style={{ color: "orangered" }}>Order Summary</h2>
-        <p>Total Items: {products.length}</p>
-        <p>Total Amount: ₹{totalAmount.toFixed(2)}</p>
-        <p style={{ fontStyle: "italic", color: "red" }}>Thank you for your purchase! 🎉</p>
+      <div style={{
+      backgroundColor: '#ffffff',
+      width:"400px",
+      borderRadius: '16px',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+      padding: '30px',
+      maxWidth: '420px',
+      margin: '20px auto',
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      transition: 'all 0.3s ease-in-out',
+     
+   
+    }}>
+      {/* Header */}
+      <h2 style={{
+        // margin: '0 0 20px 0',
+        // color: '#1A202C',
+        fontSize: '1.7rem',
+        fontWeight: '500',
+        letterSpacing: '1.2px',
+        // textAlign: 'center',
+        display:"flex",
+        alignItems:"start",
+        justifyContent:"start",
+
+        borderBottom: '2px solid #CBD5E0',
+        fontFamily:"cursive",
+        paddingBottom: '5px',
+        // textTransform: 'uppercase',
+        background: 'linear-gradient(90deg, rgba(72, 187, 120, 0.8), rgba(72, 187, 120, 1))',
+        WebkitBackgroundClip: 'text',
+        color: 'transparent',
+        color:"orangered",
+      }}>
+        Cart Summary
+      </h2>
+
+      {/* Order Details */}
+      <div style={{
+        marginBottom: '24px',
+      }}>
+        {/* Total Items */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: '20px',
+          color: '#2D3748',
+          fontSize: '1.1rem',
+        }}>
+          <span style={{
+            fontWeight: '200',
+            color: '#4A5568',
+            fontFamily:"cursive",
+          }}>Total Items:</span>
+          <span style={{
+            fontWeight: '500',
+            fontFamily:"cursive",
+            color: 'red',
+          }}>{products.length}</span>
+        </div>
+
+        {/* Total Price */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: '20px',
+          color: '#2D3748',
+          fontSize: '1.1rem',
+        }}>
+          <span style={{
+            fontWeight: '200',
+            color: '#4A5568',
+            fontFamily:"cursive",
+          }}>Total Amount:</span>
+          <span style={{
+            fontWeight: '500',
+            color: '#2D3748',
+            fontSize: '1.2rem',
+            fontFamily:"cursive",
+            color: 'red',
+          }}> ₹{totalAmount.toFixed(2)}</span>
+        </div>
       </div>
+
+      {/* Thank You Section */}
+      <div style={{
+        backgroundColor: 'rgb(255, 231, 231)',
+        borderRadius: '10px',
+        padding: '20px',
+        textAlign: 'center',
+        marginTop: '30px',
+        transition: 'transform 0.3s ease',
+        '&:hover': {
+          transform: 'scale(1.05)'
+        }
+      }}>
+        <p style={{
+          margin: '0',
+          color: 'red',
+          fontWeight: '500',
+          fontSize: '1.1rem',
+          fontStyle: 'italic',
+          letterSpacing: '1px',
+          fontFamily:"cursive",
+        }}>
+          Please sign in to continoue to purchase! 🎉
+        </p>
+      </div>
+    </div>
     </div>
   );
 };
