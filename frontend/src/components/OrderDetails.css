@@ -100,9 +100,11 @@ width: 500px;
 }
 
 .item-price {
-  font-weight: 400;
+  font-weight: 700;
   color: orangered;
   font-family: cursive;
+  font-size: 13px;
+  padding-bottom: 12px;
 }
 
 .cart-total {

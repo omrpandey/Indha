@@ -130,7 +130,7 @@ font-family: cursive;
 }
 .ui .add-cart{
     display: flex;
-  gap: 5px;
+  gap: 10px;
 
 }
 .proui_line{
@@ -146,7 +146,7 @@ font-family: cursive;
     border: none;
     height: 40px;
     width: 150px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-family: cursive;
     font-size: 15px;
     display: flex;
@@ -158,9 +158,10 @@ font-family: cursive;
     /* background-color: orangered; */
     color: black;
     border: none;
+    font-weight: 600;
     height: 40px;
     width: 180px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-family: cursive;
     font-size: 15px;
     /* padding-bottom: 3px; */

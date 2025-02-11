@@ -133,6 +133,7 @@ const styles = {
   card: {
     backgroundColor: 'white',
     borderRadius: '12px',
+  
     padding: '1.5rem',
     boxShadow: '2px 5px 14px 16px rgba(0, 0, 0, 0.05)',
     transition: 'all 0.3s ease',
@@ -143,10 +144,15 @@ const styles = {
   },
   cardContent: {
     marginBottom: '1.5rem',
+  
   },
   productName: {
+    height:"90px",
+    overflow:"hidden",
+
+    fontFamily:"Cursive",
     fontSize: '1.25rem',
-    fontWeight: '600',
+    fontWeight: '300',
     color: '#2d3436',
     margin: '0 0 0.5rem 0',
   },
@@ -157,6 +163,8 @@ const styles = {
     margin: '0 0 1rem 0',
   },
   productDescription: {
+    height:"180px",
+    overflow:"hidden",
     fontSize: '0.9rem',
     color: '#636e72',
     margin: 0,

@@ -171,12 +171,7 @@ export const Productui = () => {
       ):( <span className="cst_inr">  ₹{product.price}</span>)}
           
         </div>
-        <div className="ui-desc">
-          <p>{product.tags}Category:Popular</p>
-        </div>
-        <div className="ui-desc">
-          <p>{product.Reviews}TotalReviews:100</p>
-        </div>
+      
         <div className="ui-size">
           {product.sizes?.length > 0 ? (
             <ul>

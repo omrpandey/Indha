@@ -1,8 +1,21 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  FiUser,
+  FiHome,
+  FiMapPin,
+  FiGlobe,
+  FiSmartphone,
+  FiMail,
+  FiShoppingCart,
+  FiBriefcase,
+  FiHash
+} from "react-icons/fi";
+import "./Checkout.css";
 
 export const Checkout = () => {
+  // ... (keep all the existing useState and useEffect code)
   const [cartProducts, setCartProducts] = useState([]);
   const navigate = useNavigate();
 
@@ -134,183 +147,166 @@ export const Checkout = () => {
     }
   };
 
-  // Styling
-  const containerStyle = {
-    padding: "20px",
-    fontFamily: "Arial, sans-serif",
-    backgroundColor: "#f9f9f9",
-    minHeight: "100vh",
-  };
-
-  const formStyle = {
-    backgroundColor: "#fff",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    maxWidth: "600px",
-    margin: "20px auto",
-  };
-
-  const labelStyle = {
-    display: "block",
-    marginBottom: "5px",
-    fontWeight: "bold",
-    color: "#555",
-  };
-
-  const inputStyle = {
-    width: "100%",
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    fontSize: "16px",
-    marginBottom: "15px",
-  };
-
-  const buttonStyle = {
-    width: "100%",
-    padding: "10px",
-    backgroundColor: "red",
-    color: "white",
-    fontSize: "16px",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-  };
-
-  if (submitted) {
-    return (
-      <div style={containerStyle}>
-        <h2 style={{ textAlign: "center", color: "#28a745" }}>
-          Order Submitted Successfully!
-        </h2>
-        <p style={{ textAlign: "center", color: "#333" }}>
-          Thank you for placing your order.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <div style={containerStyle}>
-      <h1 style={{ textAlign: "center", color: "#333", marginBottom: "20px" }}>
-        Fetch and Fill Address
-      </h1>
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <div>
-          <label style={labelStyle}>First Name:</label>
+    <div className="checkout-container">
+      <h3 className="form-title">
+       
+        <span>Checkout Details</span>
+        <span className="Check_line"></span>
+      </h3>
+    
+      <form onSubmit={handleSubmit} className="checkout-form">
+        <div className="form-group">
+          <label className="form-label">
+            <FiUser /> First Name:
+          </label>
           <input
             type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             required
           />
         </div>
-        <div>
-          <label style={labelStyle}>Last Name:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiUser /> Last Name:
+          </label>
           <input
             type="text"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             disabled
           />
         </div>
-        <div>
-          <label style={labelStyle}>Company Name:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiBriefcase /> Company Name:
+          </label>
           <input
             type="text"
             name="companyName"
             value={formData.companyName}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
           />
         </div>
-        <div>
-          <label style={labelStyle}>Country:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiGlobe /> Country:
+          </label>
           <input
             type="text"
             name="country"
             value={formData.country}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             required
           />
         </div>
-        <div>
-          <label style={labelStyle}>Street Address:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiHome /> Street Address:
+          </label>
           <input
             type="text"
             name="streetAddress"
             value={formData.streetAddress}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             required
           />
         </div>
-        <div>
-          <label style={labelStyle}>City:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiMapPin /> City:
+          </label>
           <input
             type="text"
             name="city"
             value={formData.city}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             required
           />
         </div>
-        <div>
-          <label style={labelStyle}>State or Country:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiGlobe /> State/Country:
+          </label>
           <input
             type="text"
             name="stateOrCountry"
             value={formData.stateOrCountry}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             required
           />
         </div>
-        <div>
-          <label style={labelStyle}>Pincode:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiHash /> Pincode:
+          </label>
           <input
             type="text"
             name="pincode"
             value={formData.pincode}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             required
           />
         </div>
-        <div>
-          <label style={labelStyle}>Phone Number:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiSmartphone /> Phone Number:
+          </label>
           <input
             type="text"
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             required
           />
         </div>
-        <div>
-          <label style={labelStyle}>Email:</label>
+
+        <div className="form-group">
+          <label className="form-label">
+            <FiMail /> Email:
+          </label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            style={inputStyle}
+            className="form-input"
             required
           />
         </div>
-        <button type="submit" style={buttonStyle}>
-          Order on this address
+
+        <button type="submit" className="submit-button">
+          <FiShoppingCart className="ico_check"/> 
+          <span className="ico_btn">Place Order Now!!</span>
         </button>
       </form>
+
+      {submitted && (
+        <div className="success-message">
+          <h2>Order Submitted Successfully! 🎉</h2>
+          <p>Thank you for placing your order.</p>
+        </div>
+      )}
     </div>
   );
 };
