@@ -32,6 +32,22 @@ export const Cart = () => {
     fetchCartData();
   }, []);
 
+  
+  useEffect(() => {
+    const fetchTotalAmount = async () => {
+      try {
+        const response = await axios.get("http://localhost:2000/api/cart/totalamt");
+        console.log("API Response:", response.data); // Debugging log
+        alert(response.data.totalAmount);
+        setTotalAmount(response.data.totalAmount);
+      } catch (error) {
+        console.error("Error fetching total amount:", error);
+      }
+    };
+
+    fetchTotalAmount();
+  }, []);
+
   const incrementQuantity = (index) => {
     setProducts((prevProducts) =>
       prevProducts.map((product, i) =>
@@ -67,14 +83,6 @@ export const Cart = () => {
       console.error("Error deleting product:", error);
     }
   };
-
-  useEffect(() => {
-    const total = products.reduce(
-      (acc, product) => acc + product.price * product.quantity,
-      0
-    );
-    setTotalAmount(total);
-  }, [products]);
 
   return (
     <div
@@ -162,7 +170,7 @@ export const Cart = () => {
                   {product.name}
                 </td>
                 <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
-                  ₹{product.price}
+                ₹{product.discount > 0 ? product.discount : product.price}
                 </td>
                 <td style={{ border: "1px solid #ddd", padding: "10px", fontFamily: "cursive" }}>
                   {product.quantity}
