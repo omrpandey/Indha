@@ -366,7 +366,7 @@ useEffect(() => {
                 <div className="cardpro" key={product._id}>
                 <Link to={`/productui/${hashProductId(product._id)}`}>
                   <div className="image-container">
-                    {product.discountedPrice < product.price && (
+                    {product.discountedPrice && product.discountPercentage < product.price && (
                       <span className="sale-badge">Sale</span>
                     )}
                     <img

@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { ShoppingCart, Package, Truck, User, CreditCard } from "lucide-react";
+import { 
+  ShoppingCart, 
+  Package, 
+  Truck, 
+  User, 
+  CreditCard, 
+  Box, 
+  ShoppingBag, 
+  Clock,
+  MapPin,
+  Phone,
+  Mail,
+  Calendar,
+  Loader2
+} from "lucide-react";
 import "./OrderDetails.css";
 
 export const Orders = () => {
@@ -73,65 +87,145 @@ export const Orders = () => {
 
     fetchCart();
   }, []);
+  // ... existing state and logic remains the same ...
 
   return (
     <div className="orders-container">
-      {cartProducts.length > 0 ? (
-        <div className="cart-summary">
-          <h3><ShoppingCart size={24} /> Your Cart</h3>
-          <div className="cart-items">
-            {cartProducts.map((product, index) => (
-              <div key={index} className="cart-item">
-                <span>{product.name}</span>
-                <span>₹{product.price} x {product.quantity}</span>
+      <div className="dashboard-grid">
+        {/* Cart Section */}
+        <div className="dashboard-card">
+          <div className="card-header">
+            <ShoppingCart size={24} />
+            <h3>Your Shopping Cart</h3>
+          </div>
+          
+          {cartProducts.length > 0 ? (
+            <>
+              <div className="cart-items">
+                {cartProducts.map((product, index) => (
+                  <div key={index} className="cart-item">
+                    <div className="item-info">
+                      <Box size={18} className="item-icon" />
+                      <span className="item-name">{product.name}</span>
+                    </div>
+                    <span className="item-price">
+                      ₹{product.price}({product.quantity})
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="cart-total">
-            <p>Total Items: <span>{cartProducts.length}</span></p>
-            <p>Total Amount: <span>₹{totalAmount}</span></p>
-          </div>
-          <Link to="/checkout" className="checkout-button">
-            <CreditCard size={20} /> Proceed to Checkout
-          </Link>
+              <div className="cart-total">
+                <div className="total-item">
+                  <span>Total Items:</span>
+                  <span className="highlight">{cartProducts.length}</span>
+                </div>
+                <div className="total-item">
+                  <span>Total Amount:</span>
+                  <span className="highlight">₹{totalAmount}</span>
+                </div>
+              </div>
+              <Link to="/checkout" className="checkout-button">
+                <CreditCard size={20} />
+                Checkout
+                <div className="button-hover-effect"></div>
+              </Link>
+            </>
+          ) : (
+            <div className="empty-state">
+              <ShoppingBag size={48} className="empty-icon" />
+              <p>Your cart is empty!</p>
+              <Link to="/productpage" className="shop-button">
+                Continue Shopping
+              </Link>
+            </div>
+          )}
         </div>
-      ) : <p className="empty-cart">Your cart is empty!</p>}
 
-      <div className="order-container">
-        <h2><Package size={24} /> User Order Details</h2>
-        <p className="total-orders">Total Orders: {totalOrders}</p>
+        {/* Orders Section */}
+        <div className="dashboard-card">
+          <div className="card-header">
+            <Package size={24} />
+            <h3>Order History</h3>
+            <div className="total-orders-badge">
+              <Box size={18} />
+              {totalOrders} orders
+            </div>
+          </div>
 
-        {loading ? <p>Loading...</p> : orders.length === 0 ? (
-          <p>No orders found for {firstName}.</p>
-        ) : (
-          <table className="order-table">
-            <thead>
-              <tr>
-                <th><User size={16} /> Name</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Order Date</th>
-                <th>Total Amount</th>
-                <th><Truck size={16} /> Delivery Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{`${order.firstName} ${order.lastName || ""}`}</td>
-                  <td>{`${order.country}, ${order.street}, ${order.town}, ${order.state}, ${order.pincode}`}</td>
-                  <td>{order.phoneNo}</td>
-                  <td>{order.email}</td>
-                  <td>{new Date(order.orderDate).toLocaleDateString()}</td>
-                  <td>₹{order.totalAmount || "N/A"}</td>
-                  <td>{new Date(new Date(order.orderDate).setDate(new Date(order.orderDate).getDate() + 7)).toLocaleDateString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+          {loading ? (
+            <div className="loading-state">
+              <Loader2 size={32} className="spinner" />
+              <p>Loading orders...</p>
+            </div>
+          ) : orders.length === 0 ? (
+            <div className="empty-state">
+              <Clock size={48} className="empty-icon" />
+              <p>No orders found for {firstName}</p>
+            </div>
+          ) : (
+            <div className="table-container">
+              <table className="order-table">
+                <thead>
+                  <tr>
+                    <th><User size={16} /> Customer</th>
+                    <th><MapPin size={16} /> Address</th>
+                    <th><Phone size={16} /> Phone</th>
+                    <th><Mail size={16} /> Email</th>
+                    <th><Calendar size={16} /> Order Date</th>
+                    <th>Total</th>
+                    <th><Truck size={16} /> Delivery</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr key={order._id}>
+                      <td className="user-cell">
+                        <div className="user-info">
+                          <User size={16} />
+                          {`${order.firstName} ${order.lastName || ""}`}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="address-cell">
+                          <MapPin size={14} />
+                          {`${order.street}, ${order.town}, ${order.state} ${order.pincode}`}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="phone-cell">
+                          <Phone size={14} />
+                          {order.phoneNo}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="email-cell">
+                          <Mail size={14} />
+                          {order.email}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="date-cell">
+                          <Calendar size={14} />
+                          {new Date(order.orderDate).toLocaleDateString()}
+                        </div>
+                      </td>
+                      <td className="amount-cell">₹{order.totalAmount || "N/A"}</td>
+                      <td>
+                        <div className="delivery-cell">
+                          <Truck size={14} />
+                          {new Date(new Date(order.orderDate).setDate(
+                            new Date(order.orderDate).getDate() + 7
+                          )).toLocaleDateString()}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  ); 
+  );
 };

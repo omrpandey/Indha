@@ -34,7 +34,7 @@
 }
 .ui .ui-right{
     width: 50%;
-    height: 60%;
+    height: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
