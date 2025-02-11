@@ -71,6 +71,36 @@ router.get('/cart', async (req, res) => {
     }
 });
 
+// Route to fetch cart details including total count and total amount
+// Route to fetch cart details including total count and total amount
+router.get('/cart/totalamt', async (req, res) => {
+    try {
+        const cart = await Cart.findOne().populate('products.productId', 'name price description');
+        if (!cart) {
+            return res.status(404).json({ error: 'Cart not found' });
+        }
+
+        // Calculate total count (sum of all product quantities)
+        const cartCount = cart.products.reduce((total, product) => total + product.quantity, 0);
+
+        // Calculate total amount based on discount or price
+        const totalAmount = cart.products.reduce((total, product) => {
+            const discount = Number(product.discount) || 0;  // Discount is inside product, not productId
+            const price = Number(product.price) || 0; // Price is also inside product
+
+            const effectivePrice = discount > 0 ? discount : price; // Use discount if > 0, else use price
+
+            return total + effectivePrice * product.quantity;
+        }, 0);
+
+        res.status(200).json({ cart, cartCount, totalAmount });
+    } catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+});
+
+
 // Route to clear the cart
 router.delete("/clear-cart", async (req, res) => {
     try {
