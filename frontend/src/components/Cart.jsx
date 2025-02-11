@@ -23,7 +23,6 @@ export const Cart = () => {
           (acc, product) => acc + product.price * product.quantity,
           0
         );
-        setTotalAmount(total);
       } catch (error) {
         console.error("Error fetching cart data:", error);
       }
@@ -38,7 +37,6 @@ export const Cart = () => {
       try {
         const response = await axios.get("http://localhost:2000/api/cart/totalamt");
         console.log("API Response:", response.data); // Debugging log
-        alert(response.data.totalAmount);
         setTotalAmount(response.data.totalAmount);
       } catch (error) {
         console.error("Error fetching total amount:", error);
