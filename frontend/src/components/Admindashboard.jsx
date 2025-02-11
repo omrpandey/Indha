@@ -17,7 +17,7 @@ export const Admindashboard = () => {
 
     // Redirect to admindash only if currently on /admindashboard
     if (location.pathname === "/admindashboard") {
-      navigate("/admindashboard/admindash");
+      navigate("/admindashboard/userpage");
     }
   }, [navigate, location.pathname]);
 
@@ -36,11 +36,7 @@ export const Admindashboard = () => {
         <div className="adm-sidebar">
           <h2>Welcome <span className="user">{username}</span></h2>
           <ul>
-            <li>
-              <NavLink to="/admindashboard/admindash" className={({ isActive }) => (isActive ? "active" : "")}>
-                Dashboard
-              </NavLink>
-            </li>
+           
             <li>
               <NavLink to="/admindashboard/userpage" className={({ isActive }) => (isActive ? "active" : "")}>
                 Users

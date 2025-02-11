@@ -9,7 +9,7 @@ const cartRoutes = require('./routes/cart');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const wishlistRoutes=require('./routes/wishlist');
 const addressRoutes = require('./routes/addressRoutes');
-const nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer"); 
 const orderRoutes = require('./routes/ordered');
 dotenv.config();
 const User = require("./models/signin");

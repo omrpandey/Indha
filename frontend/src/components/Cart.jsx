@@ -238,7 +238,7 @@ export const Cart = () => {
         // margin: '0 0 20px 0',
         // color: '#1A202C',
         fontSize: '1.7rem',
-        fontWeight: '800',
+        fontWeight: '500',
         letterSpacing: '1.2px',
         // textAlign: 'center',
         display:"flex",
@@ -270,11 +270,13 @@ export const Cart = () => {
           fontSize: '1.1rem',
         }}>
           <span style={{
-            fontWeight: '600',
+            fontWeight: '200',
             color: '#4A5568',
+            fontFamily:"cursive",
           }}>Total Items:</span>
           <span style={{
             fontWeight: '500',
+            fontFamily:"cursive",
             color: 'red',
           }}>{products.length}</span>
         </div>
@@ -288,15 +290,17 @@ export const Cart = () => {
           fontSize: '1.1rem',
         }}>
           <span style={{
-            fontWeight: '600',
+            fontWeight: '200',
             color: '#4A5568',
+            fontFamily:"cursive",
           }}>Total Amount:</span>
           <span style={{
             fontWeight: '500',
             color: '#2D3748',
             fontSize: '1.2rem',
+            fontFamily:"cursive",
             color: 'red',
-          }}>${totalAmount.toFixed(2)}</span>
+          }}> ₹{totalAmount.toFixed(2)}</span>
         </div>
       </div>
 
@@ -319,6 +323,7 @@ export const Cart = () => {
           fontSize: '1.1rem',
           fontStyle: 'italic',
           letterSpacing: '1px',
+          fontFamily:"cursive",
         }}>
           Thank you for your purchase! 🎉
         </p>

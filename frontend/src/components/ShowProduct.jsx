@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
+import { FaEdit, FaTrash, FaPlus, FaBoxOpen } from 'react-icons/fa';
 
 function ShowProduct() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch products from MongoDB
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -38,33 +38,193 @@ function ShowProduct() {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.header}>Products</h2>
-      <NavLink to="/admindashboard/productinsert" style={styles.addButton}>Add Product</NavLink>
-      <ul style={styles.productList}>
-        {products.map((product) => (
-          <li key={product._id} style={styles.productCard}>
-            <span style={styles.productInfo}>{product.name} - ₹{product.price}</span>
-            <span style={styles.gap}>
-              <button style={styles.editButton} onClick={() => navigate(`/admindashboard/productedit/${product._id}`)}>Edit</button>
-              <button style={styles.deleteButton} onClick={() => handleDelete(product._id)}>Delete</button>
-            </span>
-          </li>
-        ))}
-      </ul>
+      <div style={styles.headerContainer}>
+        <h2 style={styles.header}>Product Inventory</h2>
+        <NavLink to="/admindashboard/productinsert" style={styles.addButton}>
+          <FaPlus style={styles.addIcon} />
+          Add Product
+        </NavLink>
+      </div>
+
+      {products.length === 0 ? (
+        <div style={styles.emptyState}>
+          <FaBoxOpen style={styles.emptyIcon} />
+          <p>No products found in inventory</p>
+        </div>
+      ) : (
+        <div style={styles.grid}>
+          {products.map((product) => (
+            <div key={product._id} style={styles.card}>
+              <div style={styles.cardContent}>
+                <h3 style={styles.productName}>{product.name}</h3>
+                <p style={styles.productPrice}>₹{product.price}</p>
+                {product.description && (
+                  <p style={styles.productDescription}>{product.description}</p>
+                )}
+              </div>
+              <div style={styles.buttonGroup}>
+                <button 
+                  style={styles.editButton} 
+                  onClick={() => navigate(`/admindashboard/productedit/${product._id}`)}
+                >
+                  <FaEdit style={styles.buttonIcon} />
+                  Edit
+                </button>
+                <button 
+                  style={styles.deleteButton} 
+                  onClick={() => handleDelete(product._id)}
+                >
+                  <FaTrash style={styles.buttonIcon} />
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 const styles = {
-  gap: { display: "flex", gap: "10px" },
-  container: { fontFamily: 'Arial, sans-serif', maxWidth: '800px', margin: '0 auto', padding: '20px', backgroundColor: '#fff', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' },
-  header: { color: '#B71C1C', textAlign: 'center', fontSize: '2rem', marginBottom: '20px' },
-  addButton: { backgroundColor: '#FF5722', color: 'white', border: 'none', padding: '12px 20px', borderRadius: '5px', cursor: 'pointer', marginBottom: '20px', display: 'block', width: '100%', fontSize: '1.1rem' },
-  productList: { listStyleType: 'none', padding: '0', margin: '0' },
-  productCard: { backgroundColor: '#fff3e0', marginBottom: '15px', padding: '15px', borderRadius: '8px', boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem' },
-  productInfo: { fontWeight: 'bold', color: '#333' },
-  editButton: { backgroundColor: '#0288D1', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '5px', cursor: 'pointer', fontSize: '0.9rem' },
-  deleteButton: { backgroundColor: '#E53935', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '5px', cursor: 'pointer', fontSize: '0.9rem' },
+  container: {
+    maxWidth: '1200px',
+    // margin: '2rem auto',
+    padding: '2rem',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '12px',
+    boxShadow: '0 2px 15px rgba(0, 0, 0, 0.1)',
+  },
+  headerContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '2rem',
+    borderBottom:"1px solid rgba(10, 10, 10, 0.19)",
+    paddingBottom:"20px",
+  },
+  header: {
+    fontSize: '2rem',
+    color: '#2d3436',
+    margin: 0,
+    fontWeight: '400',
+    fontFamily:"cursive",
+  },
+  addButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    padding: '0.8rem 1.5rem',
+    backgroundColor: 'rgb(255, 80, 80)',
+    color: 'white',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    transition: 'all 0.3s ease',
+    ':hover': {
+      backgroundColor: '#00a383',
+      transform: 'translateY(-2px)',
+    },
+  },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: '1.5rem',
+  },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: '12px',
+    padding: '1.5rem',
+    boxShadow: '2px 5px 14px 16px rgba(0, 0, 0, 0.05)',
+    transition: 'all 0.3s ease',
+    ':hover': {
+      transform: 'translateY(-5px)',
+      boxShadow: '0 8px 15px rgba(0, 0, 0, 0.1)',
+    },
+  },
+  cardContent: {
+    marginBottom: '1.5rem',
+  },
+  productName: {
+    fontSize: '1.25rem',
+    fontWeight: '600',
+    color: '#2d3436',
+    margin: '0 0 0.5rem 0',
+  },
+  productPrice: {
+    fontSize: '1.5rem',
+    fontWeight: '500',
+    color: 'rgb(255, 80, 80)',
+    margin: '0 0 1rem 0',
+  },
+  productDescription: {
+    fontSize: '0.9rem',
+    color: '#636e72',
+    margin: 0,
+    lineHeight: '1.5',
+  },
+  buttonGroup: {
+    display: 'flex',
+    gap: '0.8rem',
+  },
+  editButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    padding: '0.6rem 1rem',
+    backgroundColor: '#0984e3',
+    color: 'white',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    ':hover': {
+      backgroundColor: '#0873c4',
+    },
+  },
+  deleteButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    padding: '0.6rem 1rem',
+    backgroundColor: '#d63031',
+    color: 'white',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    ':hover': {
+      backgroundColor: '#c0292a',
+    },
+  },
+  buttonIcon: {
+    fontSize: '1rem',
+  },
+  addIcon: {
+    fontSize: '1rem',
+  },
+  emptyState: {
+    textAlign: 'center',
+    padding: '4rem',
+    color: '#636e72',
+  },
+  emptyIcon: {
+    fontSize: '4rem',
+    color: '#b2bec3',
+    marginBottom: '1rem',
+    animation: 'float 3s ease-in-out infinite',
+  },
 };
+
+// Add global animations
+const globalStyles = `
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+`;
+
+// Add the global styles component
+<style>{globalStyles}</style>
 
 export default ShowProduct;

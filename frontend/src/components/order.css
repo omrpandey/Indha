@@ -1,0 +1,359 @@
+/* Base Styles */
+.orders-container {
+    max-width: 1200px;
+    /* margin: 2rem auto; */
+    padding: 0 1rem;
+  }
+  
+  /* Cart Styles */
+  .cart-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+    overflow: hidden;
+  }
+  
+  .cart-header {
+    background: rgb(227, 76, 21);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .cart-header h3 {
+    margin: 0;
+    font-weight: 600;
+  }
+  
+  .cart-header .cart-icon {
+    font-size: 1.8rem;
+  }
+  
+  .cart-content {
+    padding: 2rem;
+  }
+  
+  .cart-items {
+    margin-bottom: 2rem;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #bebebe;
+  }
+  
+  .product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .product-info {
+    flex: 1;
+  }
+  
+  .product-name {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-price {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .cart-summary {
+    background: #f1f7ff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+  
+  .summary-item {
+    font-family: cursive;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  .highlight {
+    color: #e1591e;
+    font-weight: 500;
+  }
+  
+  .highlight-red {
+    color:#e1591e;
+    font-weight: 500;
+  }
+  
+  .checkout-button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: #4dabf7;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .checkout-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(77, 171, 247, 0.4);
+  }
+  
+  .address-warning {
+    background: #fff3e0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .warning-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ff9100;
+  }
+  
+  .address-link {
+    color: #ff6b6b;
+    font-weight: 500;
+  }
+  
+  /* Empty Cart Styles */
+  .empty-cart {
+    background: #fff;
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .empty-cart-icon {
+    font-size: 4rem;
+    color: #ddd;
+    margin-bottom: 1.5rem;
+  }
+  
+  .empty-cart h3 {
+    color: #444;
+    margin-bottom: 1rem;
+  }
+  
+  .empty-cart p {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+  
+  .shopping-button {
+    background: orangered;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  
+  .shopping-button:hover {
+    background: red;
+  }
+  
+  /* Orders Section */
+  .orders-section {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+  
+  .orders-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.324);
+    margin-bottom: 2rem;
+  }
+  .order-his{
+    font-family: cursive;
+    /* color: orangered; */
+  }
+  
+  .orders-icon {
+    font-size: 2rem;
+    color: #f75224;
+  }
+  
+  .orders-stats {
+    margin-left: auto;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .stat-badge {
+    background: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #444;
+  }
+  
+  /* Orders Table */
+  .orders-table-container {
+    overflow-x: auto;
+  }
+  
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .orders-table th {
+    background: #f8f9fa;
+    color: #666;
+    font-weight: 500;
+    padding: 1rem;
+    text-align: left;
+  }
+  
+  .orders-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .customer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .customer-name {
+    font-weight: 500;
+  }
+  
+  .customer-address {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .order-id {
+    font-family: monospace;
+    color: #666;
+  }
+  
+  .order-items {
+    font-size: 0.9rem;
+    color: #888;
+  }
+  
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .contact-info a {
+    color: #4dabf7;
+    text-decoration: none;
+  }
+  
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+  
+  .amount-cell {
+    font-weight: 600;
+    color: #00bfa5;
+  }
+  
+  .date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .date-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .date-label {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .date-value {
+    font-weight: 500;
+  }
+  
+  /* Loading State */
+  .loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem;
+    color: #666;
+  }
+  
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* No Orders State */
+  .no-orders {
+    text-align: center;
+    padding: 3rem;
+  }
+  
+  .no-orders img {
+    width: 200px;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .cart-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .orders-table {
+      min-width: 800px;
+    }
+  
+    .orders-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .orders-stats {
+      margin-left: 0;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
