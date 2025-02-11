@@ -26,6 +26,8 @@ export const Orders = () => {
   const [loading, setLoading] = useState(true);
   const [firstName, setFirstName] = useState("");
   const token = localStorage.getItem("token");
+  const [isValid, setIsValid] = useState(false);
+  const [addressData, setAddressData] = useState(null);
 
   useEffect(() => {
     if (!token) {
@@ -69,6 +71,40 @@ export const Orders = () => {
   }, [firstName]);
 
   useEffect(() => {
+    const fetchAddressData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:2000/api/addresses/${firstName}`
+        );
+        const data = await response.json();
+
+        if (response.ok && data) {
+          setAddressData(data);
+          // Check if all required fields are filled
+          const isAllFieldsFilled =
+            data.firstName &&
+            data.lastName &&
+            data.country &&
+            data.streetAddress &&
+            data.city &&
+            data.stateOrCountry &&
+            data.pincode &&
+            data.phoneNumber &&
+            data.email;
+          setIsValid(true);
+        } else {
+          setIsValid(false);
+        }
+      } catch (error) {
+        console.error("Error fetching address data:", error);
+      }
+    };
+
+    fetchAddressData();
+  }, [firstName]); // Re-fetch if firstName changes
+
+
+  useEffect(() => {
     const fetchCart = async () => {
       try {
         const cartResponse = await axios.get("http://localhost:2000/api/cart");
@@ -94,52 +130,134 @@ export const Orders = () => {
       <div className="dashboard-grid">
         {/* Cart Section */}
         <div className="dashboard-card">
-          <div className="card-header">
-            <ShoppingCart size={24} />
-            <h3>Your Shopping Cart</h3>
+      <div className="card-header">
+        <ShoppingCart size={24} />
+        <h3>Your Shopping Cart</h3>
+      </div>
+
+      {cartProducts.length > 0 ? (
+        <>
+          <div className="cart-items">
+            {cartProducts.map((product, index) => (
+              <div key={index} className="cart-item">
+                <div className="item-info">
+                  <Box size={18} className="item-icon" />
+                  <span className="item-name">{product.name}</span>
+                </div>
+                <span className="item-price">
+                  ₹{product.price} ({product.quantity})
+                </span>
+              </div>
+            ))}
           </div>
-          
-          {cartProducts.length > 0 ? (
-            <>
-              <div className="cart-items">
-                {cartProducts.map((product, index) => (
-                  <div key={index} className="cart-item">
-                    <div className="item-info">
-                      <Box size={18} className="item-icon" />
-                      <span className="item-name">{product.name}</span>
-                    </div>
-                    <span className="item-price">
-                      ₹{product.price}({product.quantity})
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="cart-total">
-                <div className="total-item">
-                  <span>Total Items:</span>
-                  <span className="highlight">{cartProducts.length}</span>
-                </div>
-                <div className="total-item">
-                  <span>Total Amount:</span>
-                  <span className="highlight">₹{totalAmount}</span>
-                </div>
-              </div>
-              <Link to="/checkout" className="checkout-button">
-                <CreditCard size={20} />
-                Checkout
-                <div className="button-hover-effect"></div>
-              </Link>
-            </>
+          <div className="cart-total">
+            <div className="total-item">
+              <span>Total Items:</span>
+              <span className="highlight">{cartProducts.length}</span>
+            </div>
+            <div className="total-item">
+              <span>Total Amount:</span>
+              <span className="highlight">₹{totalAmount}</span>
+            </div>
+          </div>
+          {isValid ? (
+            <Link
+              to="/checkout"
+              style={{
+                display: "inline-block",
+                textDecoration: "none",
+                padding: "12px 25px",
+                backgroundColor: "#ff9800",
+                color: "#fff",
+                borderRadius: "8px",
+                fontSize: "16px",
+                fontWeight: "bold",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#f57c00")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#ff9800")}
+            >
+              Proceed to Checkout
+            </Link>
           ) : (
-            <div className="empty-state">
-              <ShoppingBag size={48} className="empty-icon" />
-              <p>Your cart is empty!</p>
-              <Link to="/productpage" className="shop-button">
-                Continue Shopping
-              </Link>
+            <div>
+              <p>
+                Address not set.{' '}
+                <Link
+                  to="/admin/address"
+                  style={{
+                    color: "#ff9800",
+                    fontWeight: "bold",
+                    textDecoration: "none",
+                  }}
+                >
+                  Go to Address page
+                </Link>{' '}
+                and set your address to place an order.
+              </p>
             </div>
           )}
+        </>
+      ) : (
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "500px",
+            padding: "20px",
+            backgroundColor: "#fff3cd",
+            borderRadius: "20px",
+            boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
+            textAlign: "center",
+            transition: "transform 0.2s",
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: "Cursive",
+              fontWeight: "500",
+              backgroundColor: "#ff9800",
+              color: "#fff",
+              padding: "15px",
+              borderRadius: "12px",
+              marginBottom: "20px",
+              fontSize: "22px",
+              textTransform: "uppercase",
+              letterSpacing: "1px",
+            }}
+          >
+            Your Cart is Empty!
+          </h3>
+          <p
+            style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              color: "#d32f2f",
+              marginBottom: "15px",
+            }}
+          >
+            “Oops! Your cart feels lonely. Fill it up with amazing products!”
+          </p>
+          <Link
+            to="/productpage"
+            style={{
+              display: "inline-block",
+              textDecoration: "none",
+              padding: "12px 25px",
+              backgroundColor: "#4caf50",
+              color: "#fff",
+              borderRadius: "8px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = "#388e3c")}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = "#4caf50")}
+          >
+            Start Shopping Now
+          </Link>
         </div>
+      )}
+    </div>
 
         {/* Orders Section */}
         <div className="dashboard-card">
